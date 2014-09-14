@@ -4,20 +4,20 @@
   strong {color:red;background-color:lightyellow;}xb
 </style>
 <div class="danqianweizhi">
-  <div class=" erji_name h1" name=""><%= @article.article_type.root.subject %></div>
+  <div class=" erji_name h1" name="">{{root-type.subject}}</div>
   <div class=" erji_wz t5">当前位置：
-    <span id="root-article-type">#当前根位置#</span> &gt;
-    <span id="article-type">#当前位置#</span>
+    <span id="root-article-type">当前根位置</span> &gt;
+    <span id="article-type">当前位置</span>
   </div>
 </div>
 <div class="erji_content">
-  <div id="navigator">#Navigator#</div>
+  <div id="navigator">Navigator</div>
   <div class="neirong_right">
-    <div class=" r_title h1" id="article_title"><%= @article.title %></div>
+    <div class=" r_title h1" id="article_title">{{article.title}}</div>
     <div class=" r_shijian t3">
     </div>
     <div class=" r_neirongqu t5">
-      <p id="content"><%= highlight(@article.content, params[:search_str]) %></p>
+      <p id="content">{{article.content|safe}}</p>
     </div>
   </div>
 </div>

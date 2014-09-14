@@ -1,0 +1,14 @@
+<ul class="erji_left ">
+  <li class="left_pic">  
+    <%= s_image_tag "#{@article_type.root.key}.jpg", :width=>"197", :height=>"74", :title => "#{@article_type.root.subject}" %>
+  </li>
+  <li class="left_nav h2">
+    <% if level_2.link? and level_2.subject.length<20 %>	
+       <%= link_to level_2.subject, level_2.link_url, :class=>"bg", :target=>"blank" %>
+    <% elsif level_2.link? and level_2.subject.length>20 %>
+    <%= link_to level_2.subject, level_2.link_url, :class=>"bg_long",:target=>"blank" %>
+    <% else %>
+    <%= link_to level_2.subject, level_2, :class=>"bg" %>
+    <% end %>
+  </li>
+</ul>

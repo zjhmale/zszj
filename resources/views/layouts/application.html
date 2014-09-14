@@ -3,8 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>舟山造价</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>舟山造价</title>
 <script src="/javascripts/jquery.js?1374630107" type="text/javascript"></script>
 <script src="/javascripts/jquery-ui.js?1374630107" type="text/javascript"></script>
 <script src="/javascripts/jrails.js?1374630107" type="text/javascript"></script>
@@ -37,6 +35,7 @@ table.info {border-collapse:collapse;font-size:13px;}
 .neirong_right table {border-collapse:collapse;}
 .neirong_right th, .neirong_right td {border:1px solid black;}
 </style>
+
 </head>
 
 <body>
@@ -47,7 +46,7 @@ table.info {border-collapse:collapse;font-size:13px;}
     <tr height="20">
       <td width="60" height="20"></td>
       <td width="440">
-	<%= to_long_date(Date.today) %>
+	2014年07月10日 星期四
       </td>
       <td width="440" align="right">
 	<SPAN style="CURSOR: hand" onClick="var strHref=window.location.href;this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.zszj.net/');">设为首页</SPAN>&nbsp;|&nbsp;
@@ -61,41 +60,24 @@ table.info {border-collapse:collapse;font-size:13px;}
   codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
   width="984" height="180">
   <param name="bgcolor" value="#B3D3D9" />
-  <param name="movie" value="<%= image_path("/skins/default/images/banner.swf") %>" />
+  <param name="movie" value="/skins/default/images/banner.swf?1374630107" />
   <param name="quality" value="high" />
   <param name="wmode" value="transparent" />
   <param name="height" value="180" />
   <param name="width" value="984" />
-  <embed src="<%= image_path("/skins/default/images/banner.swf") %>" quality="high"
+  <embed src="/skins/default/images/banner.swf?1374630107" quality="high"
   pluginspage="http://www.macromedia.com/go/getflashplayer"
   type="application/x-shockwave-flash" width="984" height="180" bgcolor=" #B3D3D9"/>
   </object>
 </div>
 </div>
-<!--<% main_menus = [
-["home", '首页', '/'], 
-["zwgk", '政务公开', ArticleType.find_type('zwgk', 'zjz')], 
-["news", '新闻中心', ArticleType.find_type('news', 'jsdt')],
-["bszn", '办事指南', ArticleType.find_type('bszn', 'zjz')],
-["policy", '政策法规', ArticleType.find_type('policy', 'flfg')],
-["jgxx", '价格信息', :man_markets],
-["price_area", '计价天地', ArticleType.find_type('country_stand', 'zhjs')],   
-["zzzg", '资质资格', :zhongjies],
-["public_info", '公示信息', ArticleType.find_type('public_info', 'sjgs_public')],
-["cost_association", '造价协会', ArticleType.find_type('cost_association', 'asso_organization')],
-["zlxz", '资料下载', softwares_path(:software_type => '资质管理' )], 
-["wssx", '网上书讯', books_path(:book_type => '国家标准规范')]
-]  %>
-<ul class="nav">
-  <% main_menus.each do |menu| %>
-  <% (menu_id, menu_name, menu_url) = menu %>
+
+<ul class="nav" id="nav">
   <li class="subnav h1">
-  <% if @menu_id == menu_id %>
-  <div class="sanjiao"><%=s_image_tag "sanjiao.gif" %></div>
-  <% end %>
-  <%= link_to menu_name, menu_url, :class => "main_menu" %></li>
-  <% end %>
-</ul>-->
+  <div class="sanjiao"><img alt="Sanjiao" src="/skins/default/images/sanjiao.gif?1374630107" /></div>
+  <a href="/article_types/5" class="main_menu">新闻中心</a></li>
+</ul>
+<!--<div id="wrapper"></div>-->
 {% block content %}
 {% endblock %}
 <div class="footer t3" align="center" style="background-color:white">
@@ -116,5 +98,6 @@ $(document).ready(function() {
 $('.sticky').cluetip({sticky: false, closePosition: 'title', arrows: true, width:480});
 });
 </script>
+
 </body>
 </html>
