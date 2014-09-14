@@ -1,0 +1,65 @@
+/*二级页面css*/	
+.danqianweizhi {position:relative; width:984px; height:36px; margin:0px auto;}
+.erji_name {position:relative; float:left; width:209px; height:30px; background-image:url(../images/x01.jpg); background-repeat:no-repeat; padding-top:6px; line-height:28px; text-indent:32px; margin:0px;}
+.erji_wz {position:relative; float:left; width:775px; height:36px; background-image:url(../images/x05.jpg); background-repeat: repeat-x; line-height:32px; text-indent:24px; margin:0px;}
+.erji_content {
+    clear:both;
+    overflow:auto;
+    position:relative; width:984px; background-repeat:repeat; margin:0px auto;}
+
+/*左侧栏目*/
+ul.erji_left {
+    float:left;
+    width:207px; height:auto;
+    background-color:#FFF; 
+    border:solid 1px #c4c4c4;
+    margin:0px;
+    padding-bottom:5px;
+    overflow:hidden;
+}
+
+li.left_search {position:relative; width:197px; height:100px; list-style:none; margin:0px; background-color:#eaeaea; background-repeat:no-repeat; padding:5px;}
+li.left_pic {position:relative; width:197px; height:74px; list-style:none; margin:0px; background-image:url(../images/d01.jpg); background-repeat:no-repeat; padding:5px;}
+li.left_nav {position:relative; width:197px; height:44px; line-height:44px; background-image:url(../images/x03.jpg); background-repeat:no-repeat; list-style:none; margin:0px auto; font-size:12px; font-weight:bold; text-indent:24px;}
+li.left_nav a.bg:link,a.bg:visited { display:block; width:197px; height:44px; background:url(../images/x02.jpg); color:#036; text-decoration:none;}
+li.left_nav a.bg:hover {background: url(../images/x03.jpg); color:#036; text-decoration:none; }
+li.left_nav a.bg:active {background: url(../images/x03.jpg); color:#036; text-decoration:none; }
+
+li.left_nav a.bg_long:link,a.bg_long:visited { display:block; width:197px; height:44px; background:url(../images/x02.jpg); color:#036; text-decoration:none;
+					       text-indent:24px; letter-spacing:-1px;}
+li.left_nav a.bg_long:hover {background: url(../images/x03.jpg); color:#036; text-decoration:none;font-size:12px; }
+li.left_nav a.bg_long:active {background: url(../images/x03.jpg); color:#036; text-decoration:none;font-size:12px;}
+
+li.left_images {position:relative; width:197px; height:31px; text-indent:50px; line-height:31px; list-style:none; background-image:url(../images/x07.jpg); background-repeat:no-repeat; margin:0px auto;  font-size:12px; text-indent:24px;}
+li.left_images a.img:link,a.img:visited { display:block; width:197px; height:31px; background:url(../images/x06.jpg); color:#001e96; text-decoration:none;}
+li.left_images a.img:hover {background: url(../images/x07.jpg); color:#001e96; text-decoration:none;}
+li.left_images a.img:active {background: url(../images/x07.jpg); color:#001e96; text-decoration:none;}
+.left_search1 {font-size:20px;}
+
+/*右侧内容列表*/
+.erji_right {float:left; width:774px; min-height:auto; margin:0px; padding-top:8px;}
+.r_news_gst {position:relative; width:710px; height:28px; list-style:none; background-image: url(../images/z24.jpg); background-repeat:repeat-x; margin-left:20px; margin-bottom:0px;}
+.r_news_pic {position:relative; float:left; width:15px; height:28px; margin:0px;}
+.r_news_t {position:relative; float:left; width:680px;height:28px; line-height:24px; margin:0px;}
+.r_news_r {position:relative; float:left; width:80px; height:28px; line-height:24px; color:#666; margin:0px;}
+.r_news_pg {position:relative; width:700px; height:45px; line-height:45px; text-align:right; list-style:none; margin:0px;}
+/*右侧内容详情*/
+/*.neirong_right {position:relative; float:left; width:774px; height:745px; border:solid 1px #c4c4c4; margin:0px; padding-top:15px;}*/
+.neirong_right {float:left; width:750px; display: inline; height:auto!important; height:375px; min-height:375px; overflow:visible; border:solid 1px #c4c4c4; margin:0px; padding-top:15px;}
+.neirong_right table { align: center;}
+.neirong_right  table tr td div{ white-space: pre-line }
+.r_title {position:relative; width:720px; height: auto; line-height:30px; list-style:none; border-bottom:#999 1px solid; text-align:center; margin:0px auto; color:#0c6681;}
+.r_shijian {position:relative; width:720px; height: auto; line-height:28px; text-align:center; margin:0px auto;}
+.r_neirongqu {position:relative; width:720px; height: auto; line-height:22px;  margin:0px auto;}
+.r_neirongqu strong {color:#000000;background-color:#FFFFFF}
+
+/*价格信息查询*/
+.jige_chuaxun {position:relative; width:710px; height:auto; margin-left:30px;}
+/*#textfield {width:200px; height:21px; border:1px solid #dedede; line-height:21px; background-color:#F5F5F5;}*/
+
+/*资质资格搜索*/
+.zizhi_sousuo {position:relative; width:710px; height:30px; margin-left:30px;}
+#textfield2 {width:260px; height:21px; border:1px solid #dedede; line-height:21px; background-color:#F5F5F5; margin-left:10px;}
+
+/*资料下载*/
+.download_title {text-align:center;color:red;font-size:13px;}

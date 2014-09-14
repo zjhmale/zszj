@@ -1,0 +1,12 @@
+
+#lantern {	BORDER: #ffffff 1px solid; OVERFLOW: hidden; WIDTH: 234px; CURSOR: pointer;LINE-HEIGHT: 20px; HEIGHT: 168px}
+#lanternMain {	WIDTH: 234px; HEIGHT: 152px; BACKGROUND-COLOR: #ffffff}
+#lanternNavy {	FONT-SIZE: 12px; FLOAT: left; OVERFLOW: hidden; WIDTH: 234px; COLOR: #ffffff; HEIGHT: 16px; TEXT-ALIGN: center}
+#lanternNavy .div_off1 {	FLOAT: left; BORDER-LEFT: #7bb8e0 0px solid; BORDER-BOTTOM: #ffffff 1px solid; HEIGHT: 16px; BACKGROUND-COLOR: #bfd3e0;}
+#lanternNavy .div_on1 {	PADDING-RIGHT: 24px; PADDING-LEFT: 10px; FLOAT: left; BORDER-LEFT: #7bb8e0 0px solid; BORDER-BOTTOM: #ffffff 1px solid; HEIGHT: 16px; BACKGROUND-COLOR: #7bb8e0}
+#lanternNavy .div_off2 {	FLOAT: left; BORDER-LEFT: #7bb8e0 1px solid; BORDER-BOTTOM: #ffffff 1px solid; HEIGHT: 16px; BACKGROUND-COLOR: #bfd3e0; }
+#lanternNavy .div_on2 {	PADDING-RIGHT: 24px; PADDING-LEFT: 10px; FLOAT: left; BORDER-LEFT: #7bb8e0 1px solid; BORDER-BOTTOM: #ffffff 1px solid; HEIGHT: 16px; BACKGROUND-COLOR: #7bb8e0}
+#lanternNavy .div_off3 {	BORDER-RIGHT: #7bb8e0 2px solid; FLOAT: left; BORDER-LEFT: #7bb8e0 1px solid; BORDER-BOTTOM: #ffffff 1px solid; HEIGHT: 16px; BACKGROUND-COLOR: #bfd3e0;}
+#lanternNavy .div_on3 {	BORDER-RIGHT: #7bb8e0 2px solid; PADDING-RIGHT: 24px; PADDING-LEFT: 10px; FLOAT: left; BORDER-LEFT: #7bb8e0 1px solid; BORDER-BOTTOM: #ffffff 1px solid; HEIGHT: 16px; BACKGROUND-COLOR: #7bb8e0}
+#lanternImg {	OVERFLOW: hidden; WIDTH: 234px;position:absolute;HEIGHT: 152px}
+.jumppage {	FLOAT: left; WIDTH: 45px; HEIGHT: 29px}

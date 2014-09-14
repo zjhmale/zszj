@@ -1,0 +1,17 @@
+* {border:0; padding:0;}
+body {text-align:center;font-size:12px;background:white;}
+#box {width:1004px;background:white;margin:0 auto;}
+#top { background:url(../images/shang.gif); width:1004px; height:208px;}
+#zz { background:url(../images/zz.gif); width:401px; height:199px; float:left;}
+#zj { width:443px; height:199px; float:left; background:url(../images/zj.gif); text-align:left; line-height:55px; }
+#zy { width:160px; height:199px; background:url(../images/zy.gif); float:left;}
+#bb { width:1004px; height:100px; background:url(../images/bb.gif); float:left;}
+#xz { width:346px; height:106px; background:url(../images/xz.gif); float:left;}
+#xm { width:498px; height:56px; background:url(../images/xm.gif); float:left; display:block; padding-top:50px;color:#FFFFFF;}
+#xy { width:160px; height:106px; background:url(../images/xy.gif); float:left;}
+#font { color:#FFFFFF; padding-left:60px; height:30px;}
+#font div{ display:inline; float:left; }
+.ftop{ padding-top:40px;}
+.iput{ padding-top:13px; padding-right:5px; padding-left:7px;}
+#font1 { color:#FFFFFF; padding-left:300px;}
+.tj{ width:65px; height:23px;}

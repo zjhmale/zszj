@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>舟山造价</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>舟山造价</title>
+<script src="/javascripts/jquery.js?1374630107" type="text/javascript"></script>
+<script src="/javascripts/jquery-ui.js?1374630107" type="text/javascript"></script>
+<script src="/javascripts/jrails.js?1374630107" type="text/javascript"></script>
+<script src="/javascripts/language_pack.js?1374630107" type="text/javascript"></script>
+<script src="/javascripts/application.js?1374630107" type="text/javascript"></script>
+<link href="/stylesheets/jquery-tooltip/css/global.css?1374630107" media="screen" rel="stylesheet" type="text/css" />
+<link href="/skins/default/css/body.css?1374630107" media="screen" rel="stylesheet" type="text/css" />
+<link href="/skins/default/css/erji.css?1374630107" media="screen" rel="stylesheet" type="text/css" />
+<link href="/skins/default/css/ourcss.css?1374630107" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/start/jquery-ui-1.7.2.custom.css?1374630107" media="screen" rel="stylesheet" type="text/css" />
+<script defer='true'>
+$(document).ready(function(){
+        $('.date').datepicker({dateFormat: 'yy-mm-dd',
+        showOn: 'button', buttonImage: '/images/calendar.gif',
+buttonImageOnly: true, showButtonPanel:true,
+         changeMonth: true,
+         changeYear: true
+        });
+});
+</script>
+<script src="/javascripts/jquery-tooltip/jtip.js?1374630107" type="text/javascript"></script>
+<script src="/javascripts/jquery-plugins/jquery.floatobject.js?1374630107" type="text/javascript"></script>
+
+<link rel="stylesheet" href="/cluetip/jquery.cluetip.css" type="text/css" />
+
+<style>
+table.info {border-collapse:collapse;font-size:13px;}
+.info th, .info td {border:1px solid lightgray;width:120px; height:20px; font-size:14px;background-color:#BBFFBB;}
+.neirong_right{font-size:12px;line-height:21px;}
+.neirong_right table {border-collapse:collapse;}
+.neirong_right th, .neirong_right td {border:1px solid black;}
+</style>
+</head>
+
+<body>
+
+<div class=" header" style="background-color: white;">
+<div class="top_riqi t5" style="background-color:white">
+  <table width="984" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr height="20">
+      <td width="60" height="20"></td>
+      <td width="440">
+	<%= to_long_date(Date.today) %>
+      </td>
+      <td width="440" align="right">
+	<SPAN style="CURSOR: hand" onClick="var strHref=window.location.href;this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.zszj.net/');">设为首页</SPAN>&nbsp;|&nbsp;
+	<a href="#" onClick="window.external.AddFavorite('http://www.zszj.net/','舟山造价网');return false" class="or">
+	<span>加入收藏夹</span></a>
+      </td>
+      <td width="60"></td>
+    </tr>
+  </table>
+  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
+  width="984" height="180">
+  <param name="bgcolor" value="#B3D3D9" />
+  <param name="movie" value="<%= image_path("/skins/default/images/banner.swf") %>" />
+  <param name="quality" value="high" />
+  <param name="wmode" value="transparent" />
+  <param name="height" value="180" />
+  <param name="width" value="984" />
+  <embed src="<%= image_path("/skins/default/images/banner.swf") %>" quality="high"
+  pluginspage="http://www.macromedia.com/go/getflashplayer"
+  type="application/x-shockwave-flash" width="984" height="180" bgcolor=" #B3D3D9"/>
+  </object>
+</div>
+</div>
+<!--<% main_menus = [
+["home", '首页', '/'], 
+["zwgk", '政务公开', ArticleType.find_type('zwgk', 'zjz')], 
+["news", '新闻中心', ArticleType.find_type('news', 'jsdt')],
+["bszn", '办事指南', ArticleType.find_type('bszn', 'zjz')],
+["policy", '政策法规', ArticleType.find_type('policy', 'flfg')],
+["jgxx", '价格信息', :man_markets],
+["price_area", '计价天地', ArticleType.find_type('country_stand', 'zhjs')],   
+["zzzg", '资质资格', :zhongjies],
+["public_info", '公示信息', ArticleType.find_type('public_info', 'sjgs_public')],
+["cost_association", '造价协会', ArticleType.find_type('cost_association', 'asso_organization')],
+["zlxz", '资料下载', softwares_path(:software_type => '资质管理' )], 
+["wssx", '网上书讯', books_path(:book_type => '国家标准规范')]
+]  %>
+<ul class="nav">
+  <% main_menus.each do |menu| %>
+  <% (menu_id, menu_name, menu_url) = menu %>
+  <li class="subnav h1">
+  <% if @menu_id == menu_id %>
+  <div class="sanjiao"><%=s_image_tag "sanjiao.gif" %></div>
+  <% end %>
+  <%= link_to menu_name, menu_url, :class => "main_menu" %></li>
+  <% end %>
+</ul>-->
+{% block content %}
+{% endblock %}
+<div class="footer t3" align="center" style="background-color:white">
+  
+  舟山市建设工程招投标与造价管理办公室<br />
+  联系电话:0580-2622693 E-mail:zhoushan@zjzj.net <br />
+  <a href= http://www.starworking.com target=_blank style="color: #000;">技术支持:星畅科技</a> 网站经营许可证号:浙ICP备09052005号<script type="text/javascript"
+  src="http://js.tongji.linezing.com/1577113/tongji.js"></script><noscript><a href="http://www.linezing.com"><img
+  src="http://img.tongji.linezing.com/1577113/tongji.gif"/></a></noscript> 
+</div>
+</div>
+<!-- Javascript section -->
+<script src="/cluetip/lib/jquery.hoverIntent.js" type="text/javascript"></script>
+<script src="/cluetip/lib/jquery.bgiframe.min.js" type="text/javascript"></script>
+<script src="/cluetip/jquery.cluetip.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+$('.sticky').cluetip({sticky: false, closePosition: 'title', arrows: true, width:480});
+});
+</script>
+</body>
+</html>
