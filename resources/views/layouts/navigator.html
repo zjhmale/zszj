@@ -2,19 +2,24 @@
   <li class="left_pic">  
     <img src="/skins/default/images/{{root-type.key}}.jpg" width="197" height="74" title="{{root-type.subject}}">
   </li>
-  {% for item in level2s %}
+  {% for level2 in level2s %}
   <li class="left_nav h2">
-    {% if item.link_url %}
-      {% if item.subject|length < 20 %}
-        <a class="bg" target="_blank" href="{{item.link_url}}">{{item.subject}}</a>
+    {% if level2.link_url %}
+      {% if level2.subject|length < 20 %}
+        <a class="bg" target="_blank" href="{{level2.link_url}}">{{level2.subject}}</a>
       {% endif %}
-      {% if item.subject|length >= 20 %}
-        <a class="bg_long" target="_blank" href="{{item.link_url}}">{{item.subject}}</a>
+      {% if level2.subject|length >= 20 %}
+        <a class="bg_long" target="_blank" href="{{level2.link_url}}">{{level2.subject}}</a>
       {% endif %}
     {% endif %}
-    {% if not item.link_url %}
-       <a class="bg" href="/article_types/{{item.id}}">{{item.subject}}</a>
+    {% if not level2.link_url %}
+       <a class="bg" href="/article_types/{{level2.id}}">{{level2.subject}}</a>
     {% endif %}
   </li>
+  {% for level3 in level2.level3s %}
+  <li class="left_images h2">
+    <a class="img" href="/articles/{{level3.id}}">>{{level3.title}}</a>
+  </li>
+  {% endfor %}
   {% endfor %}
 </ul>
