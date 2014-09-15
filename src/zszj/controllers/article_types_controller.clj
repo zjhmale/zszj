@@ -11,6 +11,11 @@
 
 (def PER-PAGE 20)
 
+(def NUM-HEAD-LINKS 3)
+(def NUM-TAIL-LINKS 3)
+(def NUM-PREV-LINKS 4)
+(def NUM-POST-LINKS 4)
+
 (defn truncate [s length]
   (if (< (count s) length)
     s
@@ -45,22 +50,33 @@
 
 (defn paginator
   [num-entry perpage curr-page base-uri]
-  (let [from (inc (* (dec curr-page) perpage))
-        to (min (* curr-page perpage) num-entry)
-        num-pages (-> (/ num-entry perpage) int inc)
-        links-from  (- curr-page NUM-PREV-LINKS)
+  (let [num-pages (-> (/ num-entry perpage) int inc)
+        links-from (- curr-page NUM-PREV-LINKS)
         links-from (if (< links-from 1)
-                     1
-                     links-from)
+                   1
+                   links-from)
         links-to (+ curr-page NUM-POST-LINKS)
         links-to (if (> links-to num-pages) num-pages
-                    links-to)
+                   links-to)
         head-links (range 1 (inc (min (- links-from 1)
                                       NUM-HEAD-LINKS)))
         tail-links (range (max (- num-pages NUM-TAIL-LINKS)
                                (+ links-to 1)) num-pages)
-        link-to-page (fn [x]
-                       (list [:a {:href (str base-uri "?page=" x)} x] [:span " "]))]))
+        from-current-links (range links-from curr-page)
+        current-to-links (range (inc curr-page) (inc links-to))]
+    ;;(println "head-links: " head-links "\ntail-links: " tail-links "\nfrom-current-links: " from-current-links "\ncurrent-to-links: " current-to-links "\nis-last-page?: " (>= curr-page num-pages))
+    {:base-uri base-uri
+     :from (inc (* (dec curr-page) perpage))
+     :to (min (* curr-page perpage) num-entry)
+     :links-from links-from
+     :links-to links-to
+     :is-last-page (>= curr-page num-pages)
+     :head-links (range 1 (inc (min (- links-from 1)
+                                    NUM-HEAD-LINKS)))
+     :tail-links (range (max (- num-pages NUM-TAIL-LINKS)
+                             (+ links-to 1)) num-pages)
+     :from-current-links (range links-from curr-page)
+     :current-to-links (range (inc curr-page) (inc links-to))}))
 
 (defn render
   [id current-page]
@@ -89,6 +105,8 @@
                                  :root-type root-type
                                  :type type
                                  :current-page current-page
+                                 :current-page-dec (dec current-page)
+                                 :current-page-inc (inc current-page)
                                  :num-articles num-articles
                                  ;;for navigator
                                  :level2s level2s-with-level3s-and-articles
@@ -96,13 +114,3 @@
                                  :menus layout/menus
                                  :current-root-key current-root-key}
                                 (paginator num-articles PER-PAGE current-page (str "/article_types/" (:id type)))))))))
-
-
-
-
-
-
-
-
-
-
