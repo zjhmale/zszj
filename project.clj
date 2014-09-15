@@ -9,7 +9,8 @@
                  [selmer "0.7.1"]
                  [environ "0.5.0"]
                  [enlive "1.1.5"]
-                 [hiccup "1.0.5"]]
+                 [hiccup "1.0.5"]
+                 [org.clojure/tools.namespace "0.2.5"]]
   :plugins [[lein-ring "0.8.11"]]
   :ring {:handler zszj.handler/app}
   :profiles
