@@ -72,12 +72,8 @@ table.info {border-collapse:collapse;font-size:13px;}
 </div>
 </div>
 
-<ul class="nav" id="nav">
-  <li class="subnav h1">
-  <div class="sanjiao"><img alt="Sanjiao" src="/skins/default/images/sanjiao.gif?1374630107" /></div>
-  <a href="/article_types/5" class="main_menu">新闻中心</a></li>
-</ul>
-<!--<div id="wrapper"></div>-->
+{% include "views/layouts/navbar.html" %}
+
 {% block content %}
 {% endblock %}
 <div class="footer t3" align="center" style="background-color:white">

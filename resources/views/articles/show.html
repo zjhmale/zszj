@@ -5,9 +5,12 @@
 </style>
 <div class="danqianweizhi">
   <div class=" erji_name h1" name="">{{root-type.subject}}</div>
-  <div class=" erji_wz t5">当前位置：
-    <span id="root-article-type">当前根位置</span> &gt;
-    <span id="article-type">当前位置</span>
+  <div class=" erji_wz t5">当前位置： <a class="or" href="/article_types/{{root-type.id}}">{{root-type.subject}}</a> &gt;
+    {% ifequal root-type.subject parent-type.subject %}
+      <a class="or" href="/article_types/{{article-type.id}}">{{article-type.subject}}</a>
+      {% else %}
+      {{parent-type.subject}} &gt; {{article-type.subject}}
+    {% endifequal %}
   </div>
 </div>
 <div class="erji_content">

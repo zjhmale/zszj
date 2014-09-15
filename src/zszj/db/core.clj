@@ -46,3 +46,7 @@
     (if (root? t)
       t
       (root-article-type (:parent_id t)))))
+
+(defn parent-article-type [id]
+  (article-type
+   (:parent_id (article-type id))))

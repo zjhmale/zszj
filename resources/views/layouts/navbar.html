@@ -1,0 +1,11 @@
+<ul class="nav" id="nav">
+  {% for menu in menus %}
+  <li class="subnav h1">
+  {% ifequal menu.key current-root-key %}
+  <div class="sanjiao">
+    <img alt="Sanjiao" src="/skins/default/images/sanjiao.gif?1374630107" />
+  </div>
+  {% endifequal %}
+  <a href="{{menu.href}}" class="main_menu">{{menu.title}}</a></li>
+  {% endfor %}
+</ul>
