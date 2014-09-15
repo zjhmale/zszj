@@ -25,45 +25,7 @@
     </div>
     {% endfor %}
     {% endif %}
-    <div class="paginate">
-      显示
-      <b>{{from}} - {{to}} , 共 {{num-articles}} 条记录</b>
-      <span> </span>
-      <div class="pagination">
-        {% if current-page < 2 %}
-            <span class="prev_page">
-              « 上一页
-            </span>
-        {% else %}
-            <a class="prev_page" rel="prev start" href="{{base-uri}}?page={{current-page-dec}}">
-              « 上一页
-            </a>
-        {% endif %}
-        <span> </span>
-        {% for link in head-links %}
-            <a href="{{base-uri}}?page={{link}}">{{link}}</a>
-            <span> </span>
-        {% endfor %}
-        {% for link in from-current-links %}
-            <a href="{{base-uri}}?page={{link}}">{{link}}</a>
-            <span> </span>
-        {% endfor %}
-        <span class="current">{{current-page}} </span>
-        {% for link in current-to-links %}
-            <a href="{{base-uri}}?page={{link}}">{{link}}</a>
-            <span> </span>
-        {% endfor %}
-        {% for link in tail-links %}
-            <a href="{{base-uri}}?page={{link}}">{{link}}</a>
-            <span> </span>
-        {% endfor %}
-        {% if is-last-page %}
-            <span class="disabled next_page">下一页 »</span>
-        {% else %}
-            <a class="next_page" rel="next" href="{{base-uri}}?page={{current-page-inc}}">下一页 »</a>
-        {% endif %}
-     </div>
-    </div>
+    {% include "views/layouts/paginator.html" %}
   </div>
 </div>
 {% script "/javascripts/paginator.js" %}
