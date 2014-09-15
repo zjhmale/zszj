@@ -21,10 +21,12 @@
     <a class="img" href="/article_types/{{level3.id}}">>{{level3.subject}}</a>
   </li>
   {% endfor %}
-  {% for article in level2.articles %}
-  <li class="left_images h2">
-    <a class="img" href="/articles/{{article.id}}">>{{article.title}}</a>
-  </li> 
-  {% endfor %}
+    {% ifequal level2.the_type "direct_display" %}
+        {% for article in level2.articles %}
+            <li class="left_images h2">
+              <a class="img" href="/articles/{{article.id}}">>{{article.title}}</a>
+            </li> 
+        {% endfor %}
+    {% endifequal %}
   {% endfor %}
 </ul>

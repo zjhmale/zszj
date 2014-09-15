@@ -50,3 +50,44 @@
 (defn parent-article-type [id]
   (article-type
    (:parent_id (article-type id))))
+
+;;for paginator
+(defmacro paginate
+  ([page num-per-page query]
+     `(~@query
+       (limit ~num-per-page)
+       (offset (* (dec ~page) ~num-per-page)))))
+
+(defn paginage-articles-of-type
+  [page perpage type-id]
+  (paginate page
+            perpage 
+            (select articles
+                    (where {:article_type_id type-id})
+                    (order :id :desc))))
+
+(defn paginage-articles-of-tag
+  [page perpage tag]
+  (paginate page
+            perpage 
+            (select articles
+                    (where {:tags tag})
+                    (order :id :desc))))
+
+(defmacro sql-count [query]
+  `(:cnt
+    (first
+     (~@query
+      (kc/aggregate (~'count :*) :cnt)))))
+
+(defn count-articles-of-type
+  [type-id]
+  (sql-count
+   (select articles
+           (where {:article_type_id type-id}))))
+
+(defn count-articles-of-tag
+  [tag]
+  (sql-count 
+   (select articles
+           (where {:tags tag}))))

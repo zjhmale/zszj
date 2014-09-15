@@ -1,0 +1,22 @@
+{% extends "views/layouts/application.html" %}
+{% block content %}
+<div class="danqianweizhi">
+  <div class=" erji_name h1">{{root-type.subject}}</div>
+  <div class=" erji_wz t5">当前位置：
+    <a class="or" href="/article_types/{{root-type.id}}">{{root-type.subject}}</a> &gt;
+    <a class="or" href="/article_types/{{type.id}}">{{type.subject}}</a>
+  </div>
+</div>
+<div class="erji_content">
+  {% include "views/layouts/navigator.html" %}
+  <div class="erji_right"> 
+    <div class="r_news_gst">
+      <div class="r_news_pic">
+	<img src="/skins/default/images/z25.jpg" width="15" height="23" /></div>
+	<div name="title" class="r_news_t t5">
+      </div>
+    </div>
+    <div class="paginate"><!--<%= page_entries_info(@articles) %><%= will_paginate @articles %>--></div>
+  </div>
+</div>
+{% endblock %}
