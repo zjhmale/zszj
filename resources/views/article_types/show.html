@@ -17,6 +17,10 @@
 	    <img src="/skins/default/images/z25.jpg" width="15" height="23" />
       </div>
 	  <div name="title" class="r_news_t t5">
+        {% if article.article_type_id %}
+            {{article.addtime}}
+        {% endif %}
+        <a class="or" href="{{article.uri}}">{{article.title}}</a>
       </div>
     </div>
     {% endfor %}

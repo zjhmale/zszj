@@ -1,6 +1,7 @@
 (ns zszj.controllers.article_types_controller
   (:use [ring.util.response :only [redirect]])
   (:require [zszj.views.layout :as layout]
+            [zszj.views.helper :as helper]
             [zszj.db.core :as db]
             [selmer.parser :as parser]))
 
@@ -31,12 +32,14 @@
 (defn generate-new-articles
   [articles root-type]
   (map (fn [article]
-         (assoc article :title (truncate (:title article))))
+         (assoc article :uri (helper/article-path article)))
        (map (fn [article]
-              (if (need-show-time? (:key root-type))
-                (assoc article :addtime (str "[" (format-date "yyyy-MM-dd" (:addtime article)) "] "))
-                (assoc article :addtime "")))
-            articles)))
+              (assoc article :title (truncate (:title article) 100)))
+            (map (fn [article]
+                   (if (need-show-time? (:key root-type))
+                     (assoc article :addtime (str "[" (format-date "yyyy-MM-dd" (:addtime article)) "] "))
+                     (assoc article :addtime "")))
+                 articles))))
 
 (defn render
   [id current-page]
@@ -61,7 +64,7 @@
         (if (= (:the_type type) "direct_display")
           (redirect (str "/articles/" (:id (first articles))))
           (layout/render "article_types/show.html"
-                         {:articles articles
+                         {:articles (generate-new-articles articles root-type)
                           :root-type root-type
                           :type type
                           :current-page current-page
