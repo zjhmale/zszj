@@ -9,6 +9,8 @@
 
 (def ^:dynamic *PER-PAGE* 20)
 
+(def PER-PAGE 20)
+
 (defn truncate [s length]
   (if (< (count s) length)
     s
@@ -41,6 +43,25 @@
                      (assoc article :addtime "")))
                  articles))))
 
+(defn paginator
+  [num-entry perpage curr-page base-uri]
+  (let [from (inc (* (dec curr-page) perpage))
+        to (min (* curr-page perpage) num-entry)
+        num-pages (-> (/ num-entry perpage) int inc)
+        links-from  (- curr-page NUM-PREV-LINKS)
+        links-from (if (< links-from 1)
+                     1
+                     links-from)
+        links-to (+ curr-page NUM-POST-LINKS)
+        links-to (if (> links-to num-pages) num-pages
+                    links-to)
+        head-links (range 1 (inc (min (- links-from 1)
+                                      NUM-HEAD-LINKS)))
+        tail-links (range (max (- num-pages NUM-TAIL-LINKS)
+                               (+ links-to 1)) num-pages)
+        link-to-page (fn [x]
+                       (list [:a {:href (str base-uri "?page=" x)} x] [:span " "]))]))
+
 (defn render
   [id current-page]
   (let [[root-type type] (identify-root-and-type id)
@@ -64,16 +85,17 @@
         (if (= (:the_type type) "direct_display")
           (redirect (str "/articles/" (:id (first articles))))
           (layout/render "article_types/show.html"
-                         {:articles (generate-new-articles articles root-type)
-                          :root-type root-type
-                          :type type
-                          :current-page current-page
-                          :num-articles num-articles
-                          ;;for navigator
-                          :level2s level2s-with-level3s-and-articles
-                          ;;for navibar
-                          :menus layout/menus
-                          :current-root-key current-root-key})))))
+                         (merge {:articles (generate-new-articles articles root-type)
+                                 :root-type root-type
+                                 :type type
+                                 :current-page current-page
+                                 :num-articles num-articles
+                                 ;;for navigator
+                                 :level2s level2s-with-level3s-and-articles
+                                 ;;for navibar
+                                 :menus layout/menus
+                                 :current-root-key current-root-key}
+                                (paginator num-articles PER-PAGE current-page (str "/article_types/" (:id type)))))))))
 
 
 

@@ -25,7 +25,10 @@
     </div>
     {% endfor %}
     {% endif %}
-    <div class="paginate"><!--<%= page_entries_info(@articles) %><%= will_paginate @articles %>--></div>
+    <div class="paginate">
+      <p id="clickhere">clickhere</p>
+    </div>
   </div>
 </div>
+{% script "/javascripts/paginator.js" %}
 {% endblock %}
