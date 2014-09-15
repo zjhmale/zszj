@@ -9,13 +9,18 @@
 </div>
 <div class="erji_content">
   {% include "views/layouts/navigator.html" %}
-  <div class="erji_right"> 
+  <div class="erji_right">
+    {% if articles %}
+    {% for article in articles %}
     <div class="r_news_gst">
       <div class="r_news_pic">
-	<img src="/skins/default/images/z25.jpg" width="15" height="23" /></div>
-	<div name="title" class="r_news_t t5">
+	    <img src="/skins/default/images/z25.jpg" width="15" height="23" />
+      </div>
+	  <div name="title" class="r_news_t t5">
       </div>
     </div>
+    {% endfor %}
+    {% endif %}
     <div class="paginate"><!--<%= page_entries_info(@articles) %><%= will_paginate @articles %>--></div>
   </div>
 </div>

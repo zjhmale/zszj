@@ -1,5 +1,5 @@
 (ns zszj.controllers.articles_controller
-  (:require [zszj.layout :as layout]
+  (:require [zszj.views.layout :as layout]
             [zszj.db.core :as db]
             [selmer.parser :as parser]))
 
