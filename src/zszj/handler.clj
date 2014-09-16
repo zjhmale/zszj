@@ -10,8 +10,8 @@
 
 (defn init
   []
-  (println "web site is starting")
-  (parser/cache-off!))
+  (parser/cache-off!)
+  (println "web site is starting"))
 
 (defn destroy
   []

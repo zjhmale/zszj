@@ -17,13 +17,13 @@
 </div>
 
 <script type="text/javascript">
-     $(document).ready(function() {
-          $('#notice').dialog({
-                width: 485,           
-                height: 330,
-                modal: false
-     });
-      });
+  $(document).ready(function() {
+    $('#notice').dialog({
+        width: 485,           
+        height: 330,
+        modal: false
+    });
+  });
 </script>
 
 {% if popup-notice %}
@@ -32,8 +32,65 @@
    <center>{{popup-notice.title}}</center>
 </div>  
  <div class="home_notice t5">
-   {{article.content|safe}}
+   {{popup-notice.content|safe}}
  </div>
 </div>
 {% endif %}
+
+<div class="friendLink">友情链接</div>
+<ul class="friendLink_par">
+  <li class="link_pic">
+    <a href="http://www.mohurd.gov.cn/" target="_blank">
+      <img alt="舟山造价招标网" height="50" src="/skins/default/images/link1.jpg?1374630107" title="中华人民共和国住房和城乡建设部" width="150">
+    </a>
+  </li>
+  <li class="link_pic">
+    <a href="http://www.ccost.com/" target="_blank">
+      <img alt="舟山造价招标网" height="50" src="/skins/default/images/link2.jpg?1374630107" title="中国建设工程造价信息网" width="150">
+    </a>
+  </li>
+  <li class="link_pic">
+    <a href="http://www.ceca.org.cn/" target="_blank">
+      <img alt="舟山造价招标网" height="50" src="/skins/default/images/link3.jpg?1374630107" title="中国建设工程造价管理协会" width="150">
+    </a>
+  </li>
+  <li class="link_pic">
+    <a href="http://www.zjjs.com.cn/" target="_blank">
+      <img alt="舟山造价招标网" height="50" src="/skins/default/images/link4.jpg?1374630107" title="浙江省建设信息港" width="150">
+    </a>
+  </li>
+  <li class="link_pic">
+    <a href="http://www.zscj.gov.cn/" target="_blank">
+      <img alt="舟山造价招标网" height="50" src="/skins/default/images/link5.jpg?1374630107" title="舟山建设信息港" width="150">
+    </a>
+  </li>
+  <li class="link_pic">
+    <a href="http://www.zjzj.net/" target="_blank">
+      <img alt="舟山造价招标网" height="50" src="/skins/default/images/link6.jpg?1374630107" title="浙江造价" width="150">
+    </a>
+  </li>
+</ul>
+
+<script type="text/javascript">
+  function set_spec_selector(name) {
+    new Ajax.Updater('spec_selector', '/materials/specs_selector?material_name=' + name, {
+        method:     'get',
+        onFailure:  function() {Element.classNames('about-content').add('failure')},
+        onComplete: function() {new Effect.BlindDown('spec_selector', {duration: 0.25})}
+    });
+  }
+</script>
+
+<script>
+var lastScrollY=0;
+function scro(){
+diffY=document.body.scrollTop;
+percent=.1*(diffY-lastScrollY);
+if(percent>0)percent=Math.ceil(percent);
+else percent=Math.floor(percent);
+document.getElementById('flt').style.pixelTop+=percent; //更改坐标
+lastScrollY=lastScrollY+percent;
+}
+window.setInterval("scro()",30);
+</script>
 {% endblock %}
