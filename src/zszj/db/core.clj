@@ -16,6 +16,12 @@
 (defentity article_types
   (has-many articles {:fk :article_type_id}))
 
+(defentity softwares)
+
+(defentity link_types)
+
+(defentity links)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))

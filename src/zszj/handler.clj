@@ -4,10 +4,11 @@
             [compojure.route :as route]
             [ring.middleware.reload :refer (wrap-reload)]
             [zszj.controllers.articles_controller :as articles]
-            [zszj.controllers.article_types_controller :as article-types]))
+            [zszj.controllers.article_types_controller :as article-types]
+            [zszj.controllers.home_controller :as home]))
 
 (defroutes app-routes
-  (GET "/" [] "Hello World")
+  (GET "/" [] (home/index))
   (GET "/articles/:id" [id] (articles/render id))
   (GET "/article_types/:id" [id page]
        (article-types/render id (bigdec (if page page "1"))))
