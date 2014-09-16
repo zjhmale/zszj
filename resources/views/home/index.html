@@ -198,12 +198,32 @@
       <!--中间图片-->
       <div class="center_part1" style="height: 580px;">
       <ul>
-      <li class="center_imgs center_imgs_l"><%= link_to image_tag("/images/z16.jpg", :border=>0, :title => '办事指南', :alt => '舟山造价招标网'), ArticleType.find_type('bszn', 'zjz')%></li>
-    <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z17.jpg", :border => 0, :title => '价格信息', :alt => '舟山造价招标网'), :man_markets %></li>
-    <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z18.jpg", :border=> 0, :title => '计价天地', :alt => '舟山造价招标网'), ArticleType.find_type('price_area', 'country_stand')%></li>
-    <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z19.jpg", :border => 0, :title => '考试培训'), ArticleType.find_type('exam', 'xgwj')%></li>
-    <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z20.jpg", :border => 0, :title => '网上书讯', :alt => '舟山造价招标网'), books_path(:book_type => '省(部)颁定额') %></li>
-  </ul>
+        <li class="center_imgs center_imgs_l">
+          <a href="/article_types/{{bz-typeid}}">
+            <img alt="舟山造价招标网" border="0" src="/images/z16.jpg?1374630107" title="办事指南">
+          </a>
+        </li>
+        <li class="center_imgs center_imgs_c_r">
+          <a href="/man_markets">
+            <img alt="舟山造价招标网" border="0" src="/images/z17.jpg?1374630107" title="价格信息">
+          </a>
+        </li>
+        <li class="center_imgs center_imgs_c_r">
+          <a href="/article_types/{{pc-typeid}}">
+            <img alt="舟山造价招标网" border="0" src="/images/z18.jpg?1374630107" title="计价天地">
+          </a>
+        </li>
+        <li class="center_imgs center_imgs_c_r">
+          <a href="/article_types/{{ex-typeid}}">
+            <img alt="Z19" border="0" src="/images/z19.jpg?1374630107" title="考试培训">
+          </a>
+        </li>
+        <li class="center_imgs center_imgs_c_r">
+          <a href="/books?book_type=省(部)颁定额">
+            <img alt="舟山造价招标网" border="0" src="/images/z20.jpg?1374630107" title="网上书讯">
+          </a>
+        </li>
+      </ul>
   <div class="r_bottom_l">
     <div class="bottom_pic"><%= link_to image_tag("/images/z22-2.jpg", :width=>"563", :height => "64", :title => '舟山价格信息简报'),  " "%>
     </div>

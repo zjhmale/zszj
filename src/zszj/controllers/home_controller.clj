@@ -63,7 +63,10 @@
                              (if (re-find #"新发布标志" (:tags article))
                                (assoc article :new-publish true)
                                (assoc article :truncate_title-else (helper/truncate_u (:title article) 13))))
-                           (get-home-articles-by-typekey "tzgg" 7 10))]
+                           (get-home-articles-by-typekey "tzgg" 7 10))
+        bz-typeid (:id (first (article-types/find-type "bszn" "zjz")))
+        pc-typeid (:id (first (article-types/find-type "price_area" "country_stand")))
+        ex-typeid (:id (first (article-types/find-type "exam" "xgwj")))]
     ;;(println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " build-more-article-type "\njsdt-articles: " jsdt-articles)
     (layout/render "home/index.html"
                    {:banner-notice (banner-notice)
