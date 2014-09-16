@@ -46,8 +46,9 @@
         texts (clojure.string/join "|"
                                    (map (fn [headline]
                                           (helper/truncate (:title headline) 19))
-                                        headlines))]
-    ;;(println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks)
+                                        headlines))
+        more-article-type (first (article-types/find_type "news" "jsdt"))]
+    (println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " more-article-type)
     (layout/render "home/index.html"
                    {:banner-notice (banner-notice)
                     :popup-notice (popup-notice)
@@ -62,6 +63,7 @@
                     :pics pics
                     :links links
                     :texts texts
+                    :more-article-type more-article-type
                     ;;for navibar
                     :menus layout/menus
                     :current-root-key "home"})))

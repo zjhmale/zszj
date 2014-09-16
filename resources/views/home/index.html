@@ -138,7 +138,10 @@
       <div class="jianshe">
         <div class="jianshe_d">
           <div class="jianshe_d_l h1">建设动态</div>
-          <div class="jianshe_d_r t4"><%= link_to "更多", ArticleType.find_type('news', 'jsdt'), :class => "main_menu" %>&gt;&gt;</div>
+          <div class="jianshe_d_r t4">
+            <a href="/article_types/{{more-article-type.id}}" class="main_menu">更多</a>
+            &gt;&gt;
+          </div>
         </div>
         <div class="jianshe_n">
           <div class="jianshe_pic">
