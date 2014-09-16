@@ -3,7 +3,8 @@
   (:require [zszj.views.layout :as layout]
             [zszj.views.helper :as helper]
             [zszj.db.core :as db]
-            [selmer.parser :as parser]))
+            [selmer.parser :as parser]
+            [zszj.controllers.common :as common]))
 
 (def need-show-time? #{"news" "policy" "price_area" "public_info" "exam"})
 
@@ -101,16 +102,14 @@
         (if (= (:the_type type) "direct_display")
           (redirect (str "/articles/" (:id (first articles))))
           (layout/render "article_types/show.html"
-                         (merge {:articles (generate-new-articles articles root-type)
-                                 :root-type root-type
-                                 :type type
-                                 :current-page current-page
-                                 :current-page-dec (dec current-page)
-                                 :current-page-inc (inc current-page)
-                                 :num-articles num-articles
-                                 ;;for navigator
-                                 :level2s level2s-with-level3s-and-articles
-                                 ;;for navibar
-                                 :menus layout/menus
-                                 :current-root-key current-root-key}
-                                (paginator num-articles PER-PAGE current-page (str "/article_types/" (:id type)))))))))
+                         (common/common-manipulate
+                          (merge {:articles (generate-new-articles articles root-type)
+                                  :root-type root-type
+                                  :type type
+                                  :current-page current-page
+                                  :current-page-dec (dec current-page)
+                                  :current-page-inc (inc current-page)
+                                  :num-articles num-articles
+                                  ;;for navigator
+                                  :level2s level2s-with-level3s-and-articles}
+                                 (paginator num-articles PER-PAGE current-page (str "/article_types/" (:id type)))) current-root-key))))))

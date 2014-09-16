@@ -9,7 +9,8 @@
             [zszj.db.softwares :as softwares]
             [zszj.db.links :as links]
             [zszj.db.attachments :as attachments]
-            [zszj.db.materials :as materials]))
+            [zszj.db.materials :as materials]
+            [zszj.controllers.common :as common]))
 
 (defn banner-notice []
   (-> "[横向公告]" articles/tagged select first))
@@ -93,36 +94,33 @@
                                   (assoc material :truncate_name (helper/truncate (:name material) 6))
                                 :truncate_spec_brand (helper/truncate (str (:spec material) " " (:brand material)) 10)))
                             (materials/get-materials 11))]
-    (println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " build-more-article-type "\njsdt-articles: " jsdt-articles "\nps-articles: " ps-articles "\nlatest-material-date: " latest-material-date "\nhome-materials: " home-materials)
+    ;;(println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " build-more-article-type "\njsdt-articles: " jsdt-articles "\nps-articles: " ps-articles "\nlatest-material-date: " latest-material-date "\nhome-materials: " home-materials)
     (layout/render "home/index.html"
-                   {:banner-notice (banner-notice)
-                    :popup-notice (popup-notice)
-                    :home-softwares home-softwares
-                    :systemsitelinks systemsitelinks
-                    :othersitelinks othersitelinks
-                    :focus_width focus_width
-                    :focus_height focus_height
-                    :text_height text_height
-                    :swf_height swf_height
-                    :headlines headlines
-                    :pics pics
-                    :links links
-                    :texts texts
-                    :build-more-article-type build-more-article-type
-                    :jsdt-articles jsdt-articles
-                    :announce-more-article-type announce-more-article-type
-                    :tzgg-articles tzgg-articles
-                    :bz-typeid bz-typeid
-                    :pc-typeid pc-typeid
-                    :ex-typeid ex-typeid
-                    :na-typeid na-typeid
-                    :ps-typeid ps-typeid
-                    :pzj-typeid pzj-typeid
-                    :pzb-typeid pzb-typeid
-                    :ps-articles ps-articles
-                    :newest-doc newest-doc
-                    :latest-material-date latest-material-date
-                    :home-materials home-materials
-                    ;;for navibar
-                    :menus layout/menus
-                    :current-root-key "home"})))
+                   (common/common-manipulate {:banner-notice (banner-notice)
+                                              :popup-notice (popup-notice)
+                                              :home-softwares home-softwares
+                                              :systemsitelinks systemsitelinks
+                                              :othersitelinks othersitelinks
+                                              :focus_width focus_width
+                                              :focus_height focus_height
+                                              :text_height text_height
+                                              :swf_height swf_height
+                                              :headlines headlines
+                                              :pics pics
+                                              :links links
+                                              :texts texts
+                                              :build-more-article-type build-more-article-type
+                                              :jsdt-articles jsdt-articles
+                                              :announce-more-article-type announce-more-article-type
+                                              :tzgg-articles tzgg-articles
+                                              :bz-typeid bz-typeid
+                                              :pc-typeid pc-typeid
+                                              :ex-typeid ex-typeid
+                                              :na-typeid na-typeid
+                                              :ps-typeid ps-typeid
+                                              :pzj-typeid pzj-typeid
+                                              :pzb-typeid pzb-typeid
+                                              :ps-articles ps-articles
+                                              :newest-doc newest-doc
+                                              :latest-material-date latest-material-date
+                                              :home-materials home-materials} "home"))))
