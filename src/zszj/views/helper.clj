@@ -15,3 +15,9 @@
 
 ;;(truncate_u "cleanthaasdasdas" 10)
 
+(defn- format-date [format date]
+  (.format (java.text.SimpleDateFormat. format) date))
+
+(defn date-format
+  [date]
+  (str "[" (format-date "yyyy-MM-dd" date) "] "))

@@ -15,7 +15,7 @@
      (-> all (where {:key key2
                      :parent_id (-> key1 with-key select first :id)}))))
 
-(defn find_type
+(defn find-type
   ([level]
      (select article_types
              (where {:key level})))
@@ -23,4 +23,10 @@
      (select article_types
              (where {:key level2
                      :parent_id (:id (first
-                                      (find_type level1)))}))))
+                                      (find-type level1)))}))))
+
+(defn find-typeid-by-key
+  [key]
+  (:id (first
+        (select article_types
+                (where {:key key})))))

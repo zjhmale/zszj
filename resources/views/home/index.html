@@ -102,7 +102,7 @@
         {% for software in home-softwares %}
           <li class="xiazai_n t3">
             <img alt="Address-book-new" height="10" src="/qx/icon/Tango/16/actions/address-book-new.png?1374630107" width="10">
-            <a href="/softwares/{{software.id}}" class=" or" target="_blank" title="{{software.title}}">{{software.title}}</a>
+            <a href="/softwares/{{software.id}}" class=" or" target="_blank" title="{{software.title}}">{{software.truncate_title}}</a>
           </li>
         {% endfor %}
       </ul>
@@ -139,7 +139,7 @@
         <div class="jianshe_d">
           <div class="jianshe_d_l h1">建设动态</div>
           <div class="jianshe_d_r t4">
-            <a href="/article_types/{{more-article-type.id}}" class="main_menu">更多</a>
+            <a href="/article_types/{{build-more-article-type.id}}" class="main_menu">更多</a>
             &gt;&gt;
           </div>
         </div>
@@ -148,33 +148,48 @@
             {% include "views/home/headlines.html" %}
           </div>
           <ul class="jianshe_news">
-            <% ArticleType.find_by_key('jsdt') .articles.find(:all, :limit => 6, :order => 'addtime desc').each do |article| %>
+            {% for article in jsdt-articles %}
             <li class="jianshe_news_p"></li>
             <li class="jianshe_news_t t5">
-              <div class="news_n"><%= link_to truncate_u(article.title, 15), article, :class => " or", :target => "_blank",:title => article.title %></div><div class="news_r">[<%= to_date(article.addtime) %>]</div>
+              <div class="news_n">
+                <a href="/articles/{{article.id}}" class="or" target="_blank" title="{{article.title}}">{{article.truncate_title}}</a>
+              </div>
+              <div class="news_r">
+                {{article.addtime}}
+              </div>
             </li>
-            <% end %>
+            {% endfor %}
           </ul>
         </div>
       </div>
-      <!--通知公示-->
+      <!--公告公示-->
       <div class="gongshi">
-  <div class="gongshi_d">
-    <div class="gongshi_d_l h1">公告公示</div>
-    <div class="gongshi_d_r t4"><%= link_to "更多", ArticleType.find_type('news', 'tzgg'), :class => "main_menu" %>&gt;&gt;</div>
-  </div>
-  <div class="gongshi_t t5">
-   <% ArticleType.find_by_key('tzgg') .articles.find(:all, :limit => 7, :order => 'addtime desc').each do |article| %> 
-   <% if article.tags.include?"新发布标志"%>
-   <div class="gongshi_long">
-   <div class="gongshi_short">&gt; <%= link_to truncate_u(article.title,10), article, :class => "or", :target => "_blank" , :title=> article.title%></div>
-     <div style="gongshi_img"><%= image_tag  "/images/new.gif"%></div>
-   </div>
-     <% else %>
-  <div class="gongshi_long">&gt; <%= link_to truncate_u(article.title,13), article, :class => "or", :target => "_blank" , :title=> article.title%></div>
-   <% end %>
-   <% end %>
-  </div> 
+        <div class="gongshi_d">
+          <div class="gongshi_d_l h1">公告公示</div>
+          <div class="gongshi_d_r t4">
+            <a href="/article_types/{{announce-more-article-type.id}}" class="main_menu">更多</a>&gt;&gt;
+          </div>
+        </div>
+        <div class="gongshi_t t5">
+          {% for article in tzgg-articles %}
+            {% if article.new-publish %}
+            <div class="gongshi_long">
+              <div class="gongshi_short">
+                &gt;
+                <a href="/articles/{{article.id}}" class="or" target="_blank" title="{{article.title}}">{{article.truncate_title}}</a>
+              </div>
+              <div style="gongshi_img">
+                <img alt="New" src="/images/new.gif?1374630107">
+              </div>
+            </div>
+            {% else %}
+            <div class="gongshi_long">
+              &gt;
+              <a href="/articles/{{article.id}}" class="or" target="_blank" title="{{article.title}}">{{article.truncate_title-else}}</a>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div> 
       </div> 
     </div>
     <!--中间图片--> 
@@ -182,7 +197,7 @@
       <!--公示新闻--> 
       <!--中间图片-->
       <div class="center_part1" style="height: 580px;">
-  <ul>
+      <ul>
       <li class="center_imgs center_imgs_l"><%= link_to image_tag("/images/z16.jpg", :border=>0, :title => '办事指南', :alt => '舟山造价招标网'), ArticleType.find_type('bszn', 'zjz')%></li>
     <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z17.jpg", :border => 0, :title => '价格信息', :alt => '舟山造价招标网'), :man_markets %></li>
     <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z18.jpg", :border=> 0, :title => '计价天地', :alt => '舟山造价招标网'), ArticleType.find_type('price_area', 'country_stand')%></li>

@@ -20,6 +20,15 @@
 (def focus_height 145)
 (def text_height 20)
 
+(defn get-home-articles-by-typekey
+  [typekey limit-count truncate-length]
+  (map (fn [article]
+         (assoc
+             (assoc article :truncate_title (helper/truncate_u (:title article) truncate-length))
+           :addtime (helper/date-format (:addtime article))))
+       (articles/home-article-by-typeid-and-limit
+        (article-types/find-typeid-by-key typekey) limit-count)))
+
 (defn index
   []
   (let [systemsiteid (links/find-linktypeid-by-subject "建设系统网站")
@@ -27,7 +36,7 @@
         systemsitelinks (links/find-links-by-linktypeid systemsiteid)
         othersitelinks (links/find-links-by-linktypeid othersiteid)
         home-softwares (map (fn [software]
-                              (assoc software :title (helper/truncate_u (:title software) 12)))
+                              (assoc software :truncate_title (helper/truncate_u (:title software) 12)))
                             (softwares/home-softwares))
         swf_height (+ focus_height text_height)
         headlines (articles/find-articles-by-tag "图文公告")
@@ -47,8 +56,15 @@
                                    (map (fn [headline]
                                           (helper/truncate (:title headline) 19))
                                         headlines))
-        more-article-type (first (article-types/find_type "news" "jsdt"))]
-    (println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " more-article-type)
+        build-more-article-type (first (article-types/find-type "news" "jsdt"))
+        jsdt-articles (get-home-articles-by-typekey "jsdt" 6 15)
+        announce-more-article-type (first (article-types/find-type "news" "tzgg"))
+        tzgg-articles (map (fn [article]
+                             (if (re-find #"新发布标志" (:tags article))
+                               (assoc article :new-publish true)
+                               (assoc article :truncate_title-else (helper/truncate_u (:title article) 13))))
+                           (get-home-articles-by-typekey "tzgg" 7 10))]
+    ;;(println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " build-more-article-type "\njsdt-articles: " jsdt-articles)
     (layout/render "home/index.html"
                    {:banner-notice (banner-notice)
                     :popup-notice (popup-notice)
@@ -63,7 +79,10 @@
                     :pics pics
                     :links links
                     :texts texts
-                    :more-article-type more-article-type
+                    :build-more-article-type build-more-article-type
+                    :jsdt-articles jsdt-articles
+                    :announce-more-article-type announce-more-article-type
+                    :tzgg-articles tzgg-articles
                     ;;for navibar
                     :menus layout/menus
                     :current-root-key "home"})))
