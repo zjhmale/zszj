@@ -8,5 +8,10 @@
     s
     (str (->> s (take length) (apply str)) "...")))
 
+(defn truncate [s length]
+  (if (< (count s) length)
+    s
+    (->> s (take length) (apply str))))
+
 ;;(truncate_u "cleanthaasdasdas" 10)
 

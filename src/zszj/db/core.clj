@@ -24,6 +24,8 @@
 (defentity link_types
   (has-many links {:fk :link_type_id}))
 
+(defentity attachments)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))

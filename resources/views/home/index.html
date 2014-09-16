@@ -44,7 +44,7 @@
     
     <!--信息搜索-->
     <div class="search h1">信息搜索</div>
-    {% include "views/layouts/search.html" %}
+    {% include "views/home/search.html" %}
     <!--监管系统-->
     <div class="jianguan_img">
       <div class="jianguan_img_position">
@@ -136,23 +136,23 @@
     <div class="r_top">
       <!--建设动态-->
       <div class="jianshe">
-  <div class="jianshe_d">
-    <div class="jianshe_d_l h1">建设动态</div>
-    <div class="jianshe_d_r t4"><%= link_to "更多", ArticleType.find_type('news', 'jsdt'), :class => "main_menu" %>&gt;&gt;</div>
-  </div>
-  <div class="jianshe_n">
-    <div class="jianshe_pic">
-      <%= render :partial => 'headlines' %>  
-    </div>
-    <ul class="jianshe_news">
-      <% ArticleType.find_by_key('jsdt') .articles.find(:all, :limit => 6, :order => 'addtime desc').each do |article| %>
-      <li class="jianshe_news_p"></li>
-      <li class="jianshe_news_t t5">
-        <div class="news_n"><%= link_to truncate_u(article.title, 15), article, :class => " or", :target => "_blank",:title => article.title %></div><div class="news_r">[<%= to_date(article.addtime) %>]</div>
-      </li>
-      <% end %>
-    </ul>
-  </div>
+        <div class="jianshe_d">
+          <div class="jianshe_d_l h1">建设动态</div>
+          <div class="jianshe_d_r t4"><%= link_to "更多", ArticleType.find_type('news', 'jsdt'), :class => "main_menu" %>&gt;&gt;</div>
+        </div>
+        <div class="jianshe_n">
+          <div class="jianshe_pic">
+            {% include "views/home/headlines.html" %}
+          </div>
+          <ul class="jianshe_news">
+            <% ArticleType.find_by_key('jsdt') .articles.find(:all, :limit => 6, :order => 'addtime desc').each do |article| %>
+            <li class="jianshe_news_p"></li>
+            <li class="jianshe_news_t t5">
+              <div class="news_n"><%= link_to truncate_u(article.title, 15), article, :class => " or", :target => "_blank",:title => article.title %></div><div class="news_r">[<%= to_date(article.addtime) %>]</div>
+            </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
       <!--通知公示-->
       <div class="gongshi">
