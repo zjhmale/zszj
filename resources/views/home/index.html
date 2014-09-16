@@ -280,45 +280,53 @@
       </div>
       <!--右侧开始--> 
       <div class="r_bottom_r">
-  <!--公示信息-->
-  <div class="gongshi_bg">
-    <div class="geren_pic1"><a href="http://www.zscj.gov.cn/hetong/index.asp" target="_blank"><img src="images/z28.jpg"  alt="舟山造价招标网"/></a></div> 
-    <div class="geren_pic"><%= link_to image_tag("/images/z29.jpg", :border=>0, :title => '造价咨询企业及个人扣分公示', :alt => '舟山造价招标网'),ArticleType.find_type('public_info', 'zjdw')%></div>
-    <div class="geren_pic"><%= link_to image_tag("/images/z30.jpg", :border=>0, :title => '招标代理机构及个人扣分公示', :alt => '舟山造价招标网'), ArticleType.find_type('public_info', 'zbdl')%></div>
-  </div>  
-  <div class="cx_d h1">舟山市主要材料市场价格</div>
-  <!--价格查询-->
-  <div class="cx_n" style="height: 369px;">
-          <div class="cx_biaodan search_form  t2" style="margin-top:0px;height:20px;">
-        <% form_remote_tag  :url => '/materials/mini_search', :method => :get do -%>
-        <p><%= text_field  "selected","publish_at",:value=>to_date(Material.last.publish_at), :class=> "short  date"%>
-          <%= image_submit_tag "z27.jpg",  :class => "cont_search_img" %></p> 
-        <% end %>
-    </div>
-      <div class="cx_wenben" id="mini_material_view">
-      <table width="200"  class="cx">
-        <tr class="t2">
-    <th>名称</th>
-    <th>规格</th>
-    <th>价格</th>
-        </tr>
-        <% Material.find(:all, :limit => 11, :order => 'publish_at desc').each do |material| %>  
-        <tr>
-    <td title="<%= material.name%>"><%= truncate(material.name, :length => 6) %></td>
-    <td title="<%= material.spec%> <%=material.brand%>"><%= truncate(material.spec+' '+material.brand, :length => 10) %></td>
-    <td><%=material.price %></td>
-        </tr>
-        <% end %>
-        <tr>
-    <td class="more"></td>
-    <td class="more"></td>
-    <td class="more"><%=link_to "...更多", materials_path,
-              :class=>"black t2"%></td></tr>
-      </table>
-    </div>
-  </div>
-  <!---->
-  <!-- 放置右侧内容结束-->
+      <!--公示信息-->
+      <div class="gongshi_bg">
+        <div class="geren_pic1">
+          <a href="http://www.zscj.gov.cn/hetong/index.asp" target="_blank">
+            <img src="images/z28.jpg"  alt="舟山造价招标网"/>
+          </a>
+        </div> 
+        <div class="geren_pic">
+          <a href="/article_types/{{pzj-typeid}}"><img alt="舟山造价招标网" border="0" src="/images/z29.jpg?1374630107" title="造价咨询企业及个人扣分公示"></a>
+        </div>
+        <div class="geren_pic"><a href="/article_types/{{pzb-typeid}}"><img alt="舟山造价招标网" border="0" src="/images/z30.jpg?1374630107" title="招标代理机构及个人扣分公示"></a></div>
+        <div class="geren_pic">
+        </div>
+      </div>  
+      <div class="cx_d h1">舟山市主要材料市场价格</div>
+      <!--价格查询-->
+      <div class="cx_n" style="height: 369px;">
+              <div class="cx_biaodan search_form  t2" style="margin-top:0px;height:20px;">
+            <% form_remote_tag  :url => '/materials/mini_search', :method => :get do -%>
+            <p><%= text_field  "selected","publish_at",:value=>to_date(Material.last.publish_at), :class=> "short  date"%>
+              <%= image_submit_tag "z27.jpg",  :class => "cont_search_img" %></p> 
+            <% end %>
+        </div>
+          <div class="cx_wenben" id="mini_material_view">
+          <table width="200"  class="cx">
+            <tr class="t2">
+        <th>名称</th>
+        <th>规格</th>
+        <th>价格</th>
+            </tr>
+            <% Material.find(:all, :limit => 11, :order => 'publish_at desc').each do |material| %>  
+            <tr>
+        <td title="<%= material.name%>"><%= truncate(material.name, :length => 6) %></td>
+        <td title="<%= material.spec%> <%=material.brand%>"><%= truncate(material.spec+' '+material.brand, :length => 10) %></td>
+        <td><%=material.price %></td>
+            </tr>
+            <% end %>
+            <tr>
+        <td class="more"></td>
+        <td class="more"></td>
+        <td class="more"><%=link_to "...更多", materials_path,
+                  :class=>"black t2"%></td></tr>
+          </table>
+        </div>
+      </div>
+      <!---->
+      <!-- 放置右侧内容结束-->
       </div>
     </div>
   </div>

@@ -29,6 +29,10 @@
        (articles/home-article-by-typeid-and-limit
         (article-types/find-typeid-by-key typekey) limit-count)))
 
+(defn get-first-id
+  [item]
+  (-> item first :id))
+
 (defn truncate-and-dateformat
   [articles truncate-length]
   (map (fn [article]
@@ -72,11 +76,13 @@
                                (assoc article :new-publish true)
                                (assoc article :truncate_title-else (helper/truncate_u (:title article) 13))))
                            (get-home-articles-by-typekey "tzgg" 7 10))
-        bz-typeid (:id (first (article-types/find-type "bszn" "zjz")))
-        pc-typeid (:id (first (article-types/find-type "price_area" "country_stand")))
-        ex-typeid (:id (first (article-types/find-type "exam" "xgwj")))
-        na-typeid (:id (first (article-types/find-type "news" "attr_level4")))
-        ps-typeid (:id (first (article-types/find-type "public_info" "sjgs_public")))
+        bz-typeid (get-first-id (article-types/find-type "bszn" "zjz"))
+        pc-typeid (get-first-id (article-types/find-type "price_area" "country_stand"))
+        ex-typeid (get-first-id (article-types/find-type "exam" "xgwj"))
+        na-typeid (get-first-id (article-types/find-type "news" "attr_level4"))
+        ps-typeid (get-first-id (article-types/find-type "public_info" "sjgs_public"))
+        pzj-typeid (get-first-id (article-types/find-type "public_info" "zjdw"))
+        pzb-typeid (get-first-id (article-types/find-type "public_info" "zbdl"))
         ps-articles (truncate-and-dateformat (articles/find-articles-by-tags "public_info" "sjgs_public" 6) 34)
         newest-doc (truncate-and-dateformat (articles/find-articles-by-tag "[最新公文]" 6) 34)]
     (println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " build-more-article-type "\njsdt-articles: " jsdt-articles "\nps-articles: " ps-articles)
@@ -103,6 +109,8 @@
                     :ex-typeid ex-typeid
                     :na-typeid na-typeid
                     :ps-typeid ps-typeid
+                    :pzj-typeid pzj-typeid
+                    :pzb-typeid pzb-typeid
                     :ps-articles ps-articles
                     :newest-doc newest-doc
                     ;;for navibar
