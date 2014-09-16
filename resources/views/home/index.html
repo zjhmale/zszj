@@ -224,46 +224,59 @@
           </a>
         </li>
       </ul>
-  <div class="r_bottom_l">
-    <div class="bottom_pic"><%= link_to image_tag("/images/z22-2.jpg", :width=>"563", :height => "64", :title => '舟山价格信息简报'),  " "%>
-    </div>
-    <ul class=" b_news" style="height: 420px;">
-      <li class="b_news01" style="width: 565px; height: 210px;">
-        <div class="b_news_d" style="width: 565px;">
-    <div class="b_news_d01 h1"  style="width: 525px;">最新公文</div>
-    <div class="b_news_d02  t4"><%= link_to "更多",
-    ArticleType.find_type('news', 'attr_level4') , :class => "main_menu" %>&gt;&gt;</div>
+      <div class="r_bottom_l">
+        <div class="bottom_pic">
+          <a href=" ">
+            <img alt="Z22-2" height="64" src="/images/z22-2.jpg?1374630107" title="舟山价格信息简报" width="563">
+          </a>
         </div>
-        <ul class="b_news_gs" style="height: 176px;">
-    <% for article in Article.tagged("最新公文").find(:all, :limit => '6') %>
-    <li class="b_news_gst" style=" width: 545px;">
-      <div class="b_news_pic"><%= s_image_tag "z25.jpg", :width => "15", :height => "23" %></div>
-      <div class="b_news_t t5" style="width:" ><%= link_to truncate_u(article.title, 34), article, :class => "or", :target => "_blank", :title => article.title %></div>
-      <div class="b_news_r t5">[<%= to_date(article.addtime) %>]</div>
-    </li>
-    <% end -%>
-        </ul>
-      </li>
-     
-      <li class="b_news01" style="width: 565px;">
-        <div class="b_news_d" style="width: 565px;">
-    <div class="b_news_d01 h1" style="width: 525px;">国有投资建设工程招标控制价、中标价、竣工结算价公示</div>
-    <div class="b_news_d02  t4"><%= link_to "更多", ArticleType.find_type('public_info', 'sjgs_public'), :class => "main_menu" %>&gt;&gt;</div>
-        </div>
-        <ul class="b_news_gs" style="height: 176px;">
-          <% for article in Article.find_articles("public_info","sjgs_public", 6)%>
-    <li class="b_news_gst" style=" width: 545px;">
-      <div class="b_news_pic"><%= s_image_tag "z25.jpg", :width => "15", :height => "23" %></div>
-      <div class="b_news_t t5"><%= link_to truncate_u(article.title, 34), article, :class => "or", :target => "_blank", :title=> article.title %></div>
-      <div class="b_news_r t5">[<%= to_date(article.addtime) %>]</div>
-    </li>
-     <% end %>
-
-        </ul>
-      </li>
-    
-    </ul> 
-  </div>
+        <ul class=" b_news" style="height: 420px;">
+          <li class="b_news01" style="width: 565px; height: 210px;">
+            <div class="b_news_d" style="width: 565px;">
+            <div class="b_news_d01 h1"  style="width: 525px;">最新公文</div>
+            <div class="b_news_d02 t4">
+              <a href="/article_types/{{na-typeid}}" class="main_menu">更多</a>&gt;&gt;
+            </div>
+            </div>
+            <ul class="b_news_gs" style="height: 176px;">
+              {% for article in newest-doc %}
+              <li class="b_news_gst" style=" width: 545px;">
+                <div class="b_news_pic">
+                  <img alt="Z25" height="23" src="/skins/default/images/z25.jpg?1374630107" width="15">
+                </div>
+                <div class="b_news_t t5" style="width:" >
+                  <a href="/articles/{{article.id}}" class="or" target="_blank" title="{{article.title}}">{{article.truncate_title}}</a>
+                </div>
+                <div class="b_news_r t5">{{article.addtime}}</div>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+         
+          <li class="b_news01" style="width: 565px;">
+            <div class="b_news_d" style="width: 565px;">
+            <div class="b_news_d01 h1" style="width: 525px;">国有投资建设工程招标控制价、中标价、竣工结算价公示
+            </div>
+            <div class="b_news_d02 t4">
+              <a href="/article_types/{{ps-typeid}}" class="main_menu">更多</a>&gt;&gt;
+            </div>
+            </div>
+            <ul class="b_news_gs" style="height: 176px;">
+              {% for article in ps-articles %}
+                <li class="b_news_gst" style=" width: 545px;">
+                <div class="b_news_pic">
+                  <img alt="Z25" height="23" src="/skins/default/images/z25.jpg?1374630107" width="15">
+                </div>
+                <div class="b_news_t t5">
+                  <a href="/articles/{{article.id}}" class="or" target="_blank" title="{{article.title}}">{{article.truncate_title}}</a>
+                </div>
+                <div class="b_news_r t5">{{article.addtime}}</div>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+        </ul> 
+      </div>
       </div>
       <!--右侧开始--> 
       <div class="r_bottom_r">

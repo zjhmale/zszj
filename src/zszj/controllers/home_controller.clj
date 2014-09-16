@@ -29,6 +29,14 @@
        (articles/home-article-by-typeid-and-limit
         (article-types/find-typeid-by-key typekey) limit-count)))
 
+(defn truncate-and-dateformat
+  [articles truncate-length]
+  (map (fn [article]
+         (assoc
+             (assoc article :addtime (helper/date-format (:addtime article)))
+           :truncate_title (helper/truncate_u (:title article) truncate-length)))
+       articles))
+
 (defn index
   []
   (let [systemsiteid (links/find-linktypeid-by-subject "建设系统网站")
@@ -39,7 +47,7 @@
                               (assoc software :truncate_title (helper/truncate_u (:title software) 12)))
                             (softwares/home-softwares))
         swf_height (+ focus_height text_height)
-        headlines (articles/find-articles-by-tag "图文公告")
+        headlines (articles/find-articles-by-tag "[图文公告]")
         pics (clojure.string/join
               "|"
               (map (fn [headline]
@@ -66,8 +74,12 @@
                            (get-home-articles-by-typekey "tzgg" 7 10))
         bz-typeid (:id (first (article-types/find-type "bszn" "zjz")))
         pc-typeid (:id (first (article-types/find-type "price_area" "country_stand")))
-        ex-typeid (:id (first (article-types/find-type "exam" "xgwj")))]
-    ;;(println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " build-more-article-type "\njsdt-articles: " jsdt-articles)
+        ex-typeid (:id (first (article-types/find-type "exam" "xgwj")))
+        na-typeid (:id (first (article-types/find-type "news" "attr_level4")))
+        ps-typeid (:id (first (article-types/find-type "public_info" "sjgs_public")))
+        ps-articles (truncate-and-dateformat (articles/find-articles-by-tags "public_info" "sjgs_public" 6) 34)
+        newest-doc (truncate-and-dateformat (articles/find-articles-by-tag "[最新公文]" 6) 34)]
+    (println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " build-more-article-type "\njsdt-articles: " jsdt-articles "\nps-articles: " ps-articles)
     (layout/render "home/index.html"
                    {:banner-notice (banner-notice)
                     :popup-notice (popup-notice)
@@ -86,6 +98,13 @@
                     :jsdt-articles jsdt-articles
                     :announce-more-article-type announce-more-article-type
                     :tzgg-articles tzgg-articles
+                    :bz-typeid bz-typeid
+                    :pc-typeid pc-typeid
+                    :ex-typeid ex-typeid
+                    :na-typeid na-typeid
+                    :ps-typeid ps-typeid
+                    :ps-articles ps-articles
+                    :newest-doc newest-doc
                     ;;for navibar
                     :menus layout/menus
                     :current-root-key "home"})))
