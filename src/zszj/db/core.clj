@@ -7,7 +7,7 @@
 ;;register database connection schema
 (defdb db schema/db-spec)
 
-(declare aricles article_types softwares)
+(declare aricles article_types softwares links link_types)
 
 ;;one-to-many
 (defentity articles
@@ -18,9 +18,11 @@
 
 (defentity softwares)
 
-(defentity link_types)
+(defentity links
+  (belongs-to link_types {:fk :link_type_id}))
 
-(defentity links)
+(defentity link_types
+  (has-many links {:fk :link_type_id}))
 
 (defn article [id]
   (first (select articles

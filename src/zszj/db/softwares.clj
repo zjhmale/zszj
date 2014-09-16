@@ -7,3 +7,9 @@
 
 (def all
   (select* softwares))
+
+(defn home-softwares
+  []
+  (select softwares
+          (order :addtime :desc)
+          (limit 6)))

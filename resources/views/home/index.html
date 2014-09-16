@@ -37,6 +37,242 @@
 </div>
 {% endif %}
 
+<!-- section 2: content -->
+<div class="content" style="height: 816px;">
+  <!-- section 2.1: content.bar_left -->
+  <div class="bar_left">
+    
+    <!--信息搜索-->
+    <div class="search h1">信息搜索</div>
+    {% include "views/layouts/search.html" %}
+    <!--监管系统-->
+    <div class="jianguan_img">
+      <div class="jianguan_img_position">
+      <a href="http://jg.zjzj.net:8080/" target="_blank">
+        <img src="/skins/default/images/jianguan.jpg" width="205" height="75" />
+      </a>
+      </div>
+    </div>
+    
+    <div class="mail">
+      <div class="mail_bg">
+        <div class="mail_pic">
+          <a href="mailto:zhoushan@zjzj.net" ><img src="/skins/default/images/z06.jpg" width="206" height="68" border="0" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!--资质查询-->
+    <div class="search h1">资质查询</div>
+    <div class="chaxun_kuang" style="height: 180px;">
+      <div class="chaxun_bg">
+        <div class="chaxun_pic">
+          <a href="zhongjies">
+            <img alt="舟山造价招标网" border="0" src="/images/z07.jpg?1374630107" title="造价咨询企业">
+          </a>
+        </div>
+        <div class="chaxun_pic">
+          <a href="zhaobiaos">
+            <img alt="舟山造价招标网" border="0" src="/images/z07_1.jpg?1384931439" title="招标代理机构">
+          </a>
+        </div>
+        <div class="chaxun_pic">
+          <a href="zjshis">
+            <img alt="舟山造价招标网" border="0" src="/images/z08.jpg?1374630107" title="造价工程师">
+          </a>
+        </div>
+        <div class="chaxun_pic">
+          <a href="gaisuans">
+            <img alt="舟山造价招标网" border="0" src="/images/z09.jpg?1374630107" title="造价员">
+          </a>
+        </div>
+      </div>
+    </div>
+    <!--资源下载-->
+    <div class="download_bar">
+      <div class="download_bar_l h1">资料下载</div>
+      <div class="download_bar_r t4">
+        <a href="/softwares?software_type=资质管理" class="main_menu">更多</a>
+        &gt;&gt;
+      </div>
+    </div>
+    <div class="xiazai_kuang" style="height: 185px;">
+      <ul class="xiazai_bg">
+        {% for software in home-softwares %}
+          <li class="xiazai_n t3">
+            <img alt="Address-book-new" height="10" src="/qx/icon/Tango/16/actions/address-book-new.png?1374630107" width="10">
+            <a href="/softwares/{{software.id}}" class=" or" target="_blank" title="{{software.title}}">{{software.title}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <!--相关链接-->
+    <div class="xg">
+      <div class="xg_bg">
+        <p>
+          <select class="xg_lj" id="filter_book_type" name="filter[book_type]" onchange="javascript: if(this.selectedIndex!=0) window.open(this.options[this.selectedIndex].value)">
+            <option value="">建站系列网站</option>
+            {% for site in systemsitelinks %}
+              <option value="{{site.link_url}}">{{site.link_name}}</option>
+            {% endfor %}
+          </select>
+        </p>
+        <br />
+        <p>
+          <select class="xg_lj" id="link_to" name="link[to]" onchange="javascript: if(this.selectedIndex!=0) window.open(this.options[this.selectedIndex].value);">
+            <option value="">其它造价网站</option>
+            {% for site in othersitelinks %}
+              <option value="{{site.link_url}}">{{site.link_name}}</option>
+            {% endfor %}
+          </select>
+        </p>
+      </div>
+    </div> 
+    
+  </div>
+  <!--右侧-->
+  <div class="bar_right">
+    <div class="r_top">
+      <!--建设动态-->
+      <div class="jianshe">
+  <div class="jianshe_d">
+    <div class="jianshe_d_l h1">建设动态</div>
+    <div class="jianshe_d_r t4"><%= link_to "更多", ArticleType.find_type('news', 'jsdt'), :class => "main_menu" %>&gt;&gt;</div>
+  </div>
+  <div class="jianshe_n">
+    <div class="jianshe_pic">
+      <%= render :partial => 'headlines' %>  
+    </div>
+    <ul class="jianshe_news">
+      <% ArticleType.find_by_key('jsdt') .articles.find(:all, :limit => 6, :order => 'addtime desc').each do |article| %>
+      <li class="jianshe_news_p"></li>
+      <li class="jianshe_news_t t5">
+        <div class="news_n"><%= link_to truncate_u(article.title, 15), article, :class => " or", :target => "_blank",:title => article.title %></div><div class="news_r">[<%= to_date(article.addtime) %>]</div>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+      </div>
+      <!--通知公示-->
+      <div class="gongshi">
+  <div class="gongshi_d">
+    <div class="gongshi_d_l h1">公告公示</div>
+    <div class="gongshi_d_r t4"><%= link_to "更多", ArticleType.find_type('news', 'tzgg'), :class => "main_menu" %>&gt;&gt;</div>
+  </div>
+  <div class="gongshi_t t5">
+   <% ArticleType.find_by_key('tzgg') .articles.find(:all, :limit => 7, :order => 'addtime desc').each do |article| %> 
+   <% if article.tags.include?"新发布标志"%>
+   <div class="gongshi_long">
+   <div class="gongshi_short">&gt; <%= link_to truncate_u(article.title,10), article, :class => "or", :target => "_blank" , :title=> article.title%></div>
+     <div style="gongshi_img"><%= image_tag  "/images/new.gif"%></div>
+   </div>
+     <% else %>
+  <div class="gongshi_long">&gt; <%= link_to truncate_u(article.title,13), article, :class => "or", :target => "_blank" , :title=> article.title%></div>
+   <% end %>
+   <% end %>
+  </div> 
+      </div> 
+    </div>
+    <!--中间图片--> 
+    <div class="r_bottom" style="height: 586px;">
+      <!--公示新闻--> 
+      <!--中间图片-->
+      <div class="center_part1" style="height: 580px;">
+  <ul>
+      <li class="center_imgs center_imgs_l"><%= link_to image_tag("/images/z16.jpg", :border=>0, :title => '办事指南', :alt => '舟山造价招标网'), ArticleType.find_type('bszn', 'zjz')%></li>
+    <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z17.jpg", :border => 0, :title => '价格信息', :alt => '舟山造价招标网'), :man_markets %></li>
+    <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z18.jpg", :border=> 0, :title => '计价天地', :alt => '舟山造价招标网'), ArticleType.find_type('price_area', 'country_stand')%></li>
+    <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z19.jpg", :border => 0, :title => '考试培训'), ArticleType.find_type('exam', 'xgwj')%></li>
+    <li class="center_imgs center_imgs_c_r"><%= link_to image_tag("/images/z20.jpg", :border => 0, :title => '网上书讯', :alt => '舟山造价招标网'), books_path(:book_type => '省(部)颁定额') %></li>
+  </ul>
+  <div class="r_bottom_l">
+    <div class="bottom_pic"><%= link_to image_tag("/images/z22-2.jpg", :width=>"563", :height => "64", :title => '舟山价格信息简报'),  " "%>
+    </div>
+    <ul class=" b_news" style="height: 420px;">
+      <li class="b_news01" style="width: 565px; height: 210px;">
+        <div class="b_news_d" style="width: 565px;">
+    <div class="b_news_d01 h1"  style="width: 525px;">最新公文</div>
+    <div class="b_news_d02  t4"><%= link_to "更多",
+    ArticleType.find_type('news', 'attr_level4') , :class => "main_menu" %>&gt;&gt;</div>
+        </div>
+        <ul class="b_news_gs" style="height: 176px;">
+    <% for article in Article.tagged("最新公文").find(:all, :limit => '6') %>
+    <li class="b_news_gst" style=" width: 545px;">
+      <div class="b_news_pic"><%= s_image_tag "z25.jpg", :width => "15", :height => "23" %></div>
+      <div class="b_news_t t5" style="width:" ><%= link_to truncate_u(article.title, 34), article, :class => "or", :target => "_blank", :title => article.title %></div>
+      <div class="b_news_r t5">[<%= to_date(article.addtime) %>]</div>
+    </li>
+    <% end -%>
+        </ul>
+      </li>
+     
+      <li class="b_news01" style="width: 565px;">
+        <div class="b_news_d" style="width: 565px;">
+    <div class="b_news_d01 h1" style="width: 525px;">国有投资建设工程招标控制价、中标价、竣工结算价公示</div>
+    <div class="b_news_d02  t4"><%= link_to "更多", ArticleType.find_type('public_info', 'sjgs_public'), :class => "main_menu" %>&gt;&gt;</div>
+        </div>
+        <ul class="b_news_gs" style="height: 176px;">
+          <% for article in Article.find_articles("public_info","sjgs_public", 6)%>
+    <li class="b_news_gst" style=" width: 545px;">
+      <div class="b_news_pic"><%= s_image_tag "z25.jpg", :width => "15", :height => "23" %></div>
+      <div class="b_news_t t5"><%= link_to truncate_u(article.title, 34), article, :class => "or", :target => "_blank", :title=> article.title %></div>
+      <div class="b_news_r t5">[<%= to_date(article.addtime) %>]</div>
+    </li>
+     <% end %>
+
+        </ul>
+      </li>
+    
+    </ul> 
+  </div>
+      </div>
+      <!--右侧开始--> 
+      <div class="r_bottom_r">
+  <!--公示信息-->
+  <div class="gongshi_bg">
+    <div class="geren_pic1"><a href="http://www.zscj.gov.cn/hetong/index.asp" target="_blank"><img src="images/z28.jpg"  alt="舟山造价招标网"/></a></div> 
+    <div class="geren_pic"><%= link_to image_tag("/images/z29.jpg", :border=>0, :title => '造价咨询企业及个人扣分公示', :alt => '舟山造价招标网'),ArticleType.find_type('public_info', 'zjdw')%></div>
+    <div class="geren_pic"><%= link_to image_tag("/images/z30.jpg", :border=>0, :title => '招标代理机构及个人扣分公示', :alt => '舟山造价招标网'), ArticleType.find_type('public_info', 'zbdl')%></div>
+  </div>  
+  <div class="cx_d h1">舟山市主要材料市场价格</div>
+  <!--价格查询-->
+  <div class="cx_n" style="height: 369px;">
+          <div class="cx_biaodan search_form  t2" style="margin-top:0px;height:20px;">
+        <% form_remote_tag  :url => '/materials/mini_search', :method => :get do -%>
+        <p><%= text_field  "selected","publish_at",:value=>to_date(Material.last.publish_at), :class=> "short  date"%>
+          <%= image_submit_tag "z27.jpg",  :class => "cont_search_img" %></p> 
+        <% end %>
+    </div>
+      <div class="cx_wenben" id="mini_material_view">
+      <table width="200"  class="cx">
+        <tr class="t2">
+    <th>名称</th>
+    <th>规格</th>
+    <th>价格</th>
+        </tr>
+        <% Material.find(:all, :limit => 11, :order => 'publish_at desc').each do |material| %>  
+        <tr>
+    <td title="<%= material.name%>"><%= truncate(material.name, :length => 6) %></td>
+    <td title="<%= material.spec%> <%=material.brand%>"><%= truncate(material.spec+' '+material.brand, :length => 10) %></td>
+    <td><%=material.price %></td>
+        </tr>
+        <% end %>
+        <tr>
+    <td class="more"></td>
+    <td class="more"></td>
+    <td class="more"><%=link_to "...更多", materials_path,
+              :class=>"black t2"%></td></tr>
+      </table>
+    </div>
+  </div>
+  <!---->
+  <!-- 放置右侧内容结束-->
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="friendLink">友情链接</div>
 <ul class="friendLink_par">
   <li class="link_pic">
