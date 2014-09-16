@@ -8,7 +8,8 @@
             [zszj.db.articles :as articles]
             [zszj.db.softwares :as softwares]
             [zszj.db.links :as links]
-            [zszj.db.attachments :as attachments]))
+            [zszj.db.attachments :as attachments]
+            [zszj.db.materials :as materials]))
 
 (defn banner-notice []
   (-> "[横向公告]" articles/tagged select first))
@@ -84,8 +85,15 @@
         pzj-typeid (get-first-id (article-types/find-type "public_info" "zjdw"))
         pzb-typeid (get-first-id (article-types/find-type "public_info" "zbdl"))
         ps-articles (truncate-and-dateformat (articles/find-articles-by-tags "public_info" "sjgs_public" 6) 34)
-        newest-doc (truncate-and-dateformat (articles/find-articles-by-tag "[最新公文]" 6) 34)]
-    (println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " build-more-article-type "\njsdt-articles: " jsdt-articles "\nps-articles: " ps-articles)
+        newest-doc (truncate-and-dateformat (articles/find-articles-by-tag "[最新公文]" 6) 34)
+        latest-material-date (helper/date-format-without-brackets
+                              (:publish_at (materials/get-latest-material)))
+        home-materials (map (fn [material]
+                              (assoc
+                                  (assoc material :truncate_name (helper/truncate (:name material) 6))
+                                :truncate_spec_brand (helper/truncate (str (:spec material) " " (:brand material)) 10)))
+                            (materials/get-materials 11))]
+    (println "systemsitelinks: " systemsitelinks "\nothersitelinks: " othersitelinks "\nmore-article-type: " build-more-article-type "\njsdt-articles: " jsdt-articles "\nps-articles: " ps-articles "\nlatest-material-date: " latest-material-date "\nhome-materials: " home-materials)
     (layout/render "home/index.html"
                    {:banner-notice (banner-notice)
                     :popup-notice (popup-notice)
@@ -113,6 +121,8 @@
                     :pzb-typeid pzb-typeid
                     :ps-articles ps-articles
                     :newest-doc newest-doc
+                    :latest-material-date latest-material-date
+                    :home-materials home-materials
                     ;;for navibar
                     :menus layout/menus
                     :current-root-key "home"})))

@@ -297,31 +297,54 @@
       <div class="cx_d h1">舟山市主要材料市场价格</div>
       <!--价格查询-->
       <div class="cx_n" style="height: 369px;">
-              <div class="cx_biaodan search_form  t2" style="margin-top:0px;height:20px;">
-            <% form_remote_tag  :url => '/materials/mini_search', :method => :get do -%>
-            <p><%= text_field  "selected","publish_at",:value=>to_date(Material.last.publish_at), :class=> "short  date"%>
-              <%= image_submit_tag "z27.jpg",  :class => "cont_search_img" %></p> 
-            <% end %>
+        <div class="cx_biaodan search_form t2" style="margin-top:0px;height:20px;">
+          <form action="/materials/mini_search" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/materials/mini_search'}); return false;">
+            <div style="margin:0;padding:0;display:inline">
+              <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
+            </div>
+            <p>
+              <input class="short  date hasDatepicker" id="selected_publish_at" name="selected[publish_at]" size="30" type="text" value="{{latest-material-date}}">
+              <img class="ui-datepicker-trigger" src="/images/calendar.gif" alt="..." title="...">
+              <input class="cont_search_img" src="/images/z27.jpg?1374630107" type="image">
+            </p> 
+          </form>
         </div>
           <div class="cx_wenben" id="mini_material_view">
           <table width="200"  class="cx">
             <tr class="t2">
-        <th>名称</th>
-        <th>规格</th>
-        <th>价格</th>
+              <th>名称</th>
+              <th>规格</th>
+              <th>价格</th>
             </tr>
-            <% Material.find(:all, :limit => 11, :order => 'publish_at desc').each do |material| %>  
+            {% for material in home-materials %}
             <tr>
-        <td title="<%= material.name%>"><%= truncate(material.name, :length => 6) %></td>
-        <td title="<%= material.spec%> <%=material.brand%>"><%= truncate(material.spec+' '+material.brand, :length => 10) %></td>
-        <td><%=material.price %></td>
+              <td title="{{material.name}}">
+                {{material.truncate_name}}
+              </td>
+              <td title="{{material.spec}} {{material.brand}}">
+                {{material.truncate_spec_brand}}
+              </td>
+              <td>
+                {{material.price}}
+              </td>
             </tr>
-            <% end %>
+            {% endfor %}
+            <!--<% Material.find(:all, :limit => 11, :order => 'publish_at desc').each do |material| %>  
             <tr>
-        <td class="more"></td>
-        <td class="more"></td>
-        <td class="more"><%=link_to "...更多", materials_path,
-                  :class=>"black t2"%></td></tr>
+              <td title="<%= material.name%>"><%= truncate(material.name, :length => 6) %></td>
+              <td title="<%= material.spec%> <%=material.brand%>"><%= truncate(material.spec+' '+material.brand, :length => 10) %></td>
+              <td>
+                <%=material.price %>
+              </td>
+            </tr>
+            <% end %>-->
+            <tr>
+              <td class="more"></td>
+              <td class="more"></td>
+              <td class="more">
+                <a href="/materials" class="black t2">...更多</a>
+              </td>
+            </tr>
           </table>
         </div>
       </div>

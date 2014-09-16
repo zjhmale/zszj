@@ -21,3 +21,7 @@
 (defn date-format
   [date]
   (str "[" (format-date "yyyy-MM-dd" date) "] "))
+
+(defn date-format-without-brackets
+  [date]
+  (format-date "yyyy-MM-dd" date))

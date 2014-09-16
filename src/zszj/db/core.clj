@@ -26,6 +26,8 @@
 
 (defentity attachments)
 
+(defentity materials)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))
