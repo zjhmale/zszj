@@ -1,19 +1,23 @@
-# zszj
+## progress
 
-FIXME
-
-## Prerequisites
-
-You will need [Leiningen][1] 1.7.0 or above installed.
-
-[1]: https://github.com/technomancy/leiningen
+* home(_there is a ajax module should be finish after done with materials_)
+* articles
+* article_types
+* materials(_TODO_)
+* softwares(_TODO_)
+* zhongjies(_TODO_)
+* man_markets(_TODO_)
+* books(_TODO_)
+* session_cookie(_TODO_)
 
 ## Running
 
-To start a web server for the application, run:
+```
+lein deps
+lein ring server
+```
 
-    lein ring server
+## fun stuff
 
-## License
-
-Copyright © 2014 FIXME
+* clojurescript
+* jayq
