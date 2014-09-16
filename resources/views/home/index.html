@@ -1,0 +1,39 @@
+{% extends "views/layouts/application.html" %}
+{% block content %}
+<link href="/skins/default/css/home.css" media="screen" rel="stylesheet" type="text/css">
+
+<!-- section 1: 公告 -->
+<div class=" notice t1">
+  <div class="notice_left">公告：</div>
+  <div class="notice_right">
+    <marquee direction="left" scrollamount="3" onMouseOut="this.start()" onMouseOver="this.stop()">
+      {% if banner-notice %}
+      <a class="announce" target="_blank" href="/articles/{{banner-notice.id}}">
+        {{banner-notice.title}}
+      </a>
+      {% endif %}
+   </marquee>
+  </div> 
+</div>
+
+<script type="text/javascript">
+     $(document).ready(function() {
+          $('#notice').dialog({
+                width: 485,           
+                height: 330,
+                modal: false
+     });
+      });
+</script>
+
+{% if popup-notice %}
+<div id="notice" title="" style="display:none;background-color:#FFFFFF;border:solid 1px #c4c4c4; ">
+ <div class="home_notice t6">
+   <center>{{popup-notice.title}}</center>
+</div>  
+ <div class="home_notice t5">
+   {{article.content|safe}}
+ </div>
+</div>
+{% endif %}
+{% endblock %}

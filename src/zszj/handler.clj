@@ -5,7 +5,17 @@
             [ring.middleware.reload :refer (wrap-reload)]
             [zszj.controllers.articles_controller :as articles]
             [zszj.controllers.article_types_controller :as article-types]
-            [zszj.controllers.home_controller :as home]))
+            [zszj.controllers.home_controller :as home]
+            [selmer.parser :as parser]))
+
+(defn init
+  []
+  (println "web site is starting")
+  (parser/cache-off!))
+
+(defn destroy
+  []
+  (println "web site is stopping"))
 
 (defroutes app-routes
   (GET "/" [] (home/index))

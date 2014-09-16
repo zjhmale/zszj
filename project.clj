@@ -25,7 +25,12 @@
           :output-to "resources/public/javascripts/paginator.js"  ; default: target/cljsbuild-main.js
           :optimizations :whitespace
           :pretty-print true}}]}
-  :ring {:handler zszj.handler/app}
+  :ring {:handler zszj.handler/app
+         :stacktraces? true
+         :auto-reload true
+         :auto-refresh? true
+         :init zszj.handler/init
+         :destroy zszj.handler/destroy}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]]}})
