@@ -94,6 +94,15 @@ $(document).ready(function() {
 $('.sticky').cluetip({sticky: false, closePosition: 'title', arrows: true, width:480});
 });
 </script>
-
+<script defer='true'>
+$(document).ready(function(){
+  $('.date').datepicker({dateFormat: 'yy-mm-dd',
+    showOn: 'button', buttonImage: '/images/calendar.gif',
+    buttonImageOnly: true, showButtonPanel:true,
+    changeMonth: true,
+    changeYear: true
+  });
+});
+</script>
 </body>
 </html>

@@ -8,7 +8,7 @@
                  [compojure "1.1.8"]
                  [selmer "0.7.1"]
                  [environ "0.5.0"]
-                 [enlive "1.1.5"]
+                 [cheshire "5.3.1"]
                  [org.clojure/tools.namespace "0.2.5"]
                  [lib-noir "0.8.4"]
                  [org.clojure/clojurescript "0.0-2322"]

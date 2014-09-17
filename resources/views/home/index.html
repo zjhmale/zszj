@@ -303,8 +303,10 @@
               <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
             </div>
             <p>
-              <input class="short  date hasDatepicker" id="selected_publish_at" name="selected[publish_at]" size="30" type="text" value="{{latest-material-date}}">
-              <img class="ui-datepicker-trigger" src="/images/calendar.gif" alt="..." title="...">
+              <input type="text" "30" class="short date" id="selected_publish_at" name="selected[publish_at]" value="{{latest-material-date}}" />
+              <!--<%= text_field  "selected","publish_at",:value=>to_date(Material.last.publish_at), :class=> "short  date"%>-->
+              <!--<input class="short  date hasDatepicker" id="selected_publish_at" name="selected[publish_at]" size="30" type="text" value="{{latest-material-date}}">
+              <img class="ui-datepicker-trigger" src="/images/calendar.gif" alt="..." title="...">-->
               <input class="cont_search_img" src="/images/z27.jpg?1374630107" type="image">
             </p> 
           </form>
