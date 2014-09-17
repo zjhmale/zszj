@@ -16,3 +16,11 @@
   (select materials
           (order :publish_at :desc)
           (limit limit-count)))
+
+;;find materials with publish_at datetime
+(defn get-materials-by-publish
+  [publish limit-count]
+  (select materials
+          (where {:publish_at publish})
+          (order :publish_at :desc)
+          (limit limit-count)))
