@@ -17,6 +17,13 @@
           (order :publish_at :desc)
           (limit limit-count)))
 
+(defn get-materials-with-offset
+  [offset-count limit-count]
+  (select materials
+          (order :publish_at :desc)
+          (limit limit-count)
+          (offset offset-count)))
+
 ;;find materials with publish_at datetime
 (defn get-materials-by-publish
   [publish limit-count]
@@ -45,7 +52,7 @@
             (limit 20))))
 
 (defn get-materials-for-view-with-offset
-  [current-page publish_at name spec]
+  [offset-count publish_at name spec]
   (let [conditions (merge (merge {:publish_at publish_at}
                                  (if (not (empty? name))
                                    {:name name}))
@@ -53,8 +60,9 @@
                             {:spec spec}))]
     (select materials
             (where conditions)
+            (order :publish_at :desc)
             (limit 20)
-            )))
+            (offset offset-count))))
 
 (defn get-materials-count-for-view
   [publish_at name spec]
