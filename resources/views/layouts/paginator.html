@@ -53,7 +53,7 @@
   {% if is-last-page %}
       <span class="disabled next_page">下一页 »</span>
   {% else %}
-      {% if is-last-page %}
+      {% if not-all-empty %}
       <a class="next_page" rel="next" href="{{base-uri}}&page={{current-page-inc}}">下一页 »</a>
       {% else %}
       <a class="next_page" rel="next" href="{{base-uri}}?page={{current-page-inc}}">下一页 »</a>

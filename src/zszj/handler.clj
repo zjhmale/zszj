@@ -31,9 +31,7 @@
        (article-types/render id (do (if @common/is-paginate-for-notallempty
                                       (swap! common/is-paginate-for-notallempty not))
                                     (bigdec (if page page "1")))))
-  (GET "/materials" [& args] (do (if @common/is-paginate-for-notallempty
-                                   (swap! common/is-paginate-for-notallempty not))
-                                 (materials/index args)))
+  (GET "/materials" [& args] (materials/index args))
   (GET "/materials/search" [& ajaxargs] (do (if (not @common/is-paginate-for-notallempty)
                                               (swap! common/is-paginate-for-notallempty not))
                                             (materials/search ajaxargs)))

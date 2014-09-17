@@ -12,7 +12,7 @@
 
 (defn index
   [& args]
-  (println args)
+  ;;(println args)
   (let [param (nth args 0)
         publish_at (-> param :selected :publish_at)
         name (-> param :selected :name)
@@ -34,14 +34,16 @@
                     (materials/get-materials-for-view-with-offset query-offset publish_at name spec)
                     (materials/get-materials-with-offset query-offset 20))
         materials-view (map (fn [material]
-                         (let [mat-index (inc (.indexOf materials material))
-                               odd-even (if (odd? mat-index)
-                                          "odd"
-                                          "even")]
-                           (assoc (assoc material :odd-even odd-even) :mat-index mat-index)))
-                       materials)]
+                              (let [mat-index (+ (int query-offset)
+                                                 (inc (.indexOf materials material)))
+                                    odd-even (if (odd? mat-index)
+                                               "odd"
+                                               "even")]
+                                (assoc (assoc material :odd-even odd-even) :mat-index mat-index)))
+                            materials)]
     ;;(println "names: " material-names "\nspecs: " material-specs)
-    (println "current-page: " current-page "\nall-empty?: " (and (empty? publish_at) (empty? name) (empty? spec)))
+    ;;(println "current-page: " current-page "\nall-empty?: " (and (empty? publish_at) (empty? name) (empty? spec)) "\nquery-offset: " query-offset)
+    ;;(println "is-paginate-for-allnotempty: " @common/is-paginate-for-notallempty)
     (layout/render "materials/index.html"
                    (common/common-manipulate (merge {:material-names material-names
                                                      :material-specs material-specs
@@ -143,4 +145,3 @@
 (defn datepicker
   []
   (layout/render "materials/datepicker.html" {}))
-
