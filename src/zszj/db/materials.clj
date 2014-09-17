@@ -43,7 +43,8 @@
             (where conditions)
             (limit 20))))
 
-(defn get-materials-without-limit
+(defn get-materials-count
   []
-  (select materials
-          (order :publish_at :desc)))
+  (sql-count
+   (select materials
+           (order :publish_at :desc))))

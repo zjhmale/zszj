@@ -6,12 +6,20 @@
             [zszj.db.materials :as materials]
             [zszj.controllers.common :as common]))
 
+(def ^:dynamic *PER-PAGE* 20)
+
+(def PER-PAGE 20)
+
 (defn index
-  []
-  (let [material-names (materials/get-material-field :name)
+  [& args]
+  (println args)
+  (let [current-page (:page (nth args 0))
+        current-page (bigdec (if current-page current-page "1"))
+        material-names (materials/get-material-field :name)
         material-specs (materials/get-material-field :spec)
         latest-material-date (helper/date-format-without-brackets
                               (:publish_at (materials/get-latest-material)))
+        num-materials (materials/get-materials-count)
         materials (materials/get-materials 20)
         materials-view (map (fn [material]
                          (let [mat-index (inc (.indexOf materials material))
@@ -21,11 +29,18 @@
                            (assoc (assoc material :odd-even odd-even) :mat-index mat-index)))
                        materials)]
     ;;(println "names: " material-names "\nspecs: " material-specs)
+    (println "current-page: " current-page)
     (layout/render "materials/index.html"
-                   (common/common-manipulate {:material-names material-names
-                                              :material-specs material-specs
-                                              :latest-material-date latest-material-date
-                                              :materials materials-view} "jgxx"))))
+                   (common/common-manipulate (merge {:material-names material-names
+                                                     :material-specs material-specs
+                                                     :latest-material-date latest-material-date
+                                                     :materials materials-view
+                                                     ;;for paginator
+                                                     :current-page current-page
+                                                     :current-page-dec (dec current-page)
+                                                     :current-page-inc (inc current-page)
+                                                     :num-articles num-materials}
+                                                    (common/paginator num-materials PER-PAGE current-page "/materials")) "jgxx"))))
 
 (defn- mini_view
   [publish_at]

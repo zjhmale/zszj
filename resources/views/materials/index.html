@@ -63,9 +63,11 @@
     <div class="view">
       <div id="view">
         {% include "views/materials/view.html" %}
+        {% include "views/layouts/paginator.html" %}
       </div>
     </div>
   </div>
 </div>
 </div>
+{% script "/javascripts/paginator.js" %}
 {% endblock %}

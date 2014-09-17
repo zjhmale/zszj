@@ -23,7 +23,7 @@
   (GET "/articles/:id" [id] (articles/render id))
   (GET "/article_types/:id" [id page]
        (article-types/render id (bigdec (if page page "1"))))
-  (GET "/materials" [] (materials/index))
+  (GET "/materials" [& args] (materials/index args))
   (GET "/materials/search" [& ajaxargs] (materials/search ajaxargs))
   (GET "/materials/mini_search" [& ajaxargs] (materials/mini_search ajaxargs))
   ;;a demo for jquery ui datepicker
