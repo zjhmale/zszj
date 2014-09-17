@@ -8,32 +8,56 @@
         « 上一页
       </span>
   {% else %}
+      {% if not-all-empty %}
+      <a class="prev_page" rel="prev start" href="{{base-uri}}&page={{current-page-dec}}">
+      {% else %}
       <a class="prev_page" rel="prev start" href="{{base-uri}}?page={{current-page-dec}}">
+      {% endif %}
         « 上一页
       </a>
   {% endif %}
   <span> </span>
   {% for link in head-links %}
+      {% if not-all-empty %}
+      <a href="{{base-uri}}&page={{link}}">{{link}}</a>
+      {% else %}
       <a href="{{base-uri}}?page={{link}}">{{link}}</a>
+      {% endif %}
       <span> </span>
   {% endfor %}
   {% for link in from-current-links %}
+      {% if not-all-empty %}
+      <a href="{{base-uri}}&page={{link}}">{{link}}</a>
+      {% else %}
       <a href="{{base-uri}}?page={{link}}">{{link}}</a>
+      {% endif %}
       <span> </span>
   {% endfor %}
   <span class="current">{{current-page}} </span>
   {% for link in current-to-links %}
+      {% if not-all-empty %}
+      <a href="{{base-uri}}&page={{link}}">{{link}}</a>
+      {% else %}
       <a href="{{base-uri}}?page={{link}}">{{link}}</a>
+      {% endif %}
       <span> </span>
   {% endfor %}
   {% for link in tail-links %}
+      {% if not-all-empty %}
+      <a href="{{base-uri}}&page={{link}}">{{link}}</a>
+      {% else %}
       <a href="{{base-uri}}?page={{link}}">{{link}}</a>
+      {% endif %}
       <span> </span>
   {% endfor %}
   {% if is-last-page %}
       <span class="disabled next_page">下一页 »</span>
   {% else %}
+      {% if is-last-page %}
+      <a class="next_page" rel="next" href="{{base-uri}}&page={{current-page-inc}}">下一页 »</a>
+      {% else %}
       <a class="next_page" rel="next" href="{{base-uri}}?page={{current-page-inc}}">下一页 »</a>
+      {% endif %}
   {% endif %}
 </div>
 </div>

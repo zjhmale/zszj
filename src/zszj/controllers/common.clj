@@ -54,31 +54,63 @@
       add-datetime))
 
 (defn paginator
-  [num-entry perpage curr-page base-uri]
-  (let [num-pages (-> (/ num-entry perpage) int inc)
-        links-from (- curr-page NUM-PREV-LINKS)
-        links-from (if (< links-from 1)
-                   1
-                   links-from)
-        links-to (+ curr-page NUM-POST-LINKS)
-        links-to (if (> links-to num-pages) num-pages
-                   links-to)
-        head-links (range 1 (inc (min (- links-from 1)
-                                      NUM-HEAD-LINKS)))
-        tail-links (range (max (- num-pages NUM-TAIL-LINKS)
-                               (+ links-to 1)) num-pages)
-        from-current-links (range links-from curr-page)
-        current-to-links (range (inc curr-page) (inc links-to))]
-    ;;(println "head-links: " head-links "\ntail-links: " tail-links "\nfrom-current-links: " from-current-links "\ncurrent-to-links: " current-to-links "\nis-last-page?: " (>= curr-page num-pages))
-    {:base-uri base-uri
-     :from (inc (* (dec curr-page) perpage))
-     :to (min (* curr-page perpage) num-entry)
-     :links-from links-from
-     :links-to links-to
-     :is-last-page (>= curr-page num-pages)
-     :head-links (range 1 (inc (min (- links-from 1)
-                                    NUM-HEAD-LINKS)))
-     :tail-links (range (max (- num-pages NUM-TAIL-LINKS)
-                             (+ links-to 1)) num-pages)
-     :from-current-links (range links-from curr-page)
-     :current-to-links (range (inc curr-page) (inc links-to))}))
+  ([num-entry perpage curr-page base-uri]
+     (let [num-pages (-> (/ num-entry perpage) int inc)
+           links-from (- curr-page NUM-PREV-LINKS)
+           links-from (if (< links-from 1)
+                        1
+                        links-from)
+           links-to (+ curr-page NUM-POST-LINKS)
+           links-to (if (> links-to num-pages) num-pages
+                        links-to)
+           head-links (range 1 (inc (min (- links-from 1)
+                                         NUM-HEAD-LINKS)))
+           tail-links (range (max (- num-pages NUM-TAIL-LINKS)
+                                  (+ links-to 1)) num-pages)
+           from-current-links (range links-from curr-page)
+           current-to-links (range (inc curr-page) (inc links-to))]
+       ;;(println "head-links: " head-links "\ntail-links: " tail-links "\nfrom-current-links: " from-current-links "\ncurrent-to-links: " current-to-links "\nis-last-page?: " (>= curr-page num-pages))
+       {:base-uri base-uri
+        :from (inc (* (dec curr-page) perpage))
+        :to (min (* curr-page perpage) num-entry)
+        :links-from links-from
+        :links-to links-to
+        :is-last-page (>= curr-page num-pages)
+        :head-links (range 1 (inc (min (- links-from 1)
+                                       NUM-HEAD-LINKS)))
+        :tail-links (range (max (- num-pages NUM-TAIL-LINKS)
+                                (+ links-to 1)) num-pages)
+        :from-current-links (range links-from curr-page)
+        :current-to-links (range (inc curr-page) (inc links-to))}))
+  ([num-entry perpage curr-page base-uri notallempty]
+     (let [num-pages (-> (/ num-entry perpage) int inc)
+           links-from (- curr-page NUM-PREV-LINKS)
+           links-from (if (< links-from 1)
+                        1
+                        links-from)
+           links-to (+ curr-page NUM-POST-LINKS)
+           links-to (if (> links-to num-pages) num-pages
+                        links-to)
+           head-links (range 1 (inc (min (- links-from 1)
+                                         NUM-HEAD-LINKS)))
+           tail-links (range (max (- num-pages NUM-TAIL-LINKS)
+                                  (+ links-to 1)) num-pages)
+           from-current-links (range links-from curr-page)
+           current-to-links (range (inc curr-page) (inc links-to))]
+       ;;(println "head-links: " head-links "\ntail-links: " tail-links "\nfrom-current-links: " from-current-links "\ncurrent-to-links: " current-to-links "\nis-last-page?: " (>= curr-page num-pages))
+       {:base-uri base-uri
+        :from (inc (* (dec curr-page) perpage))
+        :to (min (* curr-page perpage) num-entry)
+        :links-from links-from
+        :links-to links-to
+        :is-last-page (>= curr-page num-pages)
+        :head-links (range 1 (inc (min (- links-from 1)
+                                       NUM-HEAD-LINKS)))
+        :tail-links (range (max (- num-pages NUM-TAIL-LINKS)
+                                (+ links-to 1)) num-pages)
+        :from-current-links (range links-from curr-page)
+        :current-to-links (range (inc curr-page) (inc links-to))
+        :not-all-empty true})))
+
+;;for the first time do the ajax job and then use the paginator for not-all-empty state
+(def is-paginate-for-notallempty (atom false))

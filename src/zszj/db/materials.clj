@@ -41,7 +41,20 @@
                             {:spec spec}))]
     (select materials
             (where conditions)
+            (order :publish_at :desc)
             (limit 20))))
+
+(defn get-materials-for-view-with-offset
+  [current-page publish_at name spec]
+  (let [conditions (merge (merge {:publish_at publish_at}
+                                 (if (not (empty? name))
+                                   {:name name}))
+                          (if (not (empty? spec))
+                            {:spec spec}))]
+    (select materials
+            (where conditions)
+            (limit 20)
+            )))
 
 (defn get-materials-count-for-view
   [publish_at name spec]
@@ -51,8 +64,7 @@
                           (if (not (empty? spec))
                             {:spec spec}))]
     (sql-count (select materials
-                       (where conditions)
-                       (limit 20)))))
+                       (where conditions)))))
 
 (defn get-materials-count
   []

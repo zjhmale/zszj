@@ -13,14 +13,25 @@
 (defn index
   [& args]
   (println args)
-  (let [current-page (:page (nth args 0))
+  (let [param (nth args 0)
+        publish_at (-> param :selected :publish_at)
+        name (-> param :selected :name)
+        spec (-> param :selected :spec)
+        current-page (-> param :page)
         current-page (bigdec (if current-page current-page "1"))
         material-names (materials/get-material-field :name)
         material-specs (materials/get-material-field :spec)
         latest-material-date (helper/date-format-without-brackets
                               (:publish_at (materials/get-latest-material)))
-        num-materials (materials/get-materials-count)
-        materials (materials/get-materials 20)
+        is-all-empty (and (empty? publish_at)
+                          (empty? name)
+                          (empty? spec))
+        num-materials (if (not is-all-empty)
+                        (materials/get-materials-count-for-view publish_at name spec)
+                        (materials/get-materials-count))
+        materials (if (not is-all-empty)
+                    (materials/get-materials-for-view publish_at name spec)
+                    (materials/get-materials 20))
         materials-view (map (fn [material]
                          (let [mat-index (inc (.indexOf materials material))
                                odd-even (if (odd? mat-index)
@@ -29,7 +40,7 @@
                            (assoc (assoc material :odd-even odd-even) :mat-index mat-index)))
                        materials)]
     ;;(println "names: " material-names "\nspecs: " material-specs)
-    (println "current-page: " current-page)
+    (println "current-page: " current-page "\nall-empty?: " (and (empty? publish_at) (empty? name) (empty? spec)))
     (layout/render "materials/index.html"
                    (common/common-manipulate (merge {:material-names material-names
                                                      :material-specs material-specs
@@ -40,7 +51,10 @@
                                                      :current-page-dec (dec current-page)
                                                      :current-page-inc (inc current-page)
                                                      :num-articles num-materials}
-                                                    (common/paginator num-materials PER-PAGE current-page "/materials")) "jgxx"))))
+                                                    (if (or (not is-all-empty) @common/is-paginate-for-notallempty)
+                                                      (let [base-uri (str "materials?_=1410958445083&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&selected[name]=" name "&selected[publish_at]=" publish_at "&selected[spec]=" spec "")]
+                                                        (common/paginator num-materials PER-PAGE current-page base-uri "notallempty"))
+                                                      (common/paginator num-materials PER-PAGE current-page "/materials"))) "jgxx"))))
 
 (defn- mini_view
   [publish_at]
@@ -77,6 +91,11 @@
 (def NUM-PREV-LINKS 4)
 (def NUM-POST-LINKS 4)
 
+(defn- generate-html
+  [collections base-uri]
+  (reduce (fn [html link]
+            (str html "<a href=\\\"" base-uri "&page=" link "\\\">" link "</a><span> </span>")) "" collections))
+
 (defn- paginator
   [current-page publish_at name spec]
   (let [num-materials (materials/get-materials-count-for-view publish_at name spec)
@@ -100,15 +119,11 @@
         from (inc (* (dec current-page) PER-PAGE))
         to (min (* current-page PER-PAGE) num-materials)
         is-last-page (>= current-page num-pages)
-        head-links-html (reduce (fn [html link]
-                                  (str html "<a href=\\\"" base-uri "?page=" link "\\\">" link "</a><span> </span>")) "" head-links)
-        from-current-links-html (reduce (fn [html link]
-                                          (str html "<a href=\\\"" base-uri "?page=" link "\\\">" link "</a><span> </span>")) "" from-current-links)
-        current-to-links-html (reduce (fn [html link]
-                                        (str html "<a href=\\\"" base-uri "?page=" link "\\\">" link "</a><span> </span>")) "" current-to-links)
-        tail-links-html (reduce (fn [html link]
-                                  (str html "<a href=\\\"" base-uri "?page=" link "\\\">" link "</a><span> </span>")) "" tail-links)]
-    (str "<div class=\\\"paginate\\\">显示<b>" from " - " to ", 共 " num-materials " 条记录</b><span> </span><div class=\\\"pagination\\\">" (if (< current-page 2) (str "<span class=\\\"prev_page\\\">« 上一页</span>") (str "<a class=\\\"prev_page\\\" rel=\\\"prev start\\\" href=\\\"" base-uri "?page=" current-page-dec "\\\">« 上一页</a>")) "<span> </span>" head-links-html from-current-links-html "<span class=\\\"current\\\">" current-page "</span>" current-to-links-html tail-links-html (if is-last-page (str "<span class=\\\"disabled next_page\\\">下一页 »</span>") (str "<a class=\\\"next_page\\\" rel=\\\"next\\\" href=\\\"" base-uri "?page=" current-page-inc "\\\">下一页 »</a>")) "</div></div>")))
+        head-links-html (generate-html head-links base-uri)
+        from-current-links-html (generate-html from-current-links base-uri)
+        current-to-links-html (generate-html current-to-links base-uri)
+        tail-links-html (generate-html tail-links base-uri)]
+    (str "<div class=\\\"paginate\\\">显示<b>" from " - " to ", 共 " num-materials " 条记录</b><span> </span><div class=\\\"pagination\\\">" (if (< current-page 2) (str "<span class=\\\"prev_page\\\">« 上一页</span>") (str "<a class=\\\"prev_page\\\" rel=\\\"prev start\\\" href=\\\"" base-uri "&page=" current-page-dec "\\\">« 上一页</a>")) "<span> </span>" head-links-html from-current-links-html "<span class=\\\"current\\\">" current-page "</span>" current-to-links-html tail-links-html (if is-last-page (str "<span class=\\\"disabled next_page\\\">下一页 »</span>") (str "<a class=\\\"next_page\\\" rel=\\\"next\\\" href=\\\"" base-uri "&page=" current-page-inc "\\\">下一页 »</a>")) "</div></div>")))
 
 (defn search
   [& ajaxargs]
@@ -127,7 +142,4 @@
 (defn datepicker
   []
   (layout/render "materials/datepicker.html" {}))
-
-
-
 
