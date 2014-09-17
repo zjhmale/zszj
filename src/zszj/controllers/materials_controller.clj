@@ -2,11 +2,20 @@
   (:require [cheshire.core :as ches]
             [zszj.views.layout :as layout]
             [zszj.views.helper :as helper]
-            [zszj.db.materials :as materials]))
+            [zszj.db.materials :as materials]
+            [zszj.controllers.common :as common]))
 
 (defn index
   []
-  "cleantha")
+  (let [material-names (materials/get-material-field :name)
+        material-specs (materials/get-material-field :spec)
+        latest-material-date (helper/date-format-without-brackets
+                              (:publish_at (materials/get-latest-material)))]
+    ;;(println "names: " material-names "\nspecs: " material-specs)
+    (layout/render "materials/index.html"
+                   (common/common-manipulate {:material-names material-names
+                                              :material-specs material-specs
+                                              :latest-material-date latest-material-date} "jgxx"))))
 
 (defn- mini_view
   [publish_at]
@@ -27,9 +36,27 @@
     (str "jQuery(\"#mini_material_view\").html(" (mini_view publish_at) ");\n"
          "jQuery(\"#mini_material_view\").visualEffect(\"slide_down\");")))
 
+(defn- view
+  [publish_at name spec]
+  )
+
+(defn search
+  [& ajaxargs]
+  (let [param (nth ajaxargs 0)
+        publish_at (-> param :selected :publish_at)
+        name (-> param :selected :name)
+        spec (-> param :selected :spec)
+        materials (materials/get-materials-for-view publish_at name spec)]
+    (println "publish_at: " publish_at "\nname: " name "\nspec: " spec)
+    (str "jQuery(\"#view\").html(" "\"cleantha\"" ");\n"
+         "jQuery(\"#view\").visualEffect(\"slide_down\");")))
+
 ;;just show how to use with jquery datepicker
 (defn datepicker
   []
   (layout/render "materials/datepicker.html" {}))
+
+
+
 
 

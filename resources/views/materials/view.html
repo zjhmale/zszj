@@ -1,0 +1,29 @@
+<div class="price_title">舟山市主要材料市场价格</div>
+<table width="710" height="25" class="tableview" >
+  <tr>
+    <th>序号</th>
+    <th>材料代码</th>
+    <th>材料名称</th>      
+    <th>规格型号</th>
+    <th>单 位</th>
+    <th>品 牌</th>      
+    <th>价 格</th>
+    <th>日期</th>
+  </tr>
+  <% for article in @articles%>
+  <tr onMouseOver="this.bgColor='#cbeceb';" 
+      onmouseout="this.bgColor='#FFFFFF';" bgcolor="#ffffff";
+      bordercolor="#CCCCCC"
+      class="<%= cycle("odd", "even") %>">
+    <td width="40" class="info"><%= @articles.index(article) + @articles.offset + 1 %></td>
+    <td width="90" class="info"><%= article.code %></td>
+    <td width="160" class="subject"><%= article.name %></td>
+    <td width="160"  class="info"><%= article.spec %></td>
+    <td width="90" class="info"><%= article.unit %></td>
+    <td width="120" class="info"><%= article.brand %></td>
+    <td width="100"  class="info"><%= article.price %></td>
+    <td width="120"  class="info"><%= to_date(article.publish_at) %></td>
+  </tr>
+  <% end %>	
+</table>
+<div class="paginate"><%= page_entries_info(@articles) %><%= will_paginate @articles %></div>

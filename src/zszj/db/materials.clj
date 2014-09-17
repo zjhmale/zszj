@@ -24,3 +24,19 @@
           (where {:publish_at publish})
           (order :publish_at :desc)
           (limit limit-count)))
+
+(defn get-material-field
+  [fieldname]
+  (vec (set
+        (map fieldname
+             (select materials
+                     (fields fieldname))))))
+
+(defn get-materials-for-view
+  [publish_at name spec]
+  (select materials
+          (where (merge (merge {:publish_at publish_at}
+                               (if name
+                                 {:name name}))
+                        (if spec
+                          {:spec name})))))

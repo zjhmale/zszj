@@ -1,0 +1,71 @@
+{% extends "views/layouts/application.html" %}
+{% block content %}
+<div class="danqianweizhi"> 
+  <div class=" erji_name h1">价格信息</div> 
+  <div class=" erji_wz t5">当前位置：
+    <a href="/man_markets" class="or">价格信息</a>&gt;
+    <a href="/equipments" class="or">机械价格信息</a>
+  </div> 
+</div>
+<div id="spin" style="display:none;">Spin Message</div>
+<div class="erji_content">
+  {% include "views/man_markets/navigator.html" %}
+  <div class="erji_right">
+    <div class="h3 search_form price_search">
+      <form action="/materials/search" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/materials/search'}); return false;">
+        <div style="margin:0;padding:0;display:inline">
+          <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
+        </div>
+        <p>日期选择:
+          <input type="text" "30" class="short date" id="selected_publish_at" name="selected[publish_at]" value="{{latest-material-date}}" />
+          <!--<input class="short  date gray hasDatepicker" id="selected_publish_at" name="selected[publish_at]" size="30" type="text" value="2014-09-10">
+          <img class="ui-datepicker-trigger" src="/images/calendar.gif" alt="..." title="...">-->
+          <input class="cont_search_img" src="/images/z05.jpg?1374630107" type="image">
+        </p>
+        <p>材料名称: 
+          <select id="selected_name" name="selected[name]">
+          <option value="">-请选择-</option>
+          {% for name in material-names %}
+          <option value="{{name}}">{{name}}</option>
+          {% endfor %}
+        </select>
+        </p>
+        <p>
+        <script type="text/javascript">
+        //<![CDATA[
+        jQuery('#selected_name').delayedObserver(0.5, function(element, value) {jQuery.ajax({data:'material_name=' + encodeURIComponent(value) + '&authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), success:function(request){jQuery('#spec_selector').html(request);}, type:'post', url:'/materials/specs_selector'})})
+        //]]>
+        </script>
+        </p>
+        <div id="spec_selector">型号规格:
+          <select class="select_medium" id="selected_spec" name="selected[spec]">
+            <option value="">-请选择-</option>
+            {% for spec in material-specs %}
+            <option value="{{spec}}">{{spec}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </form>
+      <!--<% form_remote_tag  :url => '/materials', :method => :get do -%>
+      <p>日期选择:<%= text_field "selected","publish_at",:value=>to_date(Material.last.publish_at),:class=> "short  date gray"%>
+        <%= image_submit_tag "z05.jpg", :class => "cont_search_img" %>
+      </p>
+      <p>材料名称: <%= select "selected", "name",Material.names.collect {|n| [n.name]},   {:include_blank=> "-请选择-"} %>
+      </p>
+
+      <%= observe_field :selected_name, :frequency => 0.5, :update => "spec_selector", 
+      :url => '/materials/specs_selector', :with => "'material_name=' + encodeURIComponent(value)" %>
+      <div id="spec_selector">型号规格: <%= select "selected", "spec",
+      Material.specs.collect {|s| [s.spec]},   {:include_blank=>"-请选择-"}, :class=>'select_medium' %>
+      </div>
+      <% end -%>-->
+    </div> 
+    <div class="view">
+      <div id="view">
+        <%= render :partial => 'view' %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

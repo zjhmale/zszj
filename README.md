@@ -8,6 +8,7 @@
 * zhongjies(_TODO_)
 * man_markets(_TODO_)
 * books(_TODO_)
+* equipments(_TODO_)
 * session_cookie(_TODO_)
 
 ## Running
