@@ -1,5 +1,6 @@
 (ns zszj.controllers.materials_controller
   (:require [cheshire.core :as ches]
+            [selmer.parser :as parser]
             [zszj.views.layout :as layout]
             [zszj.views.helper :as helper]
             [zszj.db.materials :as materials]
@@ -10,12 +11,21 @@
   (let [material-names (materials/get-material-field :name)
         material-specs (materials/get-material-field :spec)
         latest-material-date (helper/date-format-without-brackets
-                              (:publish_at (materials/get-latest-material)))]
+                              (:publish_at (materials/get-latest-material)))
+        materials (materials/get-materials 20)
+        materials-view (map (fn [material]
+                         (let [mat-index (inc (.indexOf materials material))
+                               odd-even (if (odd? mat-index)
+                                          "odd"
+                                          "even")]
+                           (assoc (assoc material :odd-even odd-even) :mat-index mat-index)))
+                       materials)]
     ;;(println "names: " material-names "\nspecs: " material-specs)
     (layout/render "materials/index.html"
                    (common/common-manipulate {:material-names material-names
                                               :material-specs material-specs
-                                              :latest-material-date latest-material-date} "jgxx"))))
+                                              :latest-material-date latest-material-date
+                                              :materials materials-view} "jgxx"))))
 
 (defn- mini_view
   [publish_at]
@@ -36,9 +46,16 @@
     (str "jQuery(\"#mini_material_view\").html(" (mini_view publish_at) ");\n"
          "jQuery(\"#mini_material_view\").visualEffect(\"slide_down\");")))
 
-(defn- view
+(defn- main-view
   [publish_at name spec]
-  )
+  (let [materials (materials/get-materials-for-view publish_at name spec)
+        material-table (reduce (fn [html material]
+                                 (let [mat-index (inc (.indexOf materials material))
+                                       isodd? (odd? mat-index)]
+                                   (str html "<tr onMouseOver=\\\"this.bgColor='#cbeceb'\\\" onmouseout=\\\"this.bgColor='#FFFFFF'\\\" bgcolor=\\\"#ffffff\\\"bordercolor=\\\"#CCCCCC\\\"class=\\\"" (if isodd? "odd" "even") "\\\"><td width=\\\"40\\\" class=\\\"info\\\">" mat-index  "</td><td width=\\\"90\\\" class=\\\"info\\\">" (:code material) "</td><td width=\\\"160\\\" class=\\\"subject\\\">" (:name material) "</td><td width=\\\"160\\\"  class=\\\"info\\\">" (:spec material) "</td><td width=\\\"90\\\" class=\\\"info\\\">" (:unit material) "</td><td width=\\\"120\\\" class=\\\"info\\\">" (:brand material) "</td><td width=\\\"100\\\"  class=\\\"info\\\">" (:price material) "</td><td width=\\\"120\\\"  class=\\\"info\\\">" (:publish_at material) "</td></tr>"))) "" materials)]
+    ;;(println "publish_at: " publish_at "\nname: " name "\nspec: " spec "\nmaterials: " materials)
+    ;;(println "table: " material-table)
+    (str "<div class=\\\"price_title\\\">舟山市主要材料市场价格</div><table width=\\\"710\\\" height=\\\"25\\\" class=\\\"tableview\\\"><tr><th>序号</th><th>材料代码</th><th>材料名称</th><th>规格型号</th><th>单 位</th><th>品 牌</th><th>价 格</th><th>日期</th></tr>" material-table "</table>")))
 
 (defn search
   [& ajaxargs]
@@ -46,16 +63,14 @@
         publish_at (-> param :selected :publish_at)
         name (-> param :selected :name)
         spec (-> param :selected :spec)
-        materials (materials/get-materials-for-view publish_at name spec)]
-    (println "publish_at: " publish_at "\nname: " name "\nspec: " spec)
-    (str "jQuery(\"#view\").html(" "\"cleantha\"" ");\n"
+        main-view (main-view publish_at name spec)]
+    (str "jQuery(\"#view\").html(\"" main-view "\");\n"
          "jQuery(\"#view\").visualEffect(\"slide_down\");")))
 
 ;;just show how to use with jquery datepicker
 (defn datepicker
   []
   (layout/render "materials/datepicker.html" {}))
-
 
 
 

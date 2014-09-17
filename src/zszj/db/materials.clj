@@ -34,9 +34,16 @@
 
 (defn get-materials-for-view
   [publish_at name spec]
+  (let [conditions (merge (merge {:publish_at publish_at}
+                                 (if (not (empty? name))
+                                   {:name name}))
+                          (if (not (empty? spec))
+                            {:spec spec}))]
+    (select materials
+            (where conditions)
+            (limit 20))))
+
+(defn get-materials-without-limit
+  []
   (select materials
-          (where (merge (merge {:publish_at publish_at}
-                               (if name
-                                 {:name name}))
-                        (if spec
-                          {:spec name})))))
+          (order :publish_at :desc)))
