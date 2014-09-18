@@ -39,7 +39,8 @@
   (GET "/materials/mini_search" [& ajaxargs] (do (if @common/is-paginate-for-notallempty
                                                    (swap! common/is-paginate-for-notallempty not))
                                                  (materials/mini_search ajaxargs)))
-  (GET "/man_markets" [& ajaxargs] (man_markets/index ajaxargs))
+  (GET "/man_markets" [] (man_markets/index))
+  (GET "/man_markets/search" [& ajaxargs] (man_markets/search ajaxargs))
   ;;a demo for jquery ui datepicker
   (GET "/datepicker" [] (materials/datepicker))
   (route/resources "/")

@@ -13,7 +13,7 @@
   {% include "views/man_markets/navigator.html" %}
   <div class="erji_right">
     <div class="search_condition h3">
-	    <form action="/man_markets" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/man_markets'}); return false;">
+	    <form action="/man_markets/search" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/man_markets/search'}); return false;">
           <div style="margin:0;padding:0;display:inline">
             <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
           </div>
@@ -25,7 +25,7 @@
  	    </form>
     </div>
     <div id="view" class="view">
-      <!--<%= render :partial => 'view' %>-->
+      {% include "views/man_markets/view.html" %}
     </div>
   </div>
 </div>
