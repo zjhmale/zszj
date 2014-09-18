@@ -4,16 +4,6 @@
             [zszj.db.man_markets :as man_markets]
             [selmer.parser :as parser]))
 
-(defn assoc-index-oddeven
-  [collections]
-  (map (fn [item]
-         (let [item-index (inc (.indexOf (vec collections) item))
-               odd-even (if (odd? item-index)
-                          "odd"
-                          "even")]
-           (assoc (assoc item :odd-even odd-even) :item-index item-index)))
-       collections))
-
 (defn index
   []
   (let [all-year-seasons (common/sort-year-and-season (man_markets/get-year-season))
@@ -23,13 +13,15 @@
         items (man_markets/find-all-by-year-and-season year season)
         items-for2010-raw (man_markets/find-all-by-year-and-season-and-version year season "2010")
         items (clojure.set/difference items items-for2010-raw)
-        items-for2010 (assoc-index-oddeven items-for2010-raw)
-        items (assoc-index-oddeven items)
+        items-for2010 (common/assoc-index-oddeven items-for2010-raw)
+        items (common/assoc-index-oddeven items)
         is-show-price-title (and (= "2011" year) (= "3" season))
         is-show-remark-5 (or (= "2012" year) (and (= "2011" year) (= "4" season)))]
     ;;(println "all-year-seasons: " all-year-seasons "\nlatest-year-season: " latest-year-season "\nitems: " items "\nitems-for2010: " items-for2010 "\nyear class: " (class year) "\nseason class: " (class season))
     (layout/render "man_markets/index.html"
                    (common/common-manipulate {:all-year-seasons all-year-seasons
+                                              :year year
+                                              :season season
                                               :items items
                                               :items-for2010 items-for2010
                                               :is-show-remark-5 is-show-remark-5
@@ -83,8 +75,8 @@
         items (man_markets/find-all-by-year-and-season year season)
         items-for2010 (man_markets/find-all-by-year-and-season-and-version year season "2010")
         items (clojure.set/difference items items-for2010)
-        items (assoc-index-oddeven items)
-        items-for2010 (assoc-index-oddeven items-for2010)
+        items (common/assoc-index-oddeven items)
+        items-for2010 (common/assoc-index-oddeven items-for2010)
         is-show-price-title (and (= "2011" year) (= "3" season))
         is-show-remark-5 (or (= "2012" year) (and (= "2011" year) (= "4" season)))
         view-html (view items-for2010 items year season is-show-price-title is-show-remark-5)]

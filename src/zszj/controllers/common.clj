@@ -27,6 +27,16 @@
                            (assoc (assoc (assoc pair :chinese-season (get season-map (keyword (:season pair)))) :year (Integer/parseInt (:year pair))) :season (Integer/parseInt (:season pair))))
                          year-seasons))))
 
+(defn assoc-index-oddeven
+  [collections]
+  (map (fn [item]
+         (let [item-index (inc (.indexOf (vec collections) item))
+               odd-even (if (odd? item-index)
+                          "odd"
+                          "even")]
+           (assoc (assoc item :odd-even odd-even) :item-index item-index)))
+       collections))
+
 (defn- get-current-weekday
   []
   (let [gc (GregorianCalendar.)
