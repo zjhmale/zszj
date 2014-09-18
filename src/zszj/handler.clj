@@ -9,6 +9,7 @@
             [zszj.controllers.materials_controller :as materials]
             [zszj.controllers.man_markets_controller :as man_markets]
             [zszj.controllers.man_costs_controller :as man_costs]
+            [zszj.controllers.equipments_controller :as equipments]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -52,6 +53,8 @@
   (GET "/man_markets/search" [& ajaxargs] (turn-off-ajax-paginator-for-material (man_markets/search ajaxargs)))
   (GET "/man_costs" [] (turn-off-ajax-paginator-for-material (man_costs/index)))
   (GET "/man_costs/search" [& ajaxargs] (turn-off-ajax-paginator-for-material (man_costs/search ajaxargs)))
+  (GET "/equipments" [] (turn-off-ajax-paginator-for-material (equipments/index)))
+  (GET "/equipments/search" [& ajaxargs] (turn-off-ajax-paginator-for-material (equipments/search ajaxargs)))
   ;;a demo for jquery ui datepicker
   (GET "/datepicker" [] (materials/datepicker))
   (route/resources "/")
