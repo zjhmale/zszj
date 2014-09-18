@@ -30,6 +30,8 @@
 
 (defentity man_markets)
 
+(defentity man_costs)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))

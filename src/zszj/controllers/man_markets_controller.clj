@@ -4,12 +4,6 @@
             [zszj.db.man_markets :as man_markets]
             [selmer.parser :as parser]))
 
-(def season-map
-  {:1 "一"
-   :2 "二"
-   :3 "三"
-   :4 "四"})
-
 (defn assoc-index-oddeven
   [collections]
   (map (fn [item]
@@ -22,11 +16,7 @@
 
 (defn index
   []
-  (let [all-year-seasons (sort-by :year >
-                          (sort-by :season >
-                                         (map (fn [pair]
-                                                (assoc (assoc (assoc pair :chinese-season (get season-map (keyword (:season pair)))) :year (Integer/parseInt (:year pair))) :season (Integer/parseInt (:season pair))))
-                                              (man_markets/get-year-season))))
+  (let [all-year-seasons (common/sort-year-and-season (man_markets/get-year-season))
         latest-year-season (man_markets/get-latest-year-season)
         year (:year latest-year-season)
         season (:season latest-year-season)

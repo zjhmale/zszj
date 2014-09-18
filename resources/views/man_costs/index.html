@@ -6,16 +6,23 @@
     <a href="/man_markets" class="or">价格信息</a>&gt;
     <a href="/man_markets" class="or">人工价格信息</a>&gt;
     <a href="/man_costs" class="or">建筑工种人工成本价</a>
-  </div> 
+  </div>
 </div>
 <div  class="erji_content">
   {% include "views/man_markets/navigator.html" %}
   <div class="erji_right">
     <div class="jige_chuaxun h3">
-	    <!--<% form_remote_tag :url => '/man_costs', :method=>:get do -%>
-	    <%= select "selected", "season", ManCost.seasons.collect {|s| [s.title, "#{s.year}-#{s.season}"] }%>
-	    <%= image_submit_tag "z05.jpg", :class => "cont_search_img" %>
- 	    <% end %>-->
+      <form action="/man_costs/search" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/man_costs/search'}); return false;">
+        <div style="margin:0;padding:0;display:inline">
+          <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
+        </div>
+        <select id="selected_season" name="selected[season]">
+          {% for year-season in all-year-seasons %}
+          <option value="{{year-season.year}}-{{year-season.season}}">{{year-season.year}}年{{year-season.chinese-season}}季度</option>
+          {% endfor %}
+        </select>
+        <input class="cont_search_img" src="/images/z05.jpg?1374630107" type="image">
+      </form>
     </div>
     <div class='view'>
       <div id='view'>

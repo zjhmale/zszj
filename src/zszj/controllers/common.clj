@@ -13,6 +13,20 @@
    :6 "五"
    :7 "六"})
 
+(def season-map
+  {:1 "一"
+   :2 "二"
+   :3 "三"
+   :4 "四"})
+
+(defn sort-year-and-season
+  [year-seasons]
+  (sort-by :year >
+           (sort-by :season >
+                    (map (fn [pair]
+                           (assoc (assoc (assoc pair :chinese-season (get season-map (keyword (:season pair)))) :year (Integer/parseInt (:year pair))) :season (Integer/parseInt (:season pair))))
+                         year-seasons))))
+
 (defn- get-current-weekday
   []
   (let [gc (GregorianCalendar.)
