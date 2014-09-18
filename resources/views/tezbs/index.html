@@ -1,17 +1,27 @@
-<% @menu_id = "jgxx"  %>
-<div class="danqianweizhi"> 
+{% extends "views/layouts/application.html" %}
+{% block content %}
+<div class="danqianweizhi">
   <div class=" erji_name h1">价格信息</div> 
-  <div class=" erji_wz t5">当前位置：<%= link_to "价格信息", :man_markets, :class=> "or" %> &gt;
-    <%= link_to "技术经济指标", :gczjzbs, :class => "or" %></div> 
-</div>
+  <div class=" erji_wz t5">当前位置：
+    <a href="/man_markets" class="or">价格信息</a> &gt;
+    <a href="/gczjzbs" class="or">技术经济指标</a>
+  </div>
+  </div>
 <div class="erji_content">
-  <%= render :partial => 'man_markets/navigator' %>
+  {% include "views/man_markets/navigator.html" %}
   <div class="erji_right">
-    <% @articles.each do |gczjzb| %>
+    {% for zb in zbs %}
     <div class="r_news_gst">
-     <div class="r_news_t t5">[<%= to_date(gczjzb.addtime) %>] <%= link_to truncate(gczjzb.title, :length => 20), gczjzb, :class=>" or" %></div>
+      <div class="r_news_t t5">[<%= to_date(gczjzb.addtime) %>] <%= link_to truncate(gczjzb.title, :length => 20), gczjzb, :class=>" or" %>
+      </div>
     </div>
-      <% end -%>
-      <div class="r_news_pg t1"><strong><%= page_entries_info(@articles) %><%= will_paginate @articles %>  </strong></div>
+    {% endfor %}
+    <div class="r_news_pg t1">
+      <strong>
+        {% include "views/layouts/paginator.html" %}
+      </strong>
+    </div>
   </div>
 </div>
+{% script "/javascripts/paginator.js" %}
+{% endblock %}

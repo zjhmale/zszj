@@ -5,3 +5,8 @@
         [zszj.db.core :as db])
   (:require [zszj.db.schema :as schema]))
 
+(defn get-tezbs
+  [offset-count limit-count]
+  (select gczjzbs
+          (order :addtime :desc)
+          (limit limit-count)))

@@ -34,6 +34,8 @@
 
 (defentity equipment)
 
+(defentity gczjzbs)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))
@@ -109,3 +111,8 @@
   (sql-count 
    (select articles
            (where {:tags tag}))))
+
+(defn count-tezbs
+  []
+  (sql-count
+   (select gczjzbs)))

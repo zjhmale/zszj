@@ -56,7 +56,7 @@
   (GET "/equipments/search" [& ajaxargs] (turn-off-ajax-paginator-for-material (equipments/search ajaxargs)))
   ;;a demo for jquery ui datepicker
   (GET "/datepicker" [] (materials/datepicker))
-  (GET "/gczjzbs" [page] (turn-off-ajax-paginator-for-material (tezbs/index page)))
+  (GET "/gczjzbs" [page] (turn-off-ajax-paginator-for-material (tezbs/index (bigdec (if page page "1")))))
   (GET "/gczjzbs/:id" [id] (turn-off-ajax-paginator-for-material (tezbs/show id)))
   (route/resources "/")
   (route/not-found "Not Found"))
