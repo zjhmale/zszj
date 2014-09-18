@@ -5,7 +5,8 @@
 
 (defn index
   []
-  (layout/render "man_costs/index.html" {} "jgxx"))
+  (layout/render "man_costs/index.html"
+                 (common/common-manipulate {} "jgxx")))
 
 (defn search
   [& ajaxargs]
