@@ -12,7 +12,10 @@
   <div class="erji_right">
     {% for zb in zbs %}
     <div class="r_news_gst">
-      <div class="r_news_t t5">[<%= to_date(gczjzb.addtime) %>] <%= link_to truncate(gczjzb.title, :length => 20), gczjzb, :class=>" or" %>
+      <div class="r_news_t t5">
+        {{zb.show_addtime}}
+        <!--[<%= to_date(gczjzb.addtime) %>]-->
+        <a href="/gczjzbs/{{zb.id}}" class="or">{{zb.truncate_title}}</a>
       </div>
     </div>
     {% endfor %}

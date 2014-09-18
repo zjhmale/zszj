@@ -9,4 +9,5 @@
   [offset-count limit-count]
   (select gczjzbs
           (order :addtime :desc)
-          (limit limit-count)))
+          (limit limit-count)
+          (offset offset-count)))
