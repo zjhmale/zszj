@@ -28,6 +28,8 @@
 
 (defentity materials)
 
+(defentity man_markets)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))

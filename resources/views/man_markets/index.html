@@ -13,11 +13,17 @@
   {% include "views/man_markets/navigator.html" %}
   <div class="erji_right">
     <div class="search_condition h3">
-	    <!--<% form_remote_tag :url => '/man_markets', :method=>:get do -%>
-	    <%= select "selected", "season", ManMarket.seasons.collect {|s| [s.title, "#{s.year}-#{s.season}"] }%>
-	    <%= image_submit_tag "z05.jpg", :class => "cont_search_img" %>
- 	    <% end %>-->
-    </div> 
+	    <form action="/man_markets" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/man_markets'}); return false;">
+          <div style="margin:0;padding:0;display:inline">
+            <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
+          </div>
+	      <select id="selected_season" name="selected[season]">
+            {% for year-season in all-year-seasons %}
+            <option value="{{year-season.year}}-{{year-season.season}}">{{year-season.year}}年{{year-season.chinese-season}}季度</option>
+            {% endfor %}
+            <input class="cont_search_img" src="/images/z05.jpg?1374630107" type="image">
+ 	    </form>
+    </div>
     <div id="view" class="view">
       <!--<%= render :partial => 'view' %>-->
     </div>
