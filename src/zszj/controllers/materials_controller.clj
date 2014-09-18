@@ -44,20 +44,26 @@
     ;;(println "names: " material-names "\nspecs: " material-specs)
     ;;(println "current-page: " current-page "\nall-empty?: " (and (empty? publish_at) (empty? name) (empty? spec)) "\nquery-offset: " query-offset)
     ;;(println "is-paginate-for-allnotempty: " @common/is-paginate-for-notallempty)
-    (layout/render "materials/index.html"
-                   (common/common-manipulate (merge {:material-names material-names
-                                                     :material-specs material-specs
-                                                     :latest-material-date latest-material-date
-                                                     :materials materials-view
-                                                     ;;for paginator
-                                                     :current-page current-page
-                                                     :current-page-dec (dec current-page)
-                                                     :current-page-inc (inc current-page)
-                                                     :num-articles num-materials}
-                                                    (if (or (not is-all-empty) @common/is-paginate-for-notallempty)
-                                                      (let [base-uri (str "materials?_=1410958445083&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&selected[name]=" name "&selected[publish_at]=" publish_at "&selected[spec]=" spec "")]
-                                                        (common/paginator num-materials PER-PAGE current-page base-uri "notallempty"))
-                                                      (common/paginator num-materials PER-PAGE current-page "/materials"))) "jgxx"))))
+    (do
+      (if (and (empty? (-> param :page))
+               is-all-empty)
+        ;;(println "page and other three param are all empty")
+        (if @common/is-paginate-for-notallempty
+          (swap! common/is-paginate-for-notallempty not)))
+      (layout/render "materials/index.html"
+                     (common/common-manipulate (merge {:material-names material-names
+                                                       :material-specs material-specs
+                                                       :latest-material-date latest-material-date
+                                                       :materials materials-view
+                                                       ;;for paginator
+                                                       :current-page current-page
+                                                       :current-page-dec (dec current-page)
+                                                       :current-page-inc (inc current-page)
+                                                       :num-articles num-materials}
+                                                      (if (or (not is-all-empty) @common/is-paginate-for-notallempty)
+                                                        (let [base-uri (str "materials?_=1410958445083&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&selected[name]=" name "&selected[publish_at]=" publish_at "&selected[spec]=" spec "")]
+                                                          (common/paginator num-materials PER-PAGE current-page base-uri "notallempty"))
+                                                        (common/paginator num-materials PER-PAGE current-page "/materials"))) "jgxx")))))
 
 (defn- mini_view
   [publish_at]
