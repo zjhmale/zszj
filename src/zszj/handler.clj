@@ -7,6 +7,7 @@
             [zszj.controllers.article_types_controller :as article-types]
             [zszj.controllers.home_controller :as home]
             [zszj.controllers.materials_controller :as materials]
+            [zszj.controllers.man_markets_controller :as man_markets]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -38,6 +39,7 @@
   (GET "/materials/mini_search" [& ajaxargs] (do (if @common/is-paginate-for-notallempty
                                                    (swap! common/is-paginate-for-notallempty not))
                                                  (materials/mini_search ajaxargs)))
+  (GET "/man_markets" [] (man_markets/index))
   ;;a demo for jquery ui datepicker
   (GET "/datepicker" [] (materials/datepicker))
   (route/resources "/")

@@ -1,0 +1,27 @@
+{% extends "views/layouts/application.html" %}
+{% block content %}
+<div class="danqianweizhi"> 
+  <div class=" erji_name h1">价格信息</div> 
+  <div class=" erji_wz t5">
+    当前位置：
+    <a href="/man_markets" class="or">价格信息</a> &gt;
+    <a href="/man_markets" class="or">人工价格信息</a> &gt;
+    <a href="/man_markets" class="or">人工市场信息价</a>
+  </div>
+</div>
+<div  class="erji_content">
+  {% include "views/man_markets/navigator.html" %}
+  <div class="erji_right">
+    <div class="search_condition h3">
+	    <!--<% form_remote_tag :url => '/man_markets', :method=>:get do -%>
+	    <%= select "selected", "season", ManMarket.seasons.collect {|s| [s.title, "#{s.year}-#{s.season}"] }%>
+	    <%= image_submit_tag "z05.jpg", :class => "cont_search_img" %>
+ 	    <% end %>-->
+    </div> 
+    <div id="view" class="view">
+      <!--<%= render :partial => 'view' %>-->
+    </div>
+  </div>
+</div>
+{% endblock %}
+
