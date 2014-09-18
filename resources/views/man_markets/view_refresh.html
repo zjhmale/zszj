@@ -1,45 +1,45 @@
 <br/>
 {% if items-for2010 %}
-<div class="price_title">
+<div class=\"price_title\">
   {{year}}年第{{season}}季度舟山市建设工程人工市场信息价
   {% if is-show-price-title %}
   (适用2010版计价依据)
   {% endif %}
 </div>
-<table width="710" height="25" class="tableview" >
+<table width=\"710\" height=\"25\" class=\"tableview\">
   <tr>
-    <th>序号</th> 
+    <th>序号</th>
     <th>人工类别</th>
-    <th>单 位</th>      
+    <th>单 位</th>
     <th>信息价(元/工日)</th>
   </tr>
   {% for item in items-for2010 %}
-  <tr onMouseOver="this.bgColor='#cbeceb';" onmouseout="this.bgColor='#FFFFFF';" bgcolor="#ffffff"; class="{{item.odd-even}}">
-    <td width="40" class="info">{{item.item-index}}</td>    
-    <td width="180" class="info">{{item.man_type}}</td>
-    <td width="180" class="info">{{item.unit}}</td>
-    <td width="180"  class="info">{{item.price}}<br /></td>
+  <tr onMouseOver=\"this.bgColor='#cbeceb';\" onmouseout=\"this.bgColor='#FFFFFF';\" bgcolor=\"#ffffff\"; class=\"{{item.odd-even}}\">
+    <td width=\"40\" class=\"info\">{{item.item-index}}</td>
+    <td width=\"180\" class=\"info\">{{item.man_type}}</td>
+    <td width=\"180\" class=\"info\">{{item.unit}}</td>
+    <td width=\"180\"  class=\"info\">{{item.price}}<br /></td>
   </tr>
   {% endfor %}
 </table>
-<div class="price_remark">
+<div class=\"price_remark\">
   1、人工市场信息价可作为按照本省2010 版计价依据编制工程概算、预算、招标控制价、投标报价、竣工结算时计算建
 设工程人工费的指导性依据。
 </div>
-<div class="price_remark">
+<div class=\"price_remark\">
   2、编制招标控制价时人工市场信息价不作为计算费用的基数，仅计取税金。
 </div>
-<div class="price_remark">
+<div class=\"price_remark\">
   3、机上人工费执行人工市场信息价。
 </div>
-<div class="price_remark">
+<div class=\"price_remark\">
   4、本人工市场信息价自2011 年第3 季度起发布执行。本人工市场信息价2011 年10 月份信息价发布之日前已发布招
 标文件或签订施工合同的建设项目，在计算人工费风险范围外调整价差时，投标报价文件编制期对应的人工市场信息价采
 用浙江省2010 版计价依据定额人工基价，计算合同期人工市场信息价平均值时，2011 年1-6 月份采用浙江省2010 版计价
 依据的定额人工基价，2011 年7 月份起采用市建设工程造价管理机构发布的人工市场信息价。
 </div>
 {% if is-show-remark-5 %}
-<div class="price_remark">
+<div class=\"price_remark\">
   5、按照本省2003 版计价依据计算人工费时，本人工市场信息价乘以系数0.93（数值取整，小数点四舍五入）。
 </div>
 {% endif %}

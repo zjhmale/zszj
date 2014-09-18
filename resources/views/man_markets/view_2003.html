@@ -4,16 +4,16 @@
   (适用2003版计价依据)
   {% endif %}
 </div>
-<table width="710" height="25" class="tableview" >
+<table width="710" height="25" class="tableview">
   <tr>
-    <th>序号</th> 
+    <th>序号</th>
     <th>人工类别</th>
-    <th>单 位</th>      
+    <th>单 位</th>
     <th>信息价(元/工日)</th>
   </tr>
   {% for item in items %}
   <tr onMouseOver="this.bgColor='#cbeceb';" onmouseout="this.bgColor='#FFFFFF';" bgcolor="#ffffff"; class="{{item.odd-even}}">
-    <td width="40" class="info">{{item.item-index}}</td>    
+    <td width="40" class="info">{{item.item-index}}</td>
     <td width="180" class="info">{{item.man_type}}</td>
     <td width="180" class="info">{{item.unit}}</td>
     <td width="180"  class="info">{{item.price}}<br /></td>
