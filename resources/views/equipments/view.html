@@ -1,0 +1,25 @@
+<div class="price_title"><%= @year %>年<%= @month %>月舟山市机械设备市场租赁参考价 </div>
+<table width="710" height="25" class="tableview" >
+  <tr>
+    <th>序 号</th>
+    <th>设备名称</th> 
+    <th>型号规格</th>
+    <th> 租 期</th>      
+    <th>价 格</th>
+    <th>备 注</th>
+  </tr>
+  <% for item in @items%>
+  <tr onMouseOver="this.bgColor='#cbeceb';" 
+      onmouseout="this.bgColor='#FFFFFF';" bgcolor="#ffffff";
+      bordercolor="#CCCCCC"
+      class="<%= cycle("odd", "even") %>">
+    <td width="40" class="info"><%= @items.index(item) + 1 %></td>    
+    <td width="180" class="subject"><%= item.name  %></td>
+    <td width="260" class="info"><%= item.spec_model %></td>
+    <td width="140"  class="info"><%= item.period %></td>
+    <td width="140"  class="info"><%= item.price %></td>
+    <td width="180"  class="info"><%= item.remark %></td>   
+  </tr>
+  <% end %>	
+</table>
+<div class="price_remark">注：机械租赁价格未包括机上人工及燃料动力费用（挖掘机除外），且不包括机械进退场费。</div>

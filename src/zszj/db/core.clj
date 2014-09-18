@@ -32,6 +32,8 @@
 
 (defentity man_costs)
 
+(defentity equipment)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))

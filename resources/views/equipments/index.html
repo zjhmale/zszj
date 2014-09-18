@@ -2,22 +2,36 @@
 {% block content %}
 <div class="danqianweizhi">
   <div class=" erji_name h1">价格信息</div> 
-  <div class=" erji_wz t5">当前位置：<%= link_to "价格信息", :man_markets, :class=> "or" %>&gt; 
-    <%= link_to "机械价格信息", :equipments, :class=>"or" %> </div>
+  <div class=" erji_wz t5">当前位置：
+    <a href="/man_markets" class="or">价格信息</a>&gt;
+    <a href="/equipments" class="or">机械价格信息</a>
+  </div>
 </div>
 <div class="erji_content">
-  <%= render :partial => 'man_markets/navigator' %>
+  {% include "views/man_markets/navigator.html" %}
   <div class="erji_right">
     <div class="jige_chuaxun h3">
-       <% form_remote_tag :url => '/equipments', :method=>:get do -%>
-      <%= select "search", "year", Equipment.years.collect{|m|["#{m.year}年",m.year]} %>
-     &nbsp; <%= select "search", "month",Equipment.months.collect{|m| ["#{m.month}月",m.month]} %>  
-     <%= image_submit_tag "z05.jpg", :class => "cont_search_img" %>
-      <% end %>
- </div> 
+      <form action="/equipments" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/equipments'}); return false;">
+        <div style="margin:0;padding:0;display:inline">
+          <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
+        </div>
+        <select id="search_year" name="search[year]">
+          {% for year in years %}
+          <option value="{{year.year}}">{{year.year}}年</option>
+          {% endfor %}
+        </select>
+        &nbsp;
+        <select id="search_month" name="search[month]">
+          {% for month in months %}
+          <option value="{{month.month}}">{{month.month}}月</option>
+          {% endfor %}
+        </select>  
+     <input class="cont_search_img" src="/images/z05.jpg?1374630107" type="image">
+      </form>
+    </div> 
     <div class='view'>
-      <div id='view'> 
-	<%= render :partial => 'view' %>
+      <div id='view'>
+        {% include "views/equipments/view.html" %}
       </div>
     </div>  
   </div>

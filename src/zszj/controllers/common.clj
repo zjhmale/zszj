@@ -54,6 +54,22 @@
         day (nth time 2)]
     (str year "年" month "月" day "日")))
 
+(defn get-current-year
+  []
+  (let [time (clojure.string/split
+              (nth (clojure.string/split
+                    (str (Timestamp. (.getTime (Date.)))) #" ") 0) #"-")
+        year (nth time 0)]
+    (Integer/parseInt year)))
+
+(defn get-current-month
+  []
+  (let [time (clojure.string/split
+              (nth (clojure.string/split
+                    (str (Timestamp. (.getTime (Date.)))) #" ") 0) #"-")
+        month (nth time 1)]
+    (Integer/parseInt month)))
+
 (defn- add-navibar
   [var-map current-root-key]
   (merge var-map
