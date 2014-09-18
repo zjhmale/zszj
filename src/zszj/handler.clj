@@ -8,6 +8,7 @@
             [zszj.controllers.home_controller :as home]
             [zszj.controllers.materials_controller :as materials]
             [zszj.controllers.man_markets_controller :as man_markets]
+            [zszj.controllers.man_costs_controller :as man_costs]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -19,6 +20,14 @@
 (defn destroy
   []
   (println "web site is stopping"))
+
+(defmacro turn-off-ajax-paginator-for-material
+  [controller-action]
+  `(do (if @common/is-paginate-for-notallempty
+         (swap! common/is-paginate-for-notallempty not))
+       ~controller-action))
+
+;;(macroexpand '(turn-off-ajax-paginator-for-material (articles/render id)))
 
 ;;should change the state of is-paginate-for-notallempty maybe should write a macro to make it concise and elegant
 (defroutes app-routes
@@ -39,8 +48,10 @@
   (GET "/materials/mini_search" [& ajaxargs] (do (if @common/is-paginate-for-notallempty
                                                    (swap! common/is-paginate-for-notallempty not))
                                                  (materials/mini_search ajaxargs)))
-  (GET "/man_markets" [] (man_markets/index))
-  (GET "/man_markets/search" [& ajaxargs] (man_markets/search ajaxargs))
+  (GET "/man_markets" [] (turn-off-ajax-paginator-for-material (man_markets/index)))
+  (GET "/man_markets/search" [& ajaxargs] (turn-off-ajax-paginator-for-material (man_markets/search ajaxargs)))
+  (GET "/man_costs" [] (turn-off-ajax-paginator-for-material (man_costs/index)))
+  (GET "/man_costs/search" [& ajaxargs] (turn-off-ajax-paginator-for-material (man_costs/search ajaxargs)))
   ;;a demo for jquery ui datepicker
   (GET "/datepicker" [] (materials/datepicker))
   (route/resources "/")
