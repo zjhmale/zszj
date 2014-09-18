@@ -9,8 +9,8 @@
 * man_markets
 * man_costs
 * books(_TODO_)
-* equipments(_TODO_)
-* gczjzbs(_TODO_)
+* equipments
+* gczjzbs -> tezbs
 * session_cookie(_TODO_)
 
 ## Running

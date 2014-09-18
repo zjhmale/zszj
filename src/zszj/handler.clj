@@ -10,6 +10,7 @@
             [zszj.controllers.man_markets_controller :as man_markets]
             [zszj.controllers.man_costs_controller :as man_costs]
             [zszj.controllers.equipments_controller :as equipments]
+            [zszj.controllers.tezbs_controller :as tezbs]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -39,9 +40,7 @@
                                   (swap! common/is-paginate-for-notallempty not))
                                 (articles/render id)))
   (GET "/article_types/:id" [id page]
-       (article-types/render id (do (if @common/is-paginate-for-notallempty
-                                      (swap! common/is-paginate-for-notallempty not))
-                                    (bigdec (if page page "1")))))
+       (turn-off-ajax-paginator-for-material (article-types/render id (bigdec (if page page "1")))))
   (GET "/materials" [& args] (materials/index args))
   (GET "/materials/search" [& ajaxargs] (do (if (not @common/is-paginate-for-notallempty)
                                               (swap! common/is-paginate-for-notallempty not))
@@ -57,6 +56,8 @@
   (GET "/equipments/search" [& ajaxargs] (turn-off-ajax-paginator-for-material (equipments/search ajaxargs)))
   ;;a demo for jquery ui datepicker
   (GET "/datepicker" [] (materials/datepicker))
+  (GET "/gczjzbs" [page] (turn-off-ajax-paginator-for-material (tezbs/index page)))
+  (GET "/gczjzbs/:id" [id] (turn-off-ajax-paginator-for-material (tezbs/show id)))
   (route/resources "/")
   (route/not-found "Not Found"))
 
