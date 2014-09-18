@@ -11,3 +11,8 @@
           (order :addtime :desc)
           (limit limit-count)
           (offset offset-count)))
+
+(defn get-tezb-by-id
+  [id]
+  (first (select gczjzbs
+                 (where {:id id}))))

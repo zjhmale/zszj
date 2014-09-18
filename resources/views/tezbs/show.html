@@ -8,9 +8,9 @@
   {% include "views/man_markets/navigator.html" %}
   <div class="neirong_right">
   <div class="r_title h">
-    <%= @article.title %>
+    {{zb.title}}
   </div>
-  <%= @article.content %>  
+  {{zb.content|safe}}
 </div>
 </div>
 {% endblock %}

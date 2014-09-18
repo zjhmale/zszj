@@ -29,5 +29,8 @@
 
 (defn show
   [id]
-  (layout/render "tezbs/show.html"
-                 (common/common-manipulate {} "jgxx")))
+  (let [zb (tezbs/get-tezb-by-id id)]
+    ;;(println zb)
+    (layout/render "tezbs/show.html"
+                   (common/common-manipulate
+                    {:zb zb} "jgxx"))))
