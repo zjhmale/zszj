@@ -13,11 +13,18 @@
                                         (assoc month :month (Integer/parseInt (:month month))))
                                       (equipments/get-months)))
         current-month (common/get-current-month)
-        months (nth (split-at current-month months) 1)]
+        months (nth (split-at current-month months) 1)
+        latest-year-month (equipments/get-latest-year-month)
+        year (:year latest-year-month)
+        month (:month latest-year-month)
+        items (common/assoc-index-oddeven (equipments/find-all-by-year-and-month year month))]
     (println "months: " months)
     (layout/render "equipments/index.html"
-                   (common/common-manipulate {:years years
-                                              :months months} "jgxx"))))
+                   (common/common-manipulate {:year year
+                                              :month month
+                                              :years years
+                                              :months months
+                                              :items items} "jgxx"))))
 
 (split-at 3 '(1 2 3 4 5))
 

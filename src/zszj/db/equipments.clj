@@ -14,3 +14,19 @@
   []
   (set (select equipment
                (fields :month))))
+
+(defn get-latest-year-month
+  []
+  (first (select equipment
+                 (fields :year :month)
+                 (order :month :desc)
+                 (order :year :desc))))
+
+(defn find-all-by-year-and-month
+  [year month]
+  (set (select equipment
+               (where {:year year
+                       :month month})
+               (order :year :desc)
+               (order :month :desc))))
+
