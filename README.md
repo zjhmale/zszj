@@ -6,7 +6,7 @@
 * materials
 * softwares(_TODO_)
 * zhongjies(_TODO_)
-* man_markets(_TODO_)
+* man_markets
 * man_costs(_TODO_)
 * books(_TODO_)
 * equipments(_TODO_)
