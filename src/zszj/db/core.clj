@@ -36,6 +36,8 @@
 
 (defentity gczjzbs)
 
+(defentity attachments)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))
@@ -116,3 +118,7 @@
   []
   (sql-count
    (select gczjzbs)))
+
+(defn attachment [id]
+  (first (select attachments
+                 (where {:id id}))))

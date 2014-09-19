@@ -11,6 +11,7 @@
             [zszj.controllers.man_costs_controller :as man_costs]
             [zszj.controllers.equipments_controller :as equipments]
             [zszj.controllers.tezbs_controller :as tezbs]
+            [zszj.controllers.attachments_controller :as attachments]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -58,6 +59,8 @@
   (GET "/datepicker" [] (materials/datepicker))
   (GET "/gczjzbs" [page] (turn-off-ajax-paginator-for-material (tezbs/index (bigdec (if page page "1")))))
   (GET "/gczjzbs/:id" [id] (turn-off-ajax-paginator-for-material (tezbs/show id)))
+  (GET "/attachments" [] (attachments/index))
+  (GET "/attachments/:id" [id] (attachments/send-file id))
   (route/resources "/")
   (route/not-found "Not Found"))
 
