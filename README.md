@@ -13,6 +13,14 @@
 * gczjzbs -> tezbs
 * session_cookie(_TODO_)
 
+## for download static file
+
+for more check attachments_controller/send-file function
+
+```
+curl -I http://localhost:3000/attachments/343
+```
+
 ## Running
 
 ```
