@@ -13,3 +13,16 @@
   (select softwares
           (order :addtime :desc)
           (limit 6)))
+
+(defn get-softwares-by-type
+  [offset-count limit-count type]
+  (select softwares
+          (where {:software_type type})
+          (limit limit-count)
+          (offset offset-count)))
+
+(defn get-software-by-id
+  [id]
+  (select softwares
+          (where {:id id})))
+
