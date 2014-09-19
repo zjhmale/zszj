@@ -2,22 +2,21 @@
 {% block content %}
 <div class="danqianweizhi">
   <div class=" erji_name h1">资料下载</div>
-  <div class=" erji_wz t5">当前位置：资料下载&gt 
-  <%= @article.software_type %>
-    </div>
+  <div class=" erji_wz t5">当前位置：资料下载&gt;
+  	<%= @article.software_type %>
+  </div>
 </div>
 
 <div class="erji_content">
-<%= render :partial => 'navigator'%>
+	{% include "views/softwares/sidebar.html" %}
 
- <div class="erji_right t5">
- 
-   <div class="download_title"><%= @article.title %></div>
-<hr />
-<div class=" r_neirongqu">
-  <%= image_submit_tag "rar.gif" %> 附件:<%= link_to @article.title,
-  @article.attachments.first || "http://222.73.218.86:88/#{@article.downurl}", :class=>"download" %>
-</div>
-</div>
+<div class="erji_right t5">
+   	<div class="download_title"><%= @article.title %></div>
+   	<hr />
+	<div class=" r_neirongqu">
+	  <%= image_submit_tag "rar.gif" %> 附件:
+	  <%= link_to @article.title, @article.attachments.first || "http://222.73.218.86:88/#{@article.downurl}", :class=>"download" %>
+	</div>
+	</div>
 </div>
 {% endblock %}
