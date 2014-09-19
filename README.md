@@ -15,7 +15,7 @@
 
 ## for download static file
 
-for more check attachments_controller/send-file function
+for more check `attachments_controller/send-file` function
 
 ```
 curl -I http://localhost:3000/attachments/343

@@ -43,5 +43,5 @@
             {:key "zzzg", :title "资质资格" :href "/zhongjies"},
             {:key "public_info", :title "公示信息" :href (to-article-type "public_info")}
             {:key "cost_association", :title "造价协会" :href (to-article-type "cost_association")}
-            {:key "zlxz", :title "资料下载" :href "/softwares/资质管理"}
-            {:key "wssx", :title "网上书讯" :href "/books/国家标准规范"}])
+            {:key "zlxz", :title "资料下载" :href "/softwares?software_type=资质管理"}
+            {:key "wssx", :title "网上书讯" :href "/books?book_type=国家标准规范"}])

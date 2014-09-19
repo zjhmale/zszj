@@ -12,6 +12,7 @@
             [zszj.controllers.equipments_controller :as equipments]
             [zszj.controllers.tezbs_controller :as tezbs]
             [zszj.controllers.attachments_controller :as attachments]
+            [zszj.controllers.softwares_controller :as softwares]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -59,11 +60,18 @@
   (GET "/datepicker" [] (materials/datepicker))
   (GET "/gczjzbs" [page] (turn-off-ajax-paginator-for-material (tezbs/index (bigdec (if page page "1")))))
   (GET "/gczjzbs/:id" [id] (turn-off-ajax-paginator-for-material (tezbs/show id)))
+  ;;the /attachments url is just a test for download static file
   (GET "/attachments" [] (attachments/index))
   (GET "/attachments/:id" [id] (attachments/send-file id))
+  (GET "/softwares" [& params] (turn-off-ajax-paginator-for-material (softwares/index params)))
+  (GET "/softwares/:id" [id] (turn-off-ajax-paginator-for-material (softwares/show id)))
   (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
   (wrap-reload
    (handler/site app-routes)))
+
+
+
+

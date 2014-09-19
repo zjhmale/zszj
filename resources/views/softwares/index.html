@@ -1,0 +1,37 @@
+{% extends "views/layouts/application.html" %}
+{% block content %}
+<div class="danqianweizhi">
+  <div class=" erji_name h1">资料下载</div>
+  <div class=" erji_wz t5">当前位置：<%= link_to "资料下载", softwares_path(:software_type => '资质管理' ), :class => "or" %> &gt 
+    <% if @articles.first %><%= link_to @articles.first.software_type, "", :class => "or" %> <% end %>
+  </div>
+</div>
+
+<div class="erji_content">
+<%= render :partial => 'navigator'%>
+
+ <div class="erji_right">
+<%
+title = params[:software_type]
+titles = {
+"zzgl" => "资质管理",
+"jjgl" => "计价管理",
+"xxgl" => "信息管理",
+"zjfb" => "直接发包",
+"" => "招标投标"
+}
+software = titles[title]
+%>
+<% @articles.each do |article| %>
+<div class="r_news_gst">
+  <div class="r_news_t t5"><img src="/images/z10.jpg" />
+<%= link_to  h(truncate(article.title, :length => 80)), 
+article.attachments.first || "http://222.73.218.86:88/#{article.downurl}", :class=>"or" %></div> 
+</div>
+<% end %>
+
+<div class="paginate"><%= page_entries_info(@articles) %><%= will_paginate @articles %></div> 
+</div>
+
+</div>
+{% endblock %}
