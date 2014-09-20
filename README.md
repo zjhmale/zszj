@@ -5,7 +5,7 @@
 * article_types
 * materials
 * softwares(_just left download static file with md5 hash_)
-* zhongjies(_TODO_)
+* zhongjies zhaobiaos zjshis gaisuans(_TODO_)
 * man_markets
 * man_costs
 * books
@@ -32,3 +32,14 @@ lein ring server
 
 * clojurescript
 * jayq
+
+## issues
+
+* how to flatten this shit
+
+```
+(apply merge (apply merge '({:a 1}) '({:b 2})) '({:c 3}))
+```
+
+for more details sea the `db.books/search-book` function
+

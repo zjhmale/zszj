@@ -14,6 +14,7 @@
             [zszj.controllers.attachments_controller :as attachments]
             [zszj.controllers.softwares_controller :as softwares]
             [zszj.controllers.books_controller :as books]
+            [zszj.controllers.zhongjies_controller :as zhongjies]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -68,6 +69,11 @@
   (GET "/softwares/:id" [id] (turn-off-ajax-paginator-for-material (softwares/show id)))
   (GET "/books" [& params] (turn-off-ajax-paginator-for-material (books/index params)))
   (GET "/books/search" [& ajaxargs] (turn-off-ajax-paginator-for-material (books/search ajaxargs)))
+  (GET "/zhongjies" [& params] (turn-off-ajax-paginator-for-material (zhongjies/index params)))
+  (GET "/zhaobiaos" [& params] (turn-off-ajax-paginator-for-material (zhongjies/index params)))
+  (GET "/zjshis" [& params] (turn-off-ajax-paginator-for-material (zhongjies/index params)))
+  (GET "/gaisuans" [& params] (turn-off-ajax-paginator-for-material (zhongjies/index params)))
+  (GET "/zhongjies/search" [& ajaxargs] (zhongjies/search ajaxargs))
   (route/resources "/")
   (route/not-found "Not Found"))
 
