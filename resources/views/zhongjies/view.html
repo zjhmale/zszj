@@ -1,0 +1,29 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+     $('.sticky').cluetip({sticky: false, closePosition: 'title', arrows: true, width:480});
+    });
+</script>
+<div class="zizhi_remark">本数据截止到 <%=to_date_words(@addtime) %></div>
+<table width="710" height="25" class="tableview" >
+  <tr>	  
+    <th>序号</th>
+    <th>单位名称</th>      
+    <th>证书编号</th>
+    <th>法人代表</th>
+    <th>资质等级</th>
+    <th>有效期</th>
+  </tr>
+  <% for article in @articles%>
+  <tr onMouseOver="this.bgColor='#cbeceb';" onmouseout="this.bgColor='#FFFFFF';" bgcolor="#ffffff"; bordercolor="#CCCCCC" class="<%= cycle("odd", "even") %>">
+    <td width="40" class="info"><%= @articles.index(article) + @articles.offset + 1 %></td>
+    <td width="220" class="subject">
+      <%= link_to image_tag("/qx/icon/Tango/16/actions/view-fullscreen.png"), article, :class => 'or sticky', :rel => info_zhongjie_path(article), :id => article.id, :name => h(article.company) %>
+      <%= link_to h(article.company), article, :class => 'or', :rel => url_for(article), :id => article.id, :name => h(article.company) %>
+    </td>
+    <td width="110" class="info"><%= article.zizhi_no %></td>
+    <td width="60" class="info"><%= article.faren %></td>
+    <td width="60" class="info"><%= article.grade %></td>
+    <td width="220" class="info"><%= article.period %></td>
+  </tr>
+  <% end %>
+</table>

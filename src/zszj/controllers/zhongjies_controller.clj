@@ -7,7 +7,9 @@
 
 (defn index
   [& params]
-  "cleantha")
+  (layout/render "zhongjies/index.html"
+                 (common/common-manipulate
+                  {} "zzzg")))
 
 (defn search
   [& ajaxargs]

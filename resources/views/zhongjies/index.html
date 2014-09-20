@@ -1,0 +1,35 @@
+{% extends "views/layouts/application.html" %}
+{% block content %}
+<div class="danqianweizhi">
+  <div class=" erji_name h1">资质资格</div> 
+  <div class=" erji_wz t5">当前位置：
+    <a href="/zhongjies" class="or">资质资格</a> &gt; 
+    <a href="/zhongjies" class="or">造价咨询企业</a>
+  </div> 
+</div>
+<div class="erji_content">
+  {% include "views/zhongjies/navigator.html" %}
+  <div class="erji_right">
+    <div class=" zizhi_sousuo h3">
+      <table>
+        <tr>
+          <td>
+            <% form_remote_tag :url => '/zhongjies/search', :html => {:id => "search_form"}, :method => :get, :failure => "alert('出错了')" do %>
+            <%= select "search", "field", [["-单位名称-","company"],["-证书编号-","zizhi_no"]]  %>
+            <%= text_field_tag "search_str", "",:id => 'textfield2' %>
+          </td>
+          <td><%= image_submit_tag("z05.jpg") %></td>
+          <% end %>
+        </tr>
+      </table>
+    </div>
+    <div class='view'>
+      <div id='view'>
+        {% include "views/zhongjies/view.html" %}
+        {% include "views/layouts/paginator.html" %}
+      </div>
+    </div>
+  </div>
+</div>
+{% script "/javascripts/paginator.js" %}
+{% endblock %}
