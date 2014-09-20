@@ -13,6 +13,7 @@
             [zszj.controllers.tezbs_controller :as tezbs]
             [zszj.controllers.attachments_controller :as attachments]
             [zszj.controllers.softwares_controller :as softwares]
+            [zszj.controllers.books_controller :as books]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -65,6 +66,8 @@
   (GET "/attachments/:id" [id] (attachments/send-file id))
   (GET "/softwares" [& params] (turn-off-ajax-paginator-for-material (softwares/index params)))
   (GET "/softwares/:id" [id] (turn-off-ajax-paginator-for-material (softwares/show id)))
+  (GET "/books" [& params] (turn-off-ajax-paginator-for-material (books/index params)))
+  (GET "/books/search" [& ajaxargs] (turn-off-ajax-paginator-for-material (books/search ajaxargs)))
   (route/resources "/")
   (route/not-found "Not Found"))
 

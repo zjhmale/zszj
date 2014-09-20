@@ -1,10 +1,9 @@
 (ns zszj.controllers.softwares_controller
   (:require [zszj.views.layout :as layout]
-            [zszj.controllers.common :as common]
             [zszj.views.helper :as helper]
+            [zszj.controllers.common :as common]
             [zszj.db.core :as db]
-            [zszj.db.softwares :as softwares]
-            [zszj.views.helper :as helper]))
+            [zszj.db.softwares :as softwares]))
 
 (def ^:dynamic *PER-PAGE* 20)
 
