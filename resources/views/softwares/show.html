@@ -3,19 +3,25 @@
 <div class="danqianweizhi">
   <div class=" erji_name h1">资料下载</div>
   <div class=" erji_wz t5">当前位置：资料下载&gt;
-  	<%= @article.software_type %>
+  	{{software.software_type}}
   </div>
 </div>
 
 <div class="erji_content">
 	{% include "views/softwares/sidebar.html" %}
-
 <div class="erji_right t5">
-   	<div class="download_title"><%= @article.title %></div>
+   	<div class="download_title">
+   		{{software.title}}
+   	</div>
    	<hr />
 	<div class=" r_neirongqu">
-	  <%= image_submit_tag "rar.gif" %> 附件:
-	  <%= link_to @article.title, @article.attachments.first || "http://222.73.218.86:88/#{@article.downurl}", :class=>"download" %>
+	  <input src="/images/rar.gif?1374630107" type="image"> 附件:
+	  {% if software.first-attachmentid %}
+	  <a href="/attachments/{{software.first-attachmentid}}" class="download">{{software.title}}</a>
+	  {% else %}
+	  <a href="http://222.73.218.86:88/{{software.downurl}}" class="download">{{software.title}}</a>
+	  {% endif %}
+	  <!--<%= link_to @article.title, @article.attachments.first || "http://222.73.218.86:88/#{@article.downurl}", :class=>"download" %>-->
 	</div>
 	</div>
 </div>

@@ -23,7 +23,7 @@
                        (softwares/get-softwares-by-type
                         (* (dec current-page) PER-PAGE) PER-PAGE type))
         num-softwares (db/count-softwares type)]
-    (println "type: " type "\ncurrent-page: " current-page "\nsoftwares: " softwares)
+    ;;(println "type: " type "\ncurrent-page: " current-page "\nsoftwares: " softwares)
     (layout/render "softwares/index.html"
                    (common/common-manipulate
                     (merge {:first-software (first softwares)
@@ -38,7 +38,9 @@
 (defn show
   [id]
   ;;(println id)
-  (layout/render "softwares/show.html"
-                 (common/common-manipulate
-                  {} "zlxz")))
-
+  (let [software (assoc (nth (softwares/get-software-by-id id) 0)
+                   :first-attachmentid (softwares/first-attachmentid id))]
+    ;;(println software)
+    (layout/render "softwares/show.html"
+                   (common/common-manipulate
+                    {:software software} "zlxz"))))
