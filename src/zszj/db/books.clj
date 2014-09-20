@@ -35,9 +35,9 @@
                            (order :updated_at :desc))))))
 
 ;;(merge {:a 1} {:b 2} {:c 3})
-(merge {:a 1} {:a 1})
-(vec (set (apply merge '({:a 1}) '({:a 1}))))
-(concat '({:a 1}) '({:a 1}))
+;;(merge {:a 1} {:a 1})
+;;(vec (set (apply merge '({:a 1}) '({:a 1}))))
+;;(concat '({:a 1}) '({:a 1}))
 ;;(apply merge (apply merge '({:a 1}) '({:b 2})) '({:c 3}))
 
 

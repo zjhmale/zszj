@@ -8,7 +8,7 @@
 * zhongjies(_TODO_)
 * man_markets
 * man_costs
-* books(_TODO_)
+* books
 * equipments
 * gczjzbs -> tezbs
 * session_cookie(_TODO_)
