@@ -31,16 +31,16 @@
         <tbody>
           <tr>
             <td>
-              <form action="/books/search" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/books/search'}); return false;">
+              <form id="search_form" action="/books/search" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/books/search'}); return false;">
                 <div style="margin:0;padding:0;display:inline">
                   <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
                 </div>
                 &nbsp;
                 <input id="long_input" name="search_str" type="text">
+                <td>
+                  <input id="search_btn" src="/images/z05.jpg?1374630107" type="image">
+                </td>
               </form>
-            </td>
-            <td>
-              <input src="/images/z05.jpg?1374630107" type="image">
             </td>
           </tr>
         </tbody>
@@ -54,5 +54,11 @@
     </div>
   </div>
 </div>
+<!--<script>
+  $("#search_btn").click(function(){
+    alert("cleantha");
+    $("#search_form").submit();
+  });
+</script>-->
 {% script "/javascripts/paginator.js" %}
 {% endblock %}
