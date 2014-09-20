@@ -1,48 +1,55 @@
 {% extends "views/layouts/application.html" %}
 {% block content %}
 <div class="danqianweizhi">
-  <div class=" erji_name h1">网上书讯</div>
-  <div class=" erji_wz t5">当前位置：
-    <%= link_to "网上书讯", books_path(:book_type => '国家标准规范'), :class => "or" %>
-    <% if @books.first %>
-    &gt; <%= link_to @books.first.book_type, "", :class => "or" %>
-    <% end %>
+  <div class="erji_name h1">网上书讯</div>
+  <div class="erji_wz t5">当前位置：
+    <a href="/books?book_type=国家标准规范" class="or">网上书讯</a>
+    {% if first-book %}
+    &gt; <a href="" class="or">{{first-book.book_type}}</a>
+    {% endif %}
   </div>
 </div>
 <div class="erji_content">
   <ul class="erji_left">
     <li class="left_pic">
-      <%= s_image_tag "e11.jpg", :width=>"197", :height=>"74", :title => '网上书讯' %>
+      <img alt="E11" height="74" src="/skins/default/images/e11.jpg?1374630107" title="网上书讯" width="197">
     </li>
     <li class="left_nav h2">
-      <%= link_to "国家标准规范",books_path(:book_type => '国家标准规范'), :class=>"bg" %>
+      <a href="/books?book_type=国家标准规范" class="bg">国家标准规范</a>
     </li>
     <li class="left_nav h2">
-      <%= link_to "省(部)颁定额", books_path(:book_type => '省(部)颁定额'), :class=>"bg"%>
+      <a href="/books?book_type=省(部)颁定额" class="bg">省(部)颁定额</a>
     </li>
     <li class="left_nav h2">
-      <%= link_to "其他资料",books_path(:book_type => '其他资料'), :class=>"bg"%>
+      <a href="/books?book_type=其他资料" class="bg">其他资料</a>
     </li>
-  </ul> 
+  </ul>
   
   <div class="erji_right">
-    <div class=" zizhi_sousuo h3">
+    <div class="zizhi_sousuo h3">
       <table>
-        <tr>
-          <td>
-            <% form_remote_tag :url => '/books', :method=>:get do -%>
-            &nbsp;<%= text_field_tag "search_str", @search_str, :id => "long_input" %></td>
-          <td>
-            <%= image_submit_tag("z05.jpg") %>
-          </td>
-          <% end %>
-        </tr>
+        <tbody>
+          <tr>
+            <td>
+              <form action="/books/search" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', type:'get', url:'/books/search'}); return false;">
+                <div style="margin:0;padding:0;display:inline">
+                  <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
+                </div>
+                &nbsp;
+                <input id="long_input" name="search_str" type="text">
+              </form>
+            </td>
+            <td>
+              <input src="/images/z05.jpg?1374630107" type="image">
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
-
     <div class='view'>
       <div id='view'>
         {% include "views/books/view.html" %}
+        {% include "views/layouts/simple_paginator.html" %}
       </div>
     </div>
   </div>

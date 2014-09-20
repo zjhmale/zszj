@@ -18,15 +18,18 @@
 (defn find-type
   ([level]
      (select article_types
-             (where {:key level})))
+             (where {:key level})
+             (order :id :desc)))
   ([level1 level2]
      (select article_types
              (where {:key level2
                      :parent_id (:id (first
-                                      (find-type level1)))}))))
+                                      (find-type level1)))})
+             (order :id :desc))))
 
 (defn find-typeid-by-key
   [key]
   (:id (first
         (select article_types
-                (where {:key key})))))
+                (where {:key key})
+                (order :id :desc)))))

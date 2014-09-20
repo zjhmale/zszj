@@ -38,6 +38,8 @@
 
 (defentity attachments)
 
+(defentity books)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))
@@ -53,7 +55,8 @@
 (defn article-type-by-key [key]
   (first 
    (select article_types
-           (where {:key key}))))
+           (where {:key key})
+           (order :id :desc))))
 
 (defn articles-of-type [type-id]
   (select articles
