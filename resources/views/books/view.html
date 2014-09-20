@@ -1,23 +1,20 @@
 <table width="710" height="25" class="tableview" >
   <tr>
-    <th>序 号</th>    
-    <th>书 名</th> 
+    <th>序 号</th>
+    <th>书 名</th>
     <th>价 格</th>
-    <th>出版社</th>      
+    <th>出版社</th>
     <th>类 别</th>
   </tr>
   <% for book in @books%>
-  <tr onMouseOver="this.bgColor='#cbeceb';" 
-      onmouseout="this.bgColor='#FFFFFF';" bgcolor="#ffffff";
-      bordercolor="#CCCCCC"
-      class="<%= cycle("odd", "even") %>">
+  <tr onMouseOver="this.bgColor='#cbeceb';" onmouseout="this.bgColor='#FFFFFF';" bgcolor="#ffffff"; bordercolor="#CCCCCC" class="<%= cycle("odd", "even") %>">
     <td width="40" class="info"><%= @books.index(book) + @books.offset + 1 %></td>    
     <td width="300" class="subject"><%= book.name %></td>
     <td width="90" class="info"><%= book.price %></td>
     <td width="140"  class="info"><%= book.press %></td>
     <td width="140"  class="info"><%= book.book_type %></td>
   </tr>
-  <% end %>	
+  <% end %>
 </table>
-<div class="paginate"><%= page_entries_info(@books) %><%= will_paginate @books %></div>
+<div class="paginate">{% include "views/layouts/simple_paginator.html" %}</div>
 

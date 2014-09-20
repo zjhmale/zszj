@@ -1,34 +1,51 @@
-<% @menu_id = "wssx"  %>
+{% extends "views/layouts/application.html" %}
+{% block content %}
 <div class="danqianweizhi">
   <div class=" erji_name h1">网上书讯</div>
-  <div class=" erji_wz t5">当前位置：<%= link_to "网上书讯", books_path(:book_type => '国家标准规范'), :class => "or" %>
-    <% if @books.first %>&gt; <%= link_to @books.first.book_type, "", :class => "or" %> <% end %></div>
+  <div class=" erji_wz t5">当前位置：
+    <%= link_to "网上书讯", books_path(:book_type => '国家标准规范'), :class => "or" %>
+    <% if @books.first %>
+    &gt; <%= link_to @books.first.book_type, "", :class => "or" %>
+    <% end %>
+  </div>
 </div>
 <div class="erji_content">
   <ul class="erji_left">
-    <li class="left_pic"><%= s_image_tag "e11.jpg", :width=>"197", :height=>"74", :title => '网上书讯' %></li>
-    <li class="left_nav h2"><%= link_to "国家标准规范",books_path(:book_type => '国家标准规范'), :class=>"bg" %></li>
-    <li class="left_nav h2"><%= link_to "省(部)颁定额", books_path(:book_type => '省(部)颁定额'), :class=>"bg"%></li>
-    <li class="left_nav h2"><%= link_to "其他资料",books_path(:book_type => '其他资料'), :class=>"bg"%></li>
+    <li class="left_pic">
+      <%= s_image_tag "e11.jpg", :width=>"197", :height=>"74", :title => '网上书讯' %>
+    </li>
+    <li class="left_nav h2">
+      <%= link_to "国家标准规范",books_path(:book_type => '国家标准规范'), :class=>"bg" %>
+    </li>
+    <li class="left_nav h2">
+      <%= link_to "省(部)颁定额", books_path(:book_type => '省(部)颁定额'), :class=>"bg"%>
+    </li>
+    <li class="left_nav h2">
+      <%= link_to "其他资料",books_path(:book_type => '其他资料'), :class=>"bg"%>
+    </li>
   </ul> 
   
   <div class="erji_right">
     <div class=" zizhi_sousuo h3">
-      <table>  
-	<tr><td> 
-	    <% form_remote_tag :url => '/books', :method=>:get do -%>
-	    &nbsp;<%= text_field_tag "search_str", @search_str, :id => "long_input" %></td>
-          <td><%= image_submit_tag("z05.jpg") %></td>
-	  <% end %>
-      </tr></table>
+      <table>
+        <tr>
+          <td>
+            <% form_remote_tag :url => '/books', :method=>:get do -%>
+            &nbsp;<%= text_field_tag "search_str", @search_str, :id => "long_input" %></td>
+          <td>
+            <%= image_submit_tag("z05.jpg") %>
+          </td>
+          <% end %>
+        </tr>
+      </table>
     </div>
 
     <div class='view'>
-      <div id='view'> 
-	<%= render :partial => 'view' %>
+      <div id='view'>
+        {% include "views/books/view.html" %}
       </div>
-    </div>  
-
-
+    </div>
   </div>
 </div>
+{% script "/javascripts/paginator.js" %}
+{% endblock %}
