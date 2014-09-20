@@ -4,7 +4,7 @@
 * articles
 * article_types
 * materials
-* softwares(_TODO_)
+* softwares(_just left download static file with md5 hash_)
 * zhongjies(_TODO_)
 * man_markets
 * man_costs

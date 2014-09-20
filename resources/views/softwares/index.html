@@ -4,22 +4,28 @@
   <div class=" erji_name h1">资料下载</div>
   <div class=" erji_wz t5">当前位置：
   	<a href="/softwares?software_type=资质管理" class="or">资料下载</a>&gt;
-    <% if @articles.first %>
-    <%= link_to @articles.first.software_type, "", :class => "or" %>
-    <% end %>
+  	{% if first-software %}
+  	<a href="" class="or">{{first-software.software_type}}</a>
+  	{% endif %}
   </div>
 </div>
 
 <div class="erji_content">
 	{% include "views/softwares/sidebar.html" %}
 	<div class="erji_right">
-		<% @articles.each do |article| %>
+		{% for software in softwares %}
 		<div class="r_news_gst">
 		  <div class="r_news_t t5">
 		  	<img src="/images/z10.jpg" />
-			<%= link_to  h(truncate(article.title, :length => 80)), article.attachments.first || "http://222.73.218.86:88/#{article.downurl}", :class=>"or" %></div> 
+		  	{% if software.first-attachmentid %}
+		  	<a href="/attachments/{{software.first-attachmentid}}" class="or">{{software.truncate_title}}</a>
+		  	{% else %}
+		  	<a href="http://222.73.218.86:88/{{software.downurl}}" class="or">{{software.truncate_title}}</a>
+		  	{% endif %}
+			<!--<%= link_to  h(truncate(article.title, :length => 80)), article.attachments.first || "http://222.73.218.86:88/#{article.downurl}", :class=>"or" %>-->
+		  </div>
 		</div>
-		<% end %>
+		{% endfor %}
 	<div class="paginate">
 		{% include "views/layouts/paginator.html" %}
 	</div> 

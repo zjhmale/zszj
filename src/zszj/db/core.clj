@@ -119,6 +119,12 @@
   (sql-count
    (select gczjzbs)))
 
+(defn count-softwares
+  [type]
+  (sql-count
+   (select softwares
+           (where {:software_type type}))))
+
 (defn attachment [id]
   (first (select attachments
                  (where {:id id}))))
