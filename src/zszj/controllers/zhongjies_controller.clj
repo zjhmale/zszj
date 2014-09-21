@@ -3,7 +3,8 @@
             [zszj.views.helper :as helper]
             [zszj.controllers.common :as common]
             [zszj.db.core :as db]
-            [zszj.db.zhongjies :as zhongjies]))
+            [zszj.db.zhongjies :as zhongjies]
+            [selmer.parser :as parser]))
 
 (def title-map
   {"zhongjies" "造价咨询企业"
@@ -24,7 +25,7 @@
         num-zhongjies (zhongjies/get-zhongjies-count)
         latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zhongjies/get-latest-updatetime)) #" ") 0) #"-")
         latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
-    (println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\nzhongjies: " zhongjies "\nlatest-updatetime: " (str latest-updatetime))
+    ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\nzhongjies: " zhongjies "\nlatest-updatetime: " (str latest-updatetime))
     (layout/render "zhongjies/index.html"
                    (common/common-manipulate
                     (merge {:type type
@@ -38,6 +39,18 @@
                             :num-articles num-zhongjies}
                            (common/paginator num-zhongjies PER-PAGE current-page "/zhongjies")) "zzzg"))))
 
+(defn- view-from-template
+  [zhongjie]
+  (parser/render (slurp "resources/views/zhongjies/info.html")
+                 {:zhongjie zhongjie}))
+
 (defn search
   [& ajaxargs]
   "cleantha")
+
+(defn info
+  [id ajaxargs]
+  ;;(println id)
+  ;;(println ajaxargs)
+  (let [zhongjie (zhongjies/get-zhongjie-by-id id)]
+    (view-from-template zhongjie)))

@@ -24,5 +24,10 @@
   []
   (:updated_at
    (first (select zhongjies
-                              (fields :updated_at)
-                              (order :updated_at :desc)))))
+                  (fields :updated_at)
+                  (order :updated_at :desc)))))
+
+(defn get-zhongjie-by-id
+  [id]
+  (first (select zhongjies
+                 (where {:id id}))))
