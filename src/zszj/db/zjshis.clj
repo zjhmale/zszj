@@ -28,3 +28,16 @@
   [id]
   (first (select zjshis
                  (where {:id id}))))
+
+(defn find-zjshis-by-field
+  [field content offset-count limit-count]
+  (select zjshis
+          (where {(keyword field) [like (str "%" content "%")]})
+          (limit limit-count)
+          (offset offset-count)))
+
+(defn zjshis-count-by-field
+  [field content]
+  (sql-count
+   (select zjshis
+           (where {(keyword field) [like (str "%" content "%")]}))))
