@@ -15,6 +15,7 @@
             [zszj.controllers.softwares_controller :as softwares]
             [zszj.controllers.books_controller :as books]
             [zszj.controllers.zhongjies_controller :as zhongjies]
+            [zszj.controllers.zhaobiaos_controller :as zhaobiaos]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -76,13 +77,11 @@
   (GET "/zhongjies/search" [& ajaxargs] (zhongjies/search ajaxargs))
   (GET "/zhongjies/:id/info" [id & ajaxargs] (zhongjies/info id ajaxargs))
   (GET "/zhongjies/:id" [id] (zhongjies/show id))
+  (GET "/zhaobiaos/:id/info" [id & ajaxargs] (zhaobiaos/info id ajaxargs))
+  (GET "/zhaobiaos/:id" [id] (zhaobiaos/show id))
   (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
   (wrap-reload
    (handler/site app-routes)))
-
-
-
-

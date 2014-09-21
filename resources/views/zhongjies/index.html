@@ -33,7 +33,18 @@
     </div>
     <div class='view'>
       <div id='view'>
+        {% ifequal type "zhongjies" %}
         {% include "views/zhongjies/view.html" %}
+        {% endifequal %}
+        {% ifequal type "zhaobiaos" %}
+        {% include "views/zhaobiaos/view.html" %}
+        {% endifequal %}
+        {% ifequal type "zjshis" %}
+        {% include "views/zjshis/view.html" %}
+        {% endifequal %}
+        {% ifequal type "gaisuans" %}
+        {% include "views/gaisuans/view.html" %}
+        {% endifequal %}
         {% include "views/layouts/paginator.html" %}
       </div>
     </div>

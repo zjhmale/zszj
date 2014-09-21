@@ -1,0 +1,17 @@
+{% extends "views/layouts/application.html" %}
+{% block content %}
+<div class="danqianweizhi">
+  <div class=" erji_name h1">资质资格</div> 
+  <div class=" erji_wz t5">当前位置：资质资格 &gt; 招标代理机构</div> 
+</div>
+<div class="erji_content">
+  {% include "views/zhongjies/navigator.html" %}
+  <div class="erji_right">
+    <div class='view'>
+      <div id='view'>
+      	{% include "views/zhaobiaos/info.html" %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

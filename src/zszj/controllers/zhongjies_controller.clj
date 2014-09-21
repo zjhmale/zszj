@@ -4,6 +4,7 @@
             [zszj.controllers.common :as common]
             [zszj.db.core :as db]
             [zszj.db.zhongjies :as zhongjies]
+            [zszj.db.zhaobiaos :as zhaobiaos]
             [selmer.parser :as parser]))
 
 (def title-map
@@ -18,26 +19,49 @@
 
 (defn index
   [type & params]
-  (let [subtitle (get title-map type)
-        current-page (-> (nth params 0) :page)
-        current-page (bigdec (if current-page current-page "1"))
-        zhongjies (common/assoc-index-oddeven (zhongjies/get-zhongjies (* (dec current-page) PER-PAGE) PER-PAGE))
-        num-zhongjies (zhongjies/get-zhongjies-count)
-        latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zhongjies/get-latest-updatetime)) #" ") 0) #"-")
-        latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
-    ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\nzhongjies: " zhongjies "\nlatest-updatetime: " (str latest-updatetime))
-    (layout/render "zhongjies/index.html"
-                   (common/common-manipulate
-                    (merge {:type type
-                            :subtitle subtitle
-                            :latest-updatetime latest-updatetime
-                            :zhongjies zhongjies
-                            ;;for paginator
-                            :current-page current-page
-                            :current-page-dec (dec current-page)
-                            :current-page-inc (inc current-page)
-                            :num-articles num-zhongjies}
-                           (common/paginator num-zhongjies PER-PAGE current-page "/zhongjies")) "zzzg"))))
+  (cond
+   (= type "zhongjies")
+   (let [subtitle (get title-map type)
+         current-page (-> (nth params 0) :page)
+         current-page (bigdec (if current-page current-page "1"))
+         zhongjies (common/assoc-index-oddeven (zhongjies/get-zhongjies (* (dec current-page) PER-PAGE) PER-PAGE))
+         num-zhongjies (zhongjies/get-zhongjies-count)
+         latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zhongjies/get-latest-updatetime)) #" ") 0) #"-")
+         latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
+     ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\nzhongjies: " zhongjies "\nlatest-updatetime: " (str latest-updatetime))
+     (layout/render "zhongjies/index.html"
+                    (common/common-manipulate
+                     (merge {:type type
+                             :subtitle subtitle
+                             :latest-updatetime latest-updatetime
+                             :zhongjies zhongjies
+                             ;;for paginator
+                             :current-page current-page
+                             :current-page-dec (dec current-page)
+                             :current-page-inc (inc current-page)
+                             :num-articles num-zhongjies}
+                            (common/paginator num-zhongjies PER-PAGE current-page "/zhongjies")) "zzzg")))
+   (= type "zhaobiaos")
+   (let [subtitle (get title-map type)
+         current-page (-> (nth params 0) :page)
+         current-page (bigdec (if current-page current-page "1"))
+         zhaobiaos (common/assoc-index-oddeven (zhaobiaos/get-zhaobiaos (* (dec current-page) PER-PAGE) PER-PAGE))
+         num-zhaobiaos (zhaobiaos/get-zhaobiaos-count)
+         latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zhaobiaos/get-latest-updatetime)) #" ") 0) #"-")
+         latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
+     ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\nzhaobiaos: " zhaobiaos "\nlatest-updatetime: " (str latest-updatetime))
+     (layout/render "zhongjies/index.html"
+                    (common/common-manipulate
+                     (merge {:type type
+                             :subtitle subtitle
+                             :latest-updatetime latest-updatetime
+                             :zhaobiaos zhaobiaos
+                             ;;for paginator
+                             :current-page current-page
+                             :current-page-dec (dec current-page)
+                             :current-page-inc (inc current-page)
+                             :num-articles num-zhaobiaos}
+                            (common/paginator num-zhaobiaos PER-PAGE current-page "/zhaobiaos")) "zzzg")))))
 
 (defn- view-from-template
   [zhongjie]
