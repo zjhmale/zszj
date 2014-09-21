@@ -30,3 +30,16 @@
   [id]
   (first (select zhaobiaos
                  (where {:id id}))))
+
+(defn find-zhaobiaos-by-field
+  [field content offset-count limit-count]
+  (select zhaobiaos
+          (where {(keyword field) [like (str "%" content "%")]})
+          (limit limit-count)
+          (offset offset-count)))
+
+(defn zhaobiaos-count-by-field
+  [field content]
+  (sql-count
+   (select zhaobiaos
+           (where {(keyword field) [like (str "%" content "%")]}))))

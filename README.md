@@ -5,8 +5,8 @@
 * article_types
 * materials
 * softwares(_just left download static file with md5 hash_)
-* zhongjies(_TODO_)
-* zhaobiaos(_TODO_)
+* zhongjies
+* zhaobiaos
 * zjshis(_TODO_)
 * gaisuans(_TODO_)
 * man_markets
