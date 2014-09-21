@@ -16,6 +16,8 @@
             [zszj.controllers.books_controller :as books]
             [zszj.controllers.zhongjies_controller :as zhongjies]
             [zszj.controllers.zhaobiaos_controller :as zhaobiaos]
+            [zszj.controllers.zjshis_controller :as zjshis]
+            [zszj.controllers.gaisuans_controller :as gaisuans]
             [zszj.controllers.common :as common]
             [selmer.parser :as parser]))
 
@@ -80,6 +82,8 @@
   (GET "/zhaobiaos/search" [& ajaxargs] (zhaobiaos/search ajaxargs))
   (GET "/zhaobiaos/:id/info" [id & ajaxargs] (zhaobiaos/info id ajaxargs))
   (GET "/zhaobiaos/:id" [id] (zhaobiaos/show id))
+  (GET "/zjshis/search" [& ajaxargs] (zjshis/search ajaxargs))
+  (GET "/gaisuans/search" [& ajaxargs] (gaisuans/search ajaxargs))
   (route/resources "/")
   (route/not-found "Not Found"))
 

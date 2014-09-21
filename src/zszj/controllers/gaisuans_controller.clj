@@ -6,3 +6,6 @@
             [zszj.db.zhaobiaos :as zhaobiaos]
             [selmer.parser :as parser]))
 
+(defn search
+  [& ajaxargs]
+  (str "jQuery(\"#view\").visualEffect(\"slide_down\");"))
