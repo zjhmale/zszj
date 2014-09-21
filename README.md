@@ -5,13 +5,17 @@
 * article_types
 * materials
 * softwares(_just left download static file with md5 hash_)
-* zhongjies zhaobiaos zjshis gaisuans(_TODO_)
+* zhongjies(_TODO_)
+* zhaobiaos(_TODO_)
+* zjshis(_TODO_)
+* gaisuans(_TODO_)
 * man_markets
 * man_costs
 * books
 * equipments
 * gczjzbs -> tezbs
 * session_cookie(_TODO_)
+* deploy with nginx(_TODO_)
 
 ## for download static file
 

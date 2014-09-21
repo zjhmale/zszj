@@ -14,12 +14,20 @@
       <table>
         <tr>
           <td>
-            <% form_remote_tag :url => '/zhongjies/search', :html => {:id => "search_form"}, :method => :get, :failure => "alert('出错了')" do %>
-            <%= select "search", "field", [["-单位名称-","company"],["-证书编号-","zizhi_no"]]  %>
-            <%= text_field_tag "search_str", "",:id => 'textfield2' %>
+            <form action="/zhongjies/search" id="search_form" method="post" onsubmit="jQuery.ajax({data:jQuery.param(jQuery(this).serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0='), dataType:'script', error:function(request){alert('出错了')}, type:'get', url:'/zhongjies/search'}); return false;">
+              <div style="margin:0;padding:0;display:inline">
+                <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
+              </div>
+              <select id="search_field" name="search[field]">
+                <option value="company">-单位名称-</option>
+                <option value="zizhi_no">-证书编号-</option>
+              </select>
+              <input id="textfield2" name="search_str" type="text" value="">
+              <td>
+                <input src="/images/z05.jpg?1374630107" type="image">
+              </td>
+            </form>
           </td>
-          <td><%= image_submit_tag("z05.jpg") %></td>
-          <% end %>
         </tr>
       </table>
     </div>

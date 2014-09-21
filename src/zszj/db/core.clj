@@ -40,6 +40,8 @@
 
 (defentity books)
 
+(defentity zhongjies)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))
