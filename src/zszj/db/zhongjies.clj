@@ -31,3 +31,16 @@
   [id]
   (first (select zhongjies
                  (where {:id id}))))
+
+(defn find-zhongjies-by-field
+  [field content offset-count limit-count]
+  (select zhongjies
+          (where {(keyword field) [like (str "%" content "%")]})
+          (limit limit-count)
+          (offset offset-count)))
+
+(defn zhongjies-count-by-field
+  [field content]
+  (sql-count
+   (select zhongjies
+           (where {(keyword field) [like (str "%" content "%")]}))))

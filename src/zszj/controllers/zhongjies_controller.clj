@@ -134,9 +134,13 @@
           current-page (bigdec (if current-page current-page "1"))
           latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zhongjies/get-latest-updatetime)) #" ") 0) #"-")
           latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")
-          num-zhongjies (zhongjies/get-zhongjies-count)
-          zhongjies (common/assoc-index-oddeven-with-paginator (zhongjies/get-zhongjies (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
-          base-uri (str "zhongjies/search?_=1411299918115&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str)
+          num-zhongjies (if (not (empty? search_str))
+                          (zhongjies/zhongjies-count-by-field search_field search_str)
+                          (zhongjies/get-zhongjies-count))
+          zhongjies (if (not (empty? search_str))
+                      (common/assoc-index-oddeven-with-paginator (zhongjies/find-zhongjies-by-field search_field search_str (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
+                      (common/assoc-index-oddeven-with-paginator (zhongjies/get-zhongjies (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE))
+          base-uri (str "/zhongjies/search?_=1411299918115&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str)
           zhongjies-view (generate-main-html zhongjies latest-updatetime)
           paginator-view (common/generate-paginator-html num-zhongjies base-uri current-page)]
       (println "search_str: " search_str "\nsearch_field: " (keyword search_field))
@@ -151,7 +155,7 @@
           num-zhongjies (zhongjies/get-zhongjies-count)
           latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zhongjies/get-latest-updatetime)) #" ") 0) #"-")
           latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
-      (println "current-page: " current-page "\nsearch_str: " search_str "\nsearch_field: " search_field "\n zhongjies: " zhongjies)
+      ;;(println "current-page: " current-page "\nsearch_str: " search_str "\nsearch_field: " search_field "\n zhongjies: " zhongjies)
       (layout/render "zhongjies/index.html"
                      (common/common-manipulate
                       (merge {:type "zhongjies"
@@ -163,7 +167,7 @@
                               :current-page-dec (dec current-page)
                               :current-page-inc (inc current-page)
                               :num-articles num-zhongjies}
-                             (let [base-uri (str "search?_=1411299918115&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str)]
+                             (let [base-uri (str "/zhongjies/search?_=1411299918115&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str)]
                                (common/paginator num-zhongjies PER-PAGE current-page base-uri "notallempty"))) "zzzg")))))
 
 (defn show
