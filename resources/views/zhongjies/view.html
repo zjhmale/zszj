@@ -4,7 +4,7 @@
     });
 </script>
 <div class="zizhi_remark">本数据截止到 {{latest-updatetime}} </div>
-<table width="710" height="25" class="tableview" >
+<table width="710" height="25" class="tableview">
   <tr>
     <th>序号</th>
     <th>单位名称</th>
@@ -21,8 +21,6 @@
         <img alt="View-fullscreen" src="/qx/icon/Tango/16/actions/view-fullscreen.png?1374630107">
       </a>
       <a href="/zhongjies/{{zhongjie.id}}" class="or" id="{{zhongjie.id}}" name="{{zhongjie.company}}" rel="/zhongjies/{{zhongjie.id}}">{{zhongjie.company}}</a>
-      <!--<%= link_to image_tag("/qx/icon/Tango/16/actions/view-fullscreen.png"), article, :class => 'or sticky', :rel => info_zhongjie_path(article), :id => article.id, :name => h(article.company) %>
-      <%= link_to h(article.company), article, :class => 'or', :rel => url_for(article), :id => article.id, :name => h(article.company) %>-->
     </td>
     <td width="110" class="info">{{zhongjie.zizhi_no}}</td>
     <td width="60" class="info">{{zhongjie.faren}}</td>

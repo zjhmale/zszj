@@ -13,7 +13,16 @@
 
 (defn search
   [& ajaxargs]
-  (str "jQuery(\"#view\").visualEffect(\"slide_down\");"))
+  (let [param (nth ajaxargs 0)
+        search_str (-> param :search_str)
+        search_field (-> param :search :field)
+        current-page (-> param :page)
+        current-page (bigdec (if current-page current-page "1"))
+        num-zhaobiaos (zhaobiaos/get-zhaobiaos-count)
+        base-uri (str "zhaobiaos/search?_=1411304244920&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str)
+        paginator-view (common/generate-paginator-html num-zhaobiaos base-uri current-page)]
+    (str "jQuery(\"#view\").html(\"" paginator-view "\");\n"
+         "jQuery(\"#view\").visualEffect(\"slide_down\");")))
 
 (defn show
   [id]
