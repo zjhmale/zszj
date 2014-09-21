@@ -75,6 +75,7 @@
   (GET "/gaisuans" [& params] (turn-off-ajax-paginator-for-material (zhongjies/index "gaisuans" params)))
   (GET "/zhongjies/search" [& ajaxargs] (zhongjies/search ajaxargs))
   (GET "/zhongjies/:id/info" [id & ajaxargs] (zhongjies/info id ajaxargs))
+  (GET "/zhongjies/:id" [id] (zhongjies/show id))
   (route/resources "/")
   (route/not-found "Not Found"))
 

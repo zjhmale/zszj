@@ -17,10 +17,10 @@
   <tr onMouseOver="this.bgColor='#cbeceb';" onmouseout="this.bgColor='#FFFFFF';" bgcolor="#ffffff"; bordercolor="#CCCCCC" class="{{zhongjie.odd-even}}">
     <td width="40" class="info">{{zhongjie.item-index}}</td>
     <td width="220" class="subject">
-      <a href="/zhongjies/{{zhongjie.id}}" class="or sticky" id="48" name="{{zhongjie.company}}" rel="/zhongjies/48/info" title="">
+      <a href="/zhongjies/{{zhongjie.id}}" class="or sticky" id="{{zhongjie.id}}" name="{{zhongjie.company}}" rel="/zhongjies/{{zhongjie.id}}/info" title="">
         <img alt="View-fullscreen" src="/qx/icon/Tango/16/actions/view-fullscreen.png?1374630107">
       </a>
-      <a href="/zhongjies/{{zhongjie.id}}" class="or" id="48" name="{{zhongjie.company}}" rel="/zhongjies/{{zhongjie.id}}">{{zhongjie.company}}</a>
+      <a href="/zhongjies/{{zhongjie.id}}" class="or" id="{{zhongjie.id}}" name="{{zhongjie.company}}" rel="/zhongjies/{{zhongjie.id}}">{{zhongjie.company}}</a>
       <!--<%= link_to image_tag("/qx/icon/Tango/16/actions/view-fullscreen.png"), article, :class => 'or sticky', :rel => info_zhongjie_path(article), :id => article.id, :name => h(article.company) %>
       <%= link_to h(article.company), article, :class => 'or', :rel => url_for(article), :id => article.id, :name => h(article.company) %>-->
     </td>

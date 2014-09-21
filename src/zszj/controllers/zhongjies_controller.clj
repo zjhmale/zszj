@@ -46,7 +46,14 @@
 
 (defn search
   [& ajaxargs]
-  "cleantha")
+  (str "jQuery(\"#view\").visualEffect(\"slide_down\");"))
+
+(defn show
+  [id]
+  (let [zhongjie (zhongjies/get-zhongjie-by-id id)]
+    (layout/render "zhongjies/show.html"
+                   (common/common-manipulate
+                    {:zhongjie zhongjie} "zzzg"))))
 
 (defn info
   [id ajaxargs]
