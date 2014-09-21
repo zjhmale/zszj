@@ -5,6 +5,7 @@
             [zszj.db.core :as db]
             [zszj.db.zhongjies :as zhongjies]
             [zszj.db.zhaobiaos :as zhaobiaos]
+            [zszj.db.zjshis :as zjshis]
             [selmer.parser :as parser]))
 
 (def title-map
@@ -24,7 +25,7 @@
    (let [subtitle (get title-map type)
          current-page (-> (nth params 0) :page)
          current-page (bigdec (if current-page current-page "1"))
-         zhongjies (common/assoc-index-oddeven (zhongjies/get-zhongjies (* (dec current-page) PER-PAGE) PER-PAGE))
+         zhongjies (common/assoc-index-oddeven-with-paginator (zhongjies/get-zhongjies (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
          num-zhongjies (zhongjies/get-zhongjies-count)
          latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zhongjies/get-latest-updatetime)) #" ") 0) #"-")
          latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
@@ -45,7 +46,7 @@
    (let [subtitle (get title-map type)
          current-page (-> (nth params 0) :page)
          current-page (bigdec (if current-page current-page "1"))
-         zhaobiaos (common/assoc-index-oddeven (zhaobiaos/get-zhaobiaos (* (dec current-page) PER-PAGE) PER-PAGE))
+         zhaobiaos (common/assoc-index-oddeven-with-paginator (zhaobiaos/get-zhaobiaos (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
          num-zhaobiaos (zhaobiaos/get-zhaobiaos-count)
          latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zhaobiaos/get-latest-updatetime)) #" ") 0) #"-")
          latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
@@ -61,7 +62,28 @@
                              :current-page-dec (dec current-page)
                              :current-page-inc (inc current-page)
                              :num-articles num-zhaobiaos}
-                            (common/paginator num-zhaobiaos PER-PAGE current-page "/zhaobiaos")) "zzzg")))))
+                            (common/paginator num-zhaobiaos PER-PAGE current-page "/zhaobiaos")) "zzzg")))
+   (= type "zjshis")
+   (let [subtitle (get title-map type)
+         current-page (-> (nth params 0) :page)
+         current-page (bigdec (if current-page current-page "1"))
+         zjshis (common/assoc-index-oddeven-with-paginator (zjshis/get-zjshis (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
+         num-zjshis (zjshis/get-zjshis-count)
+         latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zjshis/get-latest-updatetime)) #" ") 0) #"-")
+         latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
+     ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\nzjshis: " zjshis "\nlatest-updatetime: " (str latest-updatetime))
+     (layout/render "zhongjies/index.html"
+                    (common/common-manipulate
+                     (merge {:type type
+                             :subtitle subtitle
+                             :latest-updatetime latest-updatetime
+                             :zjshis zjshis
+                             ;;for paginator
+                             :current-page current-page
+                             :current-page-dec (dec current-page)
+                             :current-page-inc (inc current-page)
+                             :num-articles num-zjshis}
+                            (common/paginator num-zjshis PER-PAGE current-page "/zjshis")) "zzzg")))))
 
 (defn- view-from-template
   [zhongjie]

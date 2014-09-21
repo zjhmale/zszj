@@ -11,6 +11,10 @@
   (parser/render (slurp "resources/views/zhaobiaos/info.html")
                  {:zhaobiao zhaobiao}))
 
+(defn search
+  [& ajaxargs]
+  (str "jQuery(\"#view\").visualEffect(\"slide_down\");"))
+
 (defn show
   [id]
   (let [zhaobiao (zhaobiaos/get-zhaobiao-by-id id)]

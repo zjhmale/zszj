@@ -77,6 +77,7 @@
   (GET "/zhongjies/search" [& ajaxargs] (zhongjies/search ajaxargs))
   (GET "/zhongjies/:id/info" [id & ajaxargs] (zhongjies/info id ajaxargs))
   (GET "/zhongjies/:id" [id] (zhongjies/show id))
+  (GET "/zhaobiaos/search" [& ajaxargs] (zhaobiaos/search ajaxargs))
   (GET "/zhaobiaos/:id/info" [id & ajaxargs] (zhaobiaos/info id ajaxargs))
   (GET "/zhaobiaos/:id" [id] (zhaobiaos/show id))
   (route/resources "/")

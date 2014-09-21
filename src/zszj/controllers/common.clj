@@ -37,6 +37,16 @@
            (assoc (assoc item :odd-even odd-even) :item-index item-index)))
        collections))
 
+(defn assoc-index-oddeven-with-paginator
+  [collections current-page perpage]
+  (map (fn [item]
+         (let [item-index (+ (* (dec current-page) perpage) (inc (.indexOf (vec collections) item)))
+               odd-even (if (odd? item-index)
+                          "odd"
+                          "even")]
+           (assoc (assoc item :odd-even odd-even) :item-index item-index)))
+       collections))
+
 (defn- get-current-weekday
   []
   (let [gc (GregorianCalendar.)

@@ -44,6 +44,8 @@
 
 (defentity zhaobiaos)
 
+(defentity zjshis)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))
