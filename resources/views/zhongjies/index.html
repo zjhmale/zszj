@@ -19,6 +19,12 @@
                 <input name="authenticity_token" type="hidden" value="7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=">
               </div>
               <select id="search_field" name="search[field]">
+                {% ifequal type "zjshis" %}
+                <option value="company">-姓名-</option>
+                {% endifequal %}
+                {% ifequal type "gaisuans" %}
+                <option value="company">-姓名-</option>
+                {% endifequal %}
                 <option value="company">-单位名称-</option>
                 <option value="zizhi_no">-证书编号-</option>
               </select>

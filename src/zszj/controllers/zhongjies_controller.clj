@@ -6,6 +6,7 @@
             [zszj.db.zhongjies :as zhongjies]
             [zszj.db.zhaobiaos :as zhaobiaos]
             [zszj.db.zjshis :as zjshis]
+            [zszj.db.gaisuans :as gaisuans]
             [selmer.parser :as parser]))
 
 (def title-map
@@ -20,6 +21,7 @@
 
 (defn index
   [type & params]
+  ;;(println type)
   (cond
    (= type "zhongjies")
    (let [subtitle (get title-map type)
@@ -83,7 +85,28 @@
                              :current-page-dec (dec current-page)
                              :current-page-inc (inc current-page)
                              :num-articles num-zjshis}
-                            (common/paginator num-zjshis PER-PAGE current-page "/zjshis")) "zzzg")))))
+                            (common/paginator num-zjshis PER-PAGE current-page "/zjshis")) "zzzg")))
+   (= type "gaisuans")
+   (let [subtitle (get title-map type)
+         current-page (-> (nth params 0) :page)
+         current-page (bigdec (if current-page current-page "1"))
+         gaisuans (common/assoc-index-oddeven-with-paginator (gaisuans/get-gaisuans (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
+         num-gaisuans (gaisuans/get-gaisuans-count)
+         latest-updatetime (clojure.string/split (nth (clojure.string/split (str (gaisuans/get-latest-updatetime)) #" ") 0) #"-")
+         latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
+     ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\ngaisuans: " gaisuans "\nlatest-updatetime: " (str latest-updatetime))
+     (layout/render "zhongjies/index.html"
+                    (common/common-manipulate
+                     (merge {:type type
+                             :subtitle subtitle
+                             :latest-updatetime latest-updatetime
+                             :gaisuans gaisuans
+                             ;;for paginator
+                             :current-page current-page
+                             :current-page-dec (dec current-page)
+                             :current-page-inc (inc current-page)
+                             :num-articles num-gaisuans}
+                            (common/paginator num-gaisuans PER-PAGE current-page "/gaisuans")) "zzzg")))))
 
 (defn- view-from-template
   [zhongjie]
