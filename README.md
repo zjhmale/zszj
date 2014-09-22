@@ -8,13 +8,14 @@
 * zhongjies
 * zhaobiaos
 * zjshis
-* gaisuans(_TODO_)
+* gaisuans
 * man_markets
 * man_costs
 * books
 * equipments
 * gczjzbs -> tezbs
 * session_cookie(_TODO_)
+* TDD(_TODO_)
 * deploy with nginx(_TODO_)
 
 ## for download static file
@@ -46,4 +47,8 @@ lein ring server
 ```
 
 for more details sea the `db.books/search-book` function
+
+* paginator is eggache
+
+should find some way to high level abstract this shit
 
