@@ -11,3 +11,4 @@ pom.xml.asc
 *.swp
 .DS_Store
 .*.swp
+resources/public/downloads
