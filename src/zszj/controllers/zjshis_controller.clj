@@ -1,4 +1,5 @@
 (ns zszj.controllers.zjshis_controller
+  (:use [zszj.controllers.zhongjies_controller :only [PER-PAGE]])
   (:require [zszj.views.layout :as layout]
             [zszj.views.helper :as helper]
             [zszj.controllers.common :as common]
@@ -7,7 +8,7 @@
             [zszj.db.zjshis :as zjshis]
             [selmer.parser :as parser]))
 
-(def PER-PAGE 20)
+;;(def PER-PAGE 20)
 
 (defn generate-zjshis-html
   [zjshis]

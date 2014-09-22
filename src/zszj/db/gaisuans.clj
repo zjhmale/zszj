@@ -28,3 +28,16 @@
   [id]
   (first (select gaisuans
                  (where {:id id}))))
+
+(defn find-gaisuans-by-field
+  [field content offset-count limit-count]
+  (select gaisuans
+          (where {(keyword field) [like (str "%" content "%")]})
+          (limit limit-count)
+          (offset offset-count)))
+
+(defn gaisuans-count-by-field
+  [field content]
+  (sql-count
+   (select gaisuans
+           (where {(keyword field) [like (str "%" content "%")]}))))

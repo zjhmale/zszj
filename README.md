@@ -7,7 +7,7 @@
 * softwares(_just left download static file with md5 hash_)
 * zhongjies
 * zhaobiaos
-* zjshis(_TODO_)
+* zjshis
 * gaisuans(_TODO_)
 * man_markets
 * man_costs
