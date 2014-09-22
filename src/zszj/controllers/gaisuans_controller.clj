@@ -1,5 +1,5 @@
 (ns zszj.controllers.gaisuans_controller
-  (:use [zszj.controllers.zhongjies_controller :only [PER-PAGE]])
+  (:use [zszj.controllers.zhongjies_controller :only [PER-PAGE title-map]])
   (:require [zszj.views.layout :as layout]
             [zszj.views.helper :as helper]
             [zszj.controllers.common :as common]
@@ -21,12 +21,13 @@
 
 (defn search
   [& ajaxargs]
-  (println ajaxargs)
+  ;;(println ajaxargs)
   (if (not (-> (nth ajaxargs 0) :page))
     (let [param (nth ajaxargs 0)
           search_str (-> param :search_str)
           search_field (-> param :search :field)
           search_field (if (= search_field "zizhi_no") "zige" search_field)
+          search_field (if (= search_field "company") "danwei" search_field)
           current-page (-> param :page)
           current-page (bigdec (if current-page current-page "1"))
           latest-updatetime (clojure.string/split (nth (clojure.string/split (str (gaisuans/get-latest-updatetime)) #" ") 0) #"-")
@@ -42,4 +43,32 @@
           paginator-view (common/generate-paginator-html num-gaisuans base-uri current-page)]
       (str "jQuery(\"#view\").html(\"" gaisuans-view paginator-view "\");\n"
            "jQuery(\"#view\").visualEffect(\"slide_down\");"))
-    "cleantha"))
+    (let [subtitle (get title-map "gaisuans")
+          current-page (-> (nth ajaxargs 0) :page)
+          current-page (bigdec (if current-page current-page "1"))
+          search_str (-> (nth ajaxargs 0) :search_str)
+          search_field (-> (nth ajaxargs 0) :search :field)
+          search_field (if (= search_field "zizhi_no") "zige" search_field)
+          search_field (if (= search_field "company") "danwei" search_field)
+          num-gaisuans (if (not (empty? search_str))
+                         (gaisuans/gaisuans-count-by-field search_field search_str)
+                         (gaisuans/get-gaisuans-count))
+          gaisuans (if (not (empty? search_str))
+                     (common/assoc-index-oddeven-with-paginator (gaisuans/find-gaisuans-by-field search_field search_str (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
+                     (common/assoc-index-oddeven-with-paginator (gaisuans/get-gaisuans (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE))
+          latest-updatetime (clojure.string/split (nth (clojure.string/split (str (gaisuans/get-latest-updatetime)) #" ") 0) #"-")
+          latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
+      ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\ngaisuans: " gaisuans "\nlatest-updatetime: " (str latest-updatetime))
+      (layout/render "zhongjies/index.html"
+                     (common/common-manipulate
+                      (merge {:type "gaisuans"
+                              :subtitle subtitle
+                              :latest-updatetime latest-updatetime
+                              :gaisuans gaisuans
+                              ;;for paginator
+                              :current-page current-page
+                              :current-page-dec (dec current-page)
+                              :current-page-inc (inc current-page)
+                              :num-articles num-gaisuans}
+                             (let [ base-uri (str "/gaisuans/search?_=1411347564022&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str "&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=")]
+                               (common/paginator num-gaisuans PER-PAGE current-page base-uri "notallempty"))) "zzzg")))))
