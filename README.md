@@ -33,11 +33,6 @@ lein deps
 lein ring server
 ```
 
-## fun stuff
-
-* clojurescript
-* jayq
-
 ## issues
 
 * how to flatten this shit

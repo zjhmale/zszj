@@ -10,21 +10,8 @@
                  [environ "0.5.0"]
                  [cheshire "5.3.1"]
                  [org.clojure/tools.namespace "0.2.5"]
-                 [lib-noir "0.8.4"]
-                 [org.clojure/clojurescript "0.0-2322"]
-                 [jayq "2.5.2"]]
-  :plugins [[lein-cljsbuild "1.0.3"]
-            [lein-ring "0.8.11"]]
-  :cljsbuild {
-    :builds [{
-        ; The path to the top-level ClojureScript source directory:
-        :source-paths ["src/zszj/cljs"]
-        ; The standard ClojureScript compiler options:
-        ; (See the ClojureScript compiler documentation for details.)
-        :compiler {
-          :output-to "resources/public/javascripts/paginator.js"  ; default: target/cljsbuild-main.js
-          :optimizations :whitespace
-          :pretty-print true}}]}
+                 [lib-noir "0.8.4"]]
+  :plugins [[lein-ring "0.8.11"]]
   :ring {:handler zszj.handler/app
          :stacktraces? true
          :auto-reload true
