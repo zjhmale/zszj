@@ -1,0 +1,14 @@
+<!--信息搜索-->
+<div class="search_kuang">
+    <div class="search_biaodan t2">
+        <div class="search_form">
+            <% form_tag "search", :method => :get do %>
+            <p>内容:<%= text_field "search", "search_str",:class => "white_long" %></p><br />
+            <p> 栏目:<%= select :search, :search_cat,
+                FullText.cats,
+                {:include_blank => "-所有分类-"}, :class=>'biaodan_s' %>
+                <%= image_submit_tag "z05.jpg", :class => "cont_search_img" %><p>
+            <% end %>
+        </div>
+    </div>
+</div>

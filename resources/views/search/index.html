@@ -1,0 +1,41 @@
+{% extends "views/layouts/application.html" %}
+{% block content %}
+<style>
+    strong {color:red;background-color:lightyellow;}
+</style>
+<div class="danqianweizhi">
+    <div class=" erji_name h1">信息搜索</div>
+    <div class=" erji_wz t5">当前位置：搜索结果
+    </div>
+</div>
+
+<div class="erji_content">
+    <ul class="search_navigator">
+        <li class="left_pic">
+            <img src="/skins/default/images/search.jpg?1374630107" width="197" height="74">
+        </li>
+        <li>
+            {% include "views/search/search.html" %}
+        </li>
+    </ul>
+    <div class="erji_right">
+        <div style="width:740px;margin:auto;">
+            <% @full_texts.each do |f| %>
+            <p>
+            <h2>
+                <% if f.document %>
+                <%= s_image_tag "z25.png" %><%= link_to "[#{f.cat}] #{f.subject}", polymorphic_path(f.document,  :search_str =>
+                @search.search_str), :class =>"searched" %>
+                <% else %>
+                文件已经删除: <%= f.document_type  %>#<%= f.document_id %>
+                <% end %>
+            </h2>
+            <%=  highlight(h(excerpt(f.full_text, @search.search_str, :radius=>50)), @search.search_str) %>
+            </p>
+            <% end -%>
+            <div class="paginate"><%= page_entries_info(@full_texts) %>&nbsp;&nbsp;<%= will_paginate @full_texts %></div>
+        </div>
+    </div>
+</div>
+{% script "/javascripts/paginator.js" %}
+{% endblock %}

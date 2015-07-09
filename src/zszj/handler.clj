@@ -19,6 +19,7 @@
             [zszj.controllers.zjshis_controller :as zjshis]
             [zszj.controllers.gaisuans_controller :as gaisuans]
             [zszj.controllers.common :as common]
+            [zszj.controllers.search-controller :as search]
             [selmer.parser :as parser]))
 
 (defn init
@@ -84,6 +85,7 @@
            (GET "/zhaobiaos/:id" [id] (zhaobiaos/show id))
            (GET "/zjshis/search" [& ajaxargs] (zjshis/search ajaxargs))
            (GET "/gaisuans/search" [& ajaxargs] (gaisuans/search ajaxargs))
+           (GET "/search" [] (search/index))
            (route/resources "/")
            (route/not-found "Not Found"))
 
