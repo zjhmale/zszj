@@ -18,14 +18,14 @@
 (defn get-zhongjies-count
   []
   (sql-count
-   (select zhongjies)))
+    (select zhongjies)))
 
 (defn get-latest-updatetime
   []
   (:updated_at
-   (first (select zhongjies
-                  (fields :updated_at)
-                  (order :updated_at :desc)))))
+    (first (select zhongjies
+                   (fields :updated_at)
+                   (order :updated_at :desc)))))
 
 (defn get-zhongjie-by-id
   [id]
@@ -42,5 +42,5 @@
 (defn zhongjies-count-by-field
   [field content]
   (sql-count
-   (select zhongjies
-           (where {(keyword field) [like (str "%" content "%")]}))))
+    (select zhongjies
+            (where {(keyword field) [like (str "%" content "%")]}))))

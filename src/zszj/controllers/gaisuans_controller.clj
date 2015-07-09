@@ -33,11 +33,11 @@
           latest-updatetime (clojure.string/split (nth (clojure.string/split (str (gaisuans/get-latest-updatetime)) #" ") 0) #"-")
           latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")
           num-gaisuans (if (not (empty? search_str))
-                          (gaisuans/gaisuans-count-by-field search_field search_str)
-                          (gaisuans/get-gaisuans-count))
+                         (gaisuans/gaisuans-count-by-field search_field search_str)
+                         (gaisuans/get-gaisuans-count))
           gaisuans (if (not (empty? search_str))
-                      (common/assoc-index-oddeven-with-paginator (gaisuans/find-gaisuans-by-field search_field search_str (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
-                      (common/assoc-index-oddeven-with-paginator (gaisuans/get-gaisuans (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE))
+                     (common/assoc-index-oddeven-with-paginator (gaisuans/find-gaisuans-by-field search_field search_str (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
+                     (common/assoc-index-oddeven-with-paginator (gaisuans/get-gaisuans (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE))
           base-uri (str "/gaisuans/search?_=1411347564022&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str "&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=")
           gaisuans-view (generate-main-html gaisuans latest-updatetime "专业")
           paginator-view (common/generate-paginator-html num-gaisuans base-uri current-page)]
@@ -61,14 +61,14 @@
       ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\ngaisuans: " gaisuans "\nlatest-updatetime: " (str latest-updatetime))
       (layout/render "zhongjies/index.html"
                      (common/common-manipulate
-                      (merge {:type "gaisuans"
-                              :subtitle subtitle
-                              :latest-updatetime latest-updatetime
-                              :gaisuans gaisuans
-                              ;;for paginator
-                              :current-page current-page
-                              :current-page-dec (dec current-page)
-                              :current-page-inc (inc current-page)
-                              :num-articles num-gaisuans}
-                             (let [ base-uri (str "/gaisuans/search?_=1411347564022&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str "&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=")]
-                               (common/paginator num-gaisuans PER-PAGE current-page base-uri "notallempty"))) "zzzg")))))
+                       (merge {:type              "gaisuans"
+                               :subtitle          subtitle
+                               :latest-updatetime latest-updatetime
+                               :gaisuans          gaisuans
+                               ;;for paginator
+                               :current-page      current-page
+                               :current-page-dec  (dec current-page)
+                               :current-page-inc  (inc current-page)
+                               :num-articles      num-gaisuans}
+                              (let [base-uri (str "/gaisuans/search?_=1411347564022&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str "&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=")]
+                                (common/paginator num-gaisuans PER-PAGE current-page base-uri "notallempty"))) "zzzg")))))

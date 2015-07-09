@@ -19,16 +19,16 @@
     ;;(println "booktype: " book_type "\nbooks: " books "\nfirstbook: " (first books) "\nnum-books: " num-books)
     (layout/render "books/index.html"
                    (common/common-manipulate
-                    (merge {:books books
-                            :first-book (first books)
-                            ;;for paginator
-                            :num-articles num-books}
-                           (common/paginator num-books PER-PAGE 1 (str "/books"))) "wssx"))))
+                     (merge {:books        books
+                             :first-book   (first books)
+                             ;;for paginator
+                             :num-articles num-books}
+                            (common/paginator num-books PER-PAGE 1 (str "/books"))) "wssx"))))
 
 (defn generate-items-html
   [items]
   (reduce (fn [html item]
-            (str html "<tr onMouseOver=\\\"this.bgColor='#cbeceb';\\\" onmouseout=\\\"this.bgColor='#FFFFFF';\\\" bgcolor=\\\"#ffffff\\\"; bordercolor=\\\"#CCCCCC\\\" class=\\\"" (:odd-even item) "\\\"><td width=\\\"40\\\" class=\\\"info\\\">" (:item-index item) "</td><td width=\\\"300\\\" class=\\\"subject\\\">" (:name item) "</td><td width=\\\"90\\\" class=\\\"info\\\">" (:price item)"</td><td width=\\\"140\\\"  class=\\\"info\\\">" (:press item) "</td><td width=\\\"140\\\"  class=\\\"info\\\">" (:book_type item) "</td></tr>")) "" items))
+            (str html "<tr onMouseOver=\\\"this.bgColor='#cbeceb';\\\" onmouseout=\\\"this.bgColor='#FFFFFF';\\\" bgcolor=\\\"#ffffff\\\"; bordercolor=\\\"#CCCCCC\\\" class=\\\"" (:odd-even item) "\\\"><td width=\\\"40\\\" class=\\\"info\\\">" (:item-index item) "</td><td width=\\\"300\\\" class=\\\"subject\\\">" (:name item) "</td><td width=\\\"90\\\" class=\\\"info\\\">" (:price item) "</td><td width=\\\"140\\\"  class=\\\"info\\\">" (:press item) "</td><td width=\\\"140\\\"  class=\\\"info\\\">" (:book_type item) "</td></tr>")) "" items))
 
 (defn paginator-html
   [from to num-items]

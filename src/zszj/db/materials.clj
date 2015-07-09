@@ -8,8 +8,8 @@
 (defn get-latest-material
   []
   (first
-   (select materials
-           (order :publish_at :desc))))
+    (select materials
+            (order :publish_at :desc))))
 
 (defn get-materials
   [limit-count]
@@ -35,9 +35,9 @@
 (defn get-material-field
   [fieldname]
   (vec (set
-        (map fieldname
-             (select materials
-                     (fields fieldname))))))
+         (map fieldname
+              (select materials
+                      (fields fieldname))))))
 
 (defn get-materials-for-view
   [publish_at name spec]
@@ -77,5 +77,5 @@
 (defn get-materials-count
   []
   (sql-count
-   (select materials
-           (order :publish_at :desc))))
+    (select materials
+            (order :publish_at :desc))))

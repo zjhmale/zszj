@@ -20,11 +20,11 @@
         items (common/assoc-index-oddeven (equipments/find-all-by-year-and-month year month))]
     ;;(println "months: " months)
     (layout/render "equipments/index.html"
-                   (common/common-manipulate {:year year
-                                              :month month
-                                              :years years
+                   (common/common-manipulate {:year   year
+                                              :month  month
+                                              :years  years
                                               :months months
-                                              :items items} "jgxx"))))
+                                              :items  items} "jgxx"))))
 
 ;;(split-at 3 '(1 2 3 4 5))
 

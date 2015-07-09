@@ -22,7 +22,7 @@
         material-names (materials/get-material-field :name)
         material-specs (materials/get-material-field :spec)
         latest-material-date (helper/date-format-without-brackets
-                              (:publish_at (materials/get-latest-material)))
+                               (:publish_at (materials/get-latest-material)))
         is-all-empty (and (empty? publish_at)
                           (empty? name)
                           (empty? spec))
@@ -51,15 +51,15 @@
         (if @common/is-paginate-for-notallempty
           (swap! common/is-paginate-for-notallempty not)))
       (layout/render "materials/index.html"
-                     (common/common-manipulate (merge {:material-names material-names
-                                                       :material-specs material-specs
+                     (common/common-manipulate (merge {:material-names       material-names
+                                                       :material-specs       material-specs
                                                        :latest-material-date latest-material-date
-                                                       :materials materials-view
+                                                       :materials            materials-view
                                                        ;;for paginator
-                                                       :current-page current-page
-                                                       :current-page-dec (dec current-page)
-                                                       :current-page-inc (inc current-page)
-                                                       :num-articles num-materials}
+                                                       :current-page         current-page
+                                                       :current-page-dec     (dec current-page)
+                                                       :current-page-inc     (inc current-page)
+                                                       :num-articles         num-materials}
                                                       (if (or (not is-all-empty) @common/is-paginate-for-notallempty)
                                                         (let [base-uri (str "materials?_=1410958445083&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&selected[name]=" name "&selected[publish_at]=" publish_at "&selected[spec]=" spec "")]
                                                           (common/paginator num-materials PER-PAGE current-page base-uri "notallempty"))
@@ -69,7 +69,7 @@
   [publish_at]
   (let [materials (map (fn [material]
                          (assoc
-                             (assoc material :truncate_name (helper/truncate (:name material) 6))
+                           (assoc material :truncate_name (helper/truncate (:name material) 6))
                            :truncate_spec_brand (helper/truncate (str (:spec material) "-" (:brand material)) 10)))
                        (materials/get-materials-by-publish publish_at 11))
         material-table (reduce (fn [html material]
@@ -90,7 +90,7 @@
         material-table (reduce (fn [html material]
                                  (let [mat-index (inc (.indexOf materials material))
                                        isodd? (odd? mat-index)]
-                                   (str html "<tr onMouseOver=\\\"this.bgColor='#cbeceb'\\\" onmouseout=\\\"this.bgColor='#FFFFFF'\\\" bgcolor=\\\"#ffffff\\\"bordercolor=\\\"#CCCCCC\\\"class=\\\"" (if isodd? "odd" "even") "\\\"><td width=\\\"40\\\" class=\\\"info\\\">" mat-index  "</td><td width=\\\"90\\\" class=\\\"info\\\">" (:code material) "</td><td width=\\\"160\\\" class=\\\"subject\\\">" (:name material) "</td><td width=\\\"160\\\"  class=\\\"info\\\">" (:spec material) "</td><td width=\\\"90\\\" class=\\\"info\\\">" (:unit material) "</td><td width=\\\"120\\\" class=\\\"info\\\">" (:brand material) "</td><td width=\\\"100\\\"  class=\\\"info\\\">" (:price material) "</td><td width=\\\"120\\\"  class=\\\"info\\\">" (:publish_at material) "</td></tr>"))) "" materials)]
+                                   (str html "<tr onMouseOver=\\\"this.bgColor='#cbeceb'\\\" onmouseout=\\\"this.bgColor='#FFFFFF'\\\" bgcolor=\\\"#ffffff\\\"bordercolor=\\\"#CCCCCC\\\"class=\\\"" (if isodd? "odd" "even") "\\\"><td width=\\\"40\\\" class=\\\"info\\\">" mat-index "</td><td width=\\\"90\\\" class=\\\"info\\\">" (:code material) "</td><td width=\\\"160\\\" class=\\\"subject\\\">" (:name material) "</td><td width=\\\"160\\\"  class=\\\"info\\\">" (:spec material) "</td><td width=\\\"90\\\" class=\\\"info\\\">" (:unit material) "</td><td width=\\\"120\\\" class=\\\"info\\\">" (:brand material) "</td><td width=\\\"100\\\"  class=\\\"info\\\">" (:price material) "</td><td width=\\\"120\\\"  class=\\\"info\\\">" (:publish_at material) "</td></tr>"))) "" materials)]
     ;;(println "publish_at: " publish_at "\nname: " name "\nspec: " spec "\nmaterials: " materials)
     ;;(println "table: " material-table)
     (str "<div class=\\\"price_title\\\">舟山市主要材料市场价格</div><table width=\\\"710\\\" height=\\\"25\\\" class=\\\"tableview\\\"><tr><th>序号</th><th>材料代码</th><th>材料名称</th><th>规格型号</th><th>单 位</th><th>品 牌</th><th>价 格</th><th>日期</th></tr>" material-table "</table>")))
@@ -115,7 +115,7 @@
                      links-from)
         links-to (+ current-page NUM-POST-LINKS)
         links-to (if (> links-to num-pages) num-pages
-                     links-to)
+                                            links-to)
         head-links (range 1 (inc (min (- links-from 1)
                                       NUM-HEAD-LINKS)))
         tail-links (range (max (- num-pages NUM-TAIL-LINKS)

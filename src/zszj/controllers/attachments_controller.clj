@@ -18,7 +18,7 @@
         content-type (:content_type att)
         raw-response (resp/resource-response (str "public/files/" raw-file-name))
         response (resp/charset (assoc raw-response :headers (merge (:headers raw-response)
-                                                                   {"Content-Type" content-type
+                                                                   {"Content-Type"        content-type
                                                                     "Content-Disposition" (str "attachment; filename=\"" file-name "\"; filename*=utf-8''" file-name)})) "UTF-8")]
     ;;(println file-name)
     ;;(println response)

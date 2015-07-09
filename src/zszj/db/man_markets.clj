@@ -20,7 +20,7 @@
 (defn find-all-by-year-and-season
   [year season]
   (set (select man_markets
-               (where {:year year
+               (where {:year   year
                        :season season})
                (order :year :desc)
                (order :season :desc))))
@@ -28,8 +28,8 @@
 (defn find-all-by-year-and-season-and-version
   [year season version]
   (set (select man_markets
-               (where {:year year
-                       :season season
+               (where {:year    year
+                       :season  season
                        :version version})
                (order :year :desc)
                (order :season :desc))))

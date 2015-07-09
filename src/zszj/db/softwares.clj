@@ -25,16 +25,16 @@
 (defn has-attachments
   [id]
   (empty? (select attachments
-                  (where {:container_id id
+                  (where {:container_id   id
                           :container_type "Software"}))))
 
 (defn first-attachmentid
   [id]
   (:id (first
-        (select attachments
-                (where {:container_id id
-                        :container_type "Software"})
-                (order :updated_at :desc)))))
+         (select attachments
+                 (where {:container_id   id
+                         :container_type "Software"})
+                 (order :updated_at :desc)))))
 
 (defn get-software-by-id
   [id]

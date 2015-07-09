@@ -14,9 +14,9 @@
     ;;(println "all-year-seasons: " all-year-seasons "\nyear: " year "\nseason: " season "\nitems: " items)
     (layout/render "man_costs/index.html"
                    (common/common-manipulate {:all-year-seasons all-year-seasons
-                                              :year year
-                                              :season season
-                                              :items items} "jgxx"))))
+                                              :year             year
+                                              :season           season
+                                              :items            items} "jgxx"))))
 
 (defn- generate-items-html
   [items]

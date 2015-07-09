@@ -17,14 +17,14 @@
 (defn get-zhaobiaos-count
   []
   (sql-count
-   (select zhaobiaos)))
+    (select zhaobiaos)))
 
 (defn get-latest-updatetime
   []
   (:updated_at
-   (first (select zhaobiaos
-                  (fields :updated_at)
-                  (order :updated_at :desc)))))
+    (first (select zhaobiaos
+                   (fields :updated_at)
+                   (order :updated_at :desc)))))
 
 (defn get-zhaobiao-by-id
   [id]
@@ -41,5 +41,5 @@
 (defn zhaobiaos-count-by-field
   [field content]
   (sql-count
-   (select zhaobiaos
-           (where {(keyword field) [like (str "%" content "%")]}))))
+    (select zhaobiaos
+            (where {(keyword field) [like (str "%" content "%")]}))))

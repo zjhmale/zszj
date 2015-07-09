@@ -19,15 +19,15 @@
         is-show-remark-5 (or (= "2012" year) (and (= "2011" year) (= "4" season)))]
     ;;(println "all-year-seasons: " all-year-seasons "\nlatest-year-season: " latest-year-season "\nitems: " items "\nitems-for2010: " items-for2010 "\nyear class: " (class year) "\nseason class: " (class season))
     (layout/render "man_markets/index.html"
-                   (common/common-manipulate {:all-year-seasons all-year-seasons
-                                              :year year
-                                              :season season
-                                              :items items
-                                              :items-for2010 items-for2010
-                                              :is-show-remark-5 is-show-remark-5
-                                              :is-show-price-title is-show-price-title
+                   (common/common-manipulate {:all-year-seasons      all-year-seasons
+                                              :year                  year
+                                              :season                season
+                                              :items                 items
+                                              :items-for2010         items-for2010
+                                              :is-show-remark-5      is-show-remark-5
+                                              :is-show-price-title   is-show-price-title
                                               :is-show-items-for2010 (not (empty? items-for2010))
-                                              :is-show-items (not (empty? items))} "jgxx"))))
+                                              :is-show-items         (not (empty? items))} "jgxx"))))
 
 ;;(clojure.set/difference #{{:three 3} {:two 2} {:one 1}} #{{:one 1}})
 
@@ -59,12 +59,12 @@
 (defn- view-from-template
   [items-for2010 items year season is-show-price-title is-show-remark-5]
   (parser/render (slurp "resources/views/man_markets/view_refresh.html")
-                 {:items-for2010 items-for2010
-                  :items items
-                  :year year
-                  :season season
+                 {:items-for2010       items-for2010
+                  :items               items
+                  :year                year
+                  :season              season
                   :is-show-price-title is-show-price-title
-                  :is-show-remark-5 is-show-remark-5}))
+                  :is-show-remark-5    is-show-remark-5}))
 
 (defn search
   [& ajaxargs]

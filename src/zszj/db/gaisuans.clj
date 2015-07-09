@@ -15,14 +15,14 @@
 (defn get-gaisuans-count
   []
   (sql-count
-   (select gaisuans)))
+    (select gaisuans)))
 
 (defn get-latest-updatetime
   []
   (:updated_at
-   (first (select gaisuans
-                  (fields :updated_at)
-                  (order :updated_at :desc)))))
+    (first (select gaisuans
+                   (fields :updated_at)
+                   (order :updated_at :desc)))))
 
 (defn get-zhaobiao-by-id
   [id]
@@ -39,5 +39,5 @@
 (defn gaisuans-count-by-field
   [field content]
   (sql-count
-   (select gaisuans
-           (where {(keyword field) [like (str "%" content "%")]}))))
+    (select gaisuans
+            (where {(keyword field) [like (str "%" content "%")]}))))

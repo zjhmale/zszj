@@ -33,11 +33,11 @@
           latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zjshis/get-latest-updatetime)) #" ") 0) #"-")
           latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")
           num-zjshis (if (not (empty? search_str))
-                          (zjshis/zjshis-count-by-field search_field search_str)
-                          (zjshis/get-zjshis-count))
+                       (zjshis/zjshis-count-by-field search_field search_str)
+                       (zjshis/get-zjshis-count))
           zjshis (if (not (empty? search_str))
-                      (common/assoc-index-oddeven-with-paginator (zjshis/find-zjshis-by-field search_field search_str (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
-                      (common/assoc-index-oddeven-with-paginator (zjshis/get-zjshis (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE))
+                   (common/assoc-index-oddeven-with-paginator (zjshis/find-zjshis-by-field search_field search_str (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
+                   (common/assoc-index-oddeven-with-paginator (zjshis/get-zjshis (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE))
           base-uri (str "/zjshis/search?_=1411317502456&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str "&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=")
           zjshis-view (generate-main-html zjshis latest-updatetime "注册章号")
           paginator-view (common/generate-paginator-html num-zjshis base-uri current-page)]
@@ -50,25 +50,25 @@
           search_field (-> (nth ajaxargs 0) :search :field)
           search_field (if (= search_field "zizhi_no") "zhengshu" search_field)
           num-zjshis (if (not (empty? search_str))
-                          (zjshis/zjshis-count-by-field search_field search_str)
-                          (zjshis/get-zjshis-count))
+                       (zjshis/zjshis-count-by-field search_field search_str)
+                       (zjshis/get-zjshis-count))
           zjshis (if (not (empty? search_str))
-                      (common/assoc-index-oddeven-with-paginator (zjshis/find-zjshis-by-field search_field search_str (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
-                      (common/assoc-index-oddeven-with-paginator (zjshis/get-zjshis (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE))
+                   (common/assoc-index-oddeven-with-paginator (zjshis/find-zjshis-by-field search_field search_str (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE)
+                   (common/assoc-index-oddeven-with-paginator (zjshis/get-zjshis (* (dec current-page) PER-PAGE) PER-PAGE) (int current-page) PER-PAGE))
 
           latest-updatetime (clojure.string/split (nth (clojure.string/split (str (zjshis/get-latest-updatetime)) #" ") 0) #"-")
           latest-updatetime (str (nth latest-updatetime 0) "年" (nth latest-updatetime 1) "月" (nth latest-updatetime 2) "日")]
       ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\nzjshis: " zjshis "\nlatest-updatetime: " (str latest-updatetime))
       (layout/render "zhongjies/index.html"
                      (common/common-manipulate
-                      (merge {:type "zjshis"
-                              :subtitle subtitle
-                              :latest-updatetime latest-updatetime
-                              :zjshis zjshis
-                              ;;for paginator
-                              :current-page current-page
-                              :current-page-dec (dec current-page)
-                              :current-page-inc (inc current-page)
-                              :num-articles num-zjshis}
-                             (let [base-uri (str "/zjshis/search?_=1411317502456&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str "&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=")]
-                                   (common/paginator num-zjshis PER-PAGE current-page base-uri "notallempty"))) "zzzg")))))
+                       (merge {:type              "zjshis"
+                               :subtitle          subtitle
+                               :latest-updatetime latest-updatetime
+                               :zjshis            zjshis
+                               ;;for paginator
+                               :current-page      current-page
+                               :current-page-dec  (dec current-page)
+                               :current-page-inc  (inc current-page)
+                               :num-articles      num-zjshis}
+                              (let [base-uri (str "/zjshis/search?_=1411317502456&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str "&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=")]
+                                (common/paginator num-zjshis PER-PAGE current-page base-uri "notallempty"))) "zzzg")))))

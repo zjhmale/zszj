@@ -53,24 +53,24 @@
       ;;(println "type: " type "\nsubtitle: " subtitle "\ncurrentpage: " current-page "\nzhaobiaos: " zhaobiaos "\nlatest-updatetime: " (str latest-updatetime))
       (layout/render "zhongjies/index.html"
                      (common/common-manipulate
-                      (merge {:type "zhaobiaos"
-                              :subtitle subtitle
-                              :latest-updatetime latest-updatetime
-                              :zhaobiaos zhaobiaos
-                              ;;for paginator
-                              :current-page current-page
-                              :current-page-dec (dec current-page)
-                              :current-page-inc (inc current-page)
-                              :num-articles num-zhaobiaos}
-                             (let [base-uri (str "/zhaobiaos/search?_=1411304244920&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str)]
-                               (common/paginator num-zhaobiaos PER-PAGE current-page base-uri "notallempty"))) "zzzg")))))
+                       (merge {:type              "zhaobiaos"
+                               :subtitle          subtitle
+                               :latest-updatetime latest-updatetime
+                               :zhaobiaos         zhaobiaos
+                               ;;for paginator
+                               :current-page      current-page
+                               :current-page-dec  (dec current-page)
+                               :current-page-inc  (inc current-page)
+                               :num-articles      num-zhaobiaos}
+                              (let [base-uri (str "/zhaobiaos/search?_=1411304244920&authenticity_token=7NSlgmbOtICU2RXWQZScwwMzqVc/tUZbCDf3TKzbmj0=&search[field]=" search_field "&search_str=" search_str)]
+                                (common/paginator num-zhaobiaos PER-PAGE current-page base-uri "notallempty"))) "zzzg")))))
 
 (defn show
   [id]
   (let [zhaobiao (zhaobiaos/get-zhaobiao-by-id id)]
     (layout/render "zhaobiaos/show.html"
                    (common/common-manipulate
-                    {:zhaobiao zhaobiao} "zzzg"))))
+                     {:zhaobiao zhaobiao} "zzzg"))))
 
 (defn info
   [id ajaxargs]

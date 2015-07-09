@@ -25,7 +25,7 @@
 (defn find-all-by-year-and-month
   [year month]
   (set (select equipment
-               (where {:year year
+               (where {:year  year
                        :month month})
                (order :year :desc)
                (order :month :desc))))

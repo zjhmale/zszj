@@ -6,7 +6,7 @@
 
 (defn render
   [id]
-  (let [article  (db/article id)
+  (let [article (db/article id)
         article-type-id (:article_type_id article)
         article-type (db/article-type article-type-id)
         root-article-type (db/root-article-type article-type-id)
@@ -23,12 +23,12 @@
                  (assoc (assoc level2 :level3s level3s) :articles articles))) level2s)]
     ;;(println "article id is: " id "\narticle: " article "\nroot-article-type: " root-article-type "\narticle-type: " article-type "\nlevel2s: " level2s "\nlevel2-with-level3-and-articles: " level2s-with-level3s-and-articles "\nroot-key: " current-root-key "\nmenus: " layout/menus)
     (layout/render "articles/show.html"
-                   (common/common-manipulate {:article article
+                   (common/common-manipulate {:article      article
                                               :article-type article-type
-                                              :root-type root-article-type
-                                              :parent-type parent-article-type
+                                              :root-type    root-article-type
+                                              :parent-type  parent-article-type
                                               ;;for navigator
-                                              :level2s level2s-with-level3s-and-articles} current-root-key))))
+                                              :level2s      level2s-with-level3s-and-articles} current-root-key))))
 
 ;;(parser/render "{% for item in test %}{% for elem in item %} {{elem.title}} {% endfor %}{% endfor %}" {:test [[{:title 123}] [{:title 321}] [{:title 333}]]})
 ;;(parser/render "{% for item in test %}{% for elem in item.level2 %} {{elem.title}} {% endfor %}{% endfor %}" {:test [{:level2 [{:title 321} {:title 333}]}]})

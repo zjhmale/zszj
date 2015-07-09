@@ -15,13 +15,13 @@
 
 (defn find-articles-by-tag
   ([tag]
-     (select articles
-             (where {:tags tag})))
+   (select articles
+           (where {:tags tag})))
   ([tag limit-count]
-     (select articles
-             (where {:tags tag})
-             (order :addtime :desc)
-             (limit limit-count))))
+   (select articles
+           (where {:tags tag})
+           (order :addtime :desc)
+           (limit limit-count))))
 
 (defn home-article-by-typeid-and-limit
   [typeid limit-count]

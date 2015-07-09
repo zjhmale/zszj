@@ -11,18 +11,18 @@
 
 ;;one-to-many
 (defentity articles
-  (belongs-to article_types {:fk :article_type_id}))
+           (belongs-to article_types {:fk :article_type_id}))
 
 (defentity article_types
-  (has-many articles {:fk :article_type_id}))
+           (has-many articles {:fk :article_type_id}))
 
 (defentity softwares)
 
 (defentity links
-  (belongs-to link_types {:fk :link_type_id}))
+           (belongs-to link_types {:fk :link_type_id}))
 
 (defentity link_types
-  (has-many links {:fk :link_type_id}))
+           (has-many links {:fk :link_type_id}))
 
 (defentity attachments)
 
@@ -61,17 +61,17 @@
                  (where {:id id}))))
 
 (defn article-type-by-key [key]
-  (first 
-   (select article_types
-           (where {:key key})
-           (order :id :desc))))
+  (first
+    (select article_types
+            (where {:key key})
+            (order :id :desc))))
 
 (defn articles-of-type [type-id]
   (select articles
           (where {:article_type_id type-id})))
 
 ;;the parent_id of root type is nil
-(defn root? [t] 
+(defn root? [t]
   (not (:parent_id t)))
 
 (defn root-article-type [id]
@@ -82,19 +82,19 @@
 
 (defn parent-article-type [id]
   (article-type
-   (:parent_id (article-type id))))
+    (:parent_id (article-type id))))
 
 ;;for paginator
 (defmacro paginate
   ([page num-per-page query]
-     `(~@query
-       (limit ~num-per-page)
-       (offset (* (dec ~page) ~num-per-page)))))
+   `(~@query
+      (limit ~num-per-page)
+      (offset (* (dec ~page) ~num-per-page)))))
 
 (defn paginage-articles-of-type
   [page perpage type-id]
   (paginate page
-            perpage 
+            perpage
             (select articles
                     (where {:article_type_id type-id})
                     (order :id :desc))))
@@ -102,39 +102,39 @@
 (defn paginage-articles-of-tag
   [page perpage tag]
   (paginate page
-            perpage 
+            perpage
             (select articles
                     (where {:tags tag})
                     (order :id :desc))))
 
 (defmacro sql-count [query]
   `(:cnt
-    (first
-     (~@query
-      (kc/aggregate (~'count :*) :cnt)))))
+     (first
+       (~@query
+         (kc/aggregate (~'count :*) :cnt)))))
 
 (defn count-articles-of-type
   [type-id]
   (sql-count
-   (select articles
-           (where {:article_type_id type-id}))))
+    (select articles
+            (where {:article_type_id type-id}))))
 
 (defn count-articles-of-tag
   [tag]
-  (sql-count 
-   (select articles
-           (where {:tags tag}))))
+  (sql-count
+    (select articles
+            (where {:tags tag}))))
 
 (defn count-tezbs
   []
   (sql-count
-   (select gczjzbs)))
+    (select gczjzbs)))
 
 (defn count-softwares
   [type]
   (sql-count
-   (select softwares
-           (where {:software_type type}))))
+    (select softwares
+            (where {:software_type type}))))
 
 (defn attachment [id]
   (first (select attachments

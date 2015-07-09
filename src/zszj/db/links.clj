@@ -10,9 +10,9 @@
 (defn find-linktypeid-by-subject
   [subject]
   (:id (first
-        (select link_types
-                (fields :id)
-                (where {:subject subject})))))
+         (select link_types
+                 (fields :id)
+                 (where {:subject subject})))))
 
 (defn find-links-by-linktypeid
   [typeid]
@@ -22,6 +22,6 @@
 
 (defn with-type [type-subject]
   (let [t (first (select link_types
-                  (where {:subject type-subject})
-                  (limit 1)))]
+                         (where {:subject type-subject})
+                         (limit 1)))]
     (-> links (where {:link_type_id (:id t)}))))

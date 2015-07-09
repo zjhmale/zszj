@@ -46,10 +46,10 @@
 (defn search-book-public-fn
   [search limit-count]
   (letfn [(match [field]
-            (select books
-                    (where {field [like (str "%" search "%")]})
-                    (limit limit-count)
-                    (order :updated_at :desc)))]
+                 (select books
+                         (where {field [like (str "%" search "%")]})
+                         (limit limit-count)
+                         (order :updated_at :desc)))]
     (vec (set (apply merge
                      (apply merge
                             (apply merge
@@ -62,10 +62,10 @@
 (defn search-book
   [search limit-count]
   (letfn [(match [field]
-            (select books
-                    (where {field [like (str "%" search "%")]})
-                    (limit limit-count)
-                    (order :updated_at :desc)))]
+                 (select books
+                         (where {field [like (str "%" search "%")]})
+                         (limit limit-count)
+                         (order :updated_at :desc)))]
     (vec (set (reduce (fn [old-map new-map]
                         (apply merge old-map new-map))
                       (map match [:book_type :name :price :press]))))))

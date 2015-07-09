@@ -23,14 +23,14 @@
 (defn first-container-article-type [type]
   (if (or (db/root? type) (= (:the_type type) "folder"))
     (first-container-article-type
-     (first (db/child-article-types (:id type))))
+      (first (db/child-article-types (:id type))))
     type))
 
 (defn- identify-root-and-type [id]
-  (let [type (db/article-type id)        
+  (let [type (db/article-type id)
         root-type (db/root-article-type id)
         type (first-container-article-type type)]
-    [root-type type])) 
+    [root-type type]))
 
 (defn generate-new-articles
   [articles root-type]
@@ -52,7 +52,7 @@
                    (db/paginage-articles-of-type current-page *PER-PAGE* (:id type)))
         num-articles (if (:tag type)
                        (db/count-articles-of-tag (:tag type))
-                       (db/count-articles-of-type(:id type)))
+                       (db/count-articles-of-type (:id type)))
         current-root-key (:key root-type)
         root-id (:id root-type)
         level2s (db/child-article-types root-id)
@@ -64,18 +64,18 @@
                  (assoc (assoc level2 :level3s level3s) :articles articles))) level2s)]
     ;;(println "articles: " articles "\nroot-type: " root-type "\ntype: " type "\ncurrent-page: " current-page "\nnum-articles: " num-articles "\ncurrent-root-key: " current-root-key "\nlevel2s-with-level3s-and-articles: " level2s-with-level3s-and-articles "\nmenus: " layout/menus)
     (if (nil? type) nil
-        (if (= (:the_type type) "direct_display")
-          (redirect (str "/articles/" (:id (first articles))))
-          (layout/render "article_types/show.html"
-                         (common/common-manipulate
-                          (merge {:articles (generate-new-articles articles root-type)
-                                  :root-type root-type
-                                  :type type
-                                  ;;for paginator
-                                  :current-page current-page 
-                                  :current-page-dec (dec current-page)
-                                  :current-page-inc (inc current-page)
-                                  :num-articles num-articles
-                                  ;;for navigator
-                                  :level2s level2s-with-level3s-and-articles}
-                                 (common/paginator num-articles PER-PAGE current-page (str "/article_types/" (:id type)))) current-root-key))))))
+                    (if (= (:the_type type) "direct_display")
+                      (redirect (str "/articles/" (:id (first articles))))
+                      (layout/render "article_types/show.html"
+                                     (common/common-manipulate
+                                       (merge {:articles         (generate-new-articles articles root-type)
+                                               :root-type        root-type
+                                               :type             type
+                                               ;;for paginator
+                                               :current-page     current-page
+                                               :current-page-dec (dec current-page)
+                                               :current-page-inc (inc current-page)
+                                               :num-articles     num-articles
+                                               ;;for navigator
+                                               :level2s          level2s-with-level3s-and-articles}
+                                              (common/paginator num-articles PER-PAGE current-page (str "/article_types/" (:id type)))) current-root-key))))))

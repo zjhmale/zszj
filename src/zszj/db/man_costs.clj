@@ -20,7 +20,7 @@
 (defn find-all-by-year-and-season
   [year season]
   (set (select man_costs
-               (where {:year year
+               (where {:year   year
                        :season season})
                (order :year :desc)
                (order :season :desc))))

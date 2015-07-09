@@ -8,6 +8,6 @@
 (defn find-first-attachment-by-articleid
   [articleid]
   (first
-   (select attachments
-           (where {:container_type "Article"
-                   :container_id articleid}))))
+    (select attachments
+            (where {:container_type "Article"
+                    :container_id   articleid}))))
