@@ -2,13 +2,16 @@
 <div class="search_kuang">
     <div class="search_biaodan t2">
         <div class="search_form">
-            <% form_tag "search", :method => :get do %>
-            <p>内容:<%= text_field "search", "search_str",:class => "white_long" %></p><br />
-            <p> 栏目:<%= select :search, :search_cat,
-                FullText.cats,
-                {:include_blank => "-所有分类-"}, :class=>'biaodan_s' %>
-                <%= image_submit_tag "z05.jpg", :class => "cont_search_img" %><p>
-            <% end %>
+            <form action="/{{type}}/search" method="get">
+                <p>内容:<input class="white_long" id="search_search_str" name="search[search_str]" size="30" type="text"></p><br />
+                <p> 栏目:
+                    <!--cat is just the short name for category-->
+                    <select class="biaodan_s" id="search_search_cat" name="search[search_cat]">
+                        <option value="">-所有分类-</option>
+                    </select>
+                    <input class="cont_search_img" src="/skins/default/images/z05.jpg?1374630107" type="image">
+                <p>
+            </form>
         </div>
     </div>
 </div>

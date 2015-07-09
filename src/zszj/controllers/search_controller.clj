@@ -4,3 +4,7 @@
 (defn index
   []
   (layout/render "search/index.html"))
+
+(defn search
+  []
+  (layout/render "search/index.html"))

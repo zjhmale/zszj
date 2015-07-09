@@ -86,6 +86,7 @@
            (GET "/zjshis/search" [& ajaxargs] (zjshis/search ajaxargs))
            (GET "/gaisuans/search" [& ajaxargs] (gaisuans/search ajaxargs))
            (GET "/search" [] (search/index))
+           (GET "/search/search" [] (search/search))
            (route/resources "/")
            (route/not-found "Not Found"))
 
