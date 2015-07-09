@@ -48,6 +48,8 @@
 
 (defentity gaisuans)
 
+(defentity full_texts)
+
 (defn article [id]
   (first (select articles
                  (where {:id id}))))
