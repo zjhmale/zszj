@@ -8,6 +8,9 @@
                     <!--cat is just the short name for category-->
                     <select class="biaodan_s" id="search_search_cat" name="search[search_cat]">
                         <option value="">-所有分类-</option>
+                        {% for cat in cats %}
+                        <option value="{{cat}}">{{cat}}</option>
+                        {% endfor %}
                     </select>
                     <input class="cont_search_img" src="/skins/default/images/z05.jpg?1374630107" type="image">
                 <p>
