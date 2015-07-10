@@ -32,4 +32,5 @@
                    (common/common-manipulate
                      {:cats       (fulltexts/get-cats)
                       :full_texts full_texts
-                      :search_str search_str} ""))))
+                      :search_str search_str
+                      :search_cat search_cat} ""))))

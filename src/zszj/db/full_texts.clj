@@ -16,6 +16,17 @@
 
 (defn search-by-cat
   [search_str search_cat]
-  (select full_texts
-          (where {:full_text [like (str "%" search_str "%")]
-                  :cat       search_cat})))
+  (if (and (empty? search_str)
+           (empty? search_cat))
+    (select full_texts)
+    (if (and (empty? search_str)
+             (not (empty? search_cat)))
+      (select full_texts
+              (where {:cat search_cat}))
+      (if (and (not (empty? search_str))
+               (empty? search_cat))
+        (select full_texts
+                (where {:full_text [like (str "%" search_str "%")]}))
+        (select full_texts
+                (where {:full_text [like (str "%" search_str "%")]
+                        :cat       search_cat}))))))

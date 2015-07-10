@@ -28,7 +28,11 @@
                 [{{f.cat}}] {{f.subject}}
             </a>
             </h2>
+            {% ifequal search_str "" %}
+            {{f.subject}}
+            {% else %}
             {{f.pretext}}<strong class="highlight">{{search_str}}</strong>>{{f.followtext}}
+            {% endifequal %}
             </p>
             {% endfor %}
 
