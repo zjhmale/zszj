@@ -9,8 +9,6 @@
     </div>
 </div>
 
-... {{pretext}}<strong class="highlight">{{highlight}}</strong>>{{followtext}} ...
-
 <div class="erji_content">
     <ul class="search_navigator">
         <li class="left_pic">
@@ -22,19 +20,18 @@
     </ul>
     <div class="erji_right">
         <div style="width:740px;margin:auto;">
-            <% @full_texts.each do |f| %>
+            {% for f in full_texts %}
             <p>
             <h2>
-                <% if f.document %>
-                <%= s_image_tag "z25.png" %><%= link_to "[#{f.cat}] #{f.subject}", polymorphic_path(f.document,  :search_str =>
-                @search.search_str), :class =>"searched" %>
-                <% else %>
-                文件已经删除: <%= f.document_type  %>#<%= f.document_id %>
-                <% end %>
+            <img alt="Z25" src="/skins/default/images/z25.png?1374630107">
+            <a href="/{{f.document_type|lower}}s/{{f.document_id}}?search_str={{search_str}}" class="searched">
+                [{{f.cat}}] {{f.subject}}
+            </a>
             </h2>
-            <%=  highlight(h(excerpt(f.full_text, @search.search_str, :radius=>50)), @search.search_str) %>
+            ... {{pretext}}<strong class="highlight">{{highlight}}</strong>>{{followtext}} ...
             </p>
-            <% end -%>
+            {% endfor %}
+
             <div class="paginate"><%= page_entries_info(@full_texts) %>&nbsp;&nbsp;<%= will_paginate @full_texts %></div>
         </div>
     </div>
