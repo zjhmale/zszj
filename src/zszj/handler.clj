@@ -85,8 +85,9 @@
            (GET "/zhaobiaos/:id" [id] (zhaobiaos/show id))
            (GET "/zjshis/search" [& ajaxargs] (zjshis/search ajaxargs))
            (GET "/gaisuans/search" [& ajaxargs] (gaisuans/search ajaxargs))
-           (GET "/search" [] (search/index))
-           (GET "/search/search" [] (search/search))
+           (GET "/search"
+                request
+             (search/index request))
            (route/resources "/")
            (route/not-found "Not Found"))
 
