@@ -25,12 +25,22 @@
   [request]
   (let [search_str (get-in request [:params :search :search_str])
         search_cat (get-in request [:params :search :search_cat])
+        current-page (let [page_raw (get-in request [:params :page])]
+                       (if page_raw
+                         (bigdec page_raw)
+                         1))
+        x (get-in request [:params :x])
+        y (get-in request [:params :y])
+        num-fulltexts (fulltexts/get-fulltexts-count)
         full_texts (highlight-search-text
-                     (fulltexts/search-by-cat search_str search_cat)
+                     (fulltexts/search-by-cat search_str search_cat (* (dec current-page) common/PER-PAGE) common/PER-PAGE)
                      search_str)]
-    (layout/render "search/index.html"
-                   (common/common-manipulate
-                     {:cats       (fulltexts/get-cats)
-                      :full_texts full_texts
-                      :search_str search_str
-                      :search_cat search_cat} ""))))
+    (do (prn (str "current-page -> " current-page))
+        (layout/render "search/index.html"
+                       (common/common-manipulate
+                         (merge {:cats       (fulltexts/get-cats)
+                                 :full_texts full_texts
+                                 :search_str search_str
+                                 :search_cat search_cat}
+                                (let [base-uri (str "/search?search%5Bsearch_str%5D=" search_str "&search%5Bsearch_cat%5D=" search_cat "&x=" x "&y=" y)]
+                                  (common/paginator num-fulltexts common/PER-PAGE current-page base-uri "notallempty"))) "")))))

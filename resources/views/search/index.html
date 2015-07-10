@@ -36,7 +36,7 @@
             </p>
             {% endfor %}
 
-            <div class="paginate"><%= page_entries_info(@full_texts) %>&nbsp;&nbsp;<%= will_paginate @full_texts %></div>
+            {% include "views/layouts/paginator.html" %}
         </div>
     </div>
 </div>
