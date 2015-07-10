@@ -40,6 +40,21 @@
                 (offset offset-count))))))
 
 (defn get-fulltexts-count
-  []
-  (sql-count
-    (select full_texts)))
+  [search_str search_cat]
+  (if (and (empty? search_str)
+           (empty? search_cat))
+    (sql-count (select full_texts))
+    (if (and (empty? search_str)
+             (not (empty? search_cat)))
+      (sql-count
+        (select full_texts
+                (where {:cat search_cat})))
+      (if (and (not (empty? search_str))
+               (empty? search_cat))
+        (sql-count
+          (select full_texts
+                  (where {:full_text [like (str "%" search_str "%")]})))
+        (sql-count
+          (select full_texts
+                  (where {:full_text [like (str "%" search_str "%")]
+                          :cat       search_cat})))))))

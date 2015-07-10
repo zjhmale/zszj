@@ -31,16 +31,19 @@
                          1))
         x (get-in request [:params :x])
         y (get-in request [:params :y])
-        num-fulltexts (fulltexts/get-fulltexts-count)
+        num-fulltexts (fulltexts/get-fulltexts-count search_str search_cat)
         full_texts (highlight-search-text
                      (fulltexts/search-by-cat search_str search_cat (* (dec current-page) common/PER-PAGE) common/PER-PAGE)
                      search_str)]
-    (do (prn (str "current-page -> " current-page))
-        (layout/render "search/index.html"
-                       (common/common-manipulate
-                         (merge {:cats       (fulltexts/get-cats)
-                                 :full_texts full_texts
-                                 :search_str search_str
-                                 :search_cat search_cat}
-                                (let [base-uri (str "/search?search%5Bsearch_str%5D=" search_str "&search%5Bsearch_cat%5D=" search_cat "&x=" x "&y=" y)]
-                                  (common/paginator num-fulltexts common/PER-PAGE current-page base-uri "notallempty"))) "")))))
+    (layout/render "search/index.html"
+                   (common/common-manipulate
+                     (merge {:cats             (fulltexts/get-cats)
+                             :full_texts       full_texts
+                             :search_str       search_str
+                             :search_cat       search_cat
+                             :current-page     current-page
+                             :current-page-dec (dec current-page)
+                             :current-page-inc (inc current-page)
+                             :num-articles     num-fulltexts}
+                            (let [base-uri (str "/search?search%5Bsearch_str%5D=" search_str "&search%5Bsearch_cat%5D=" search_cat "&x=" x "&y=" y)]
+                              (common/paginator num-fulltexts common/PER-PAGE current-page base-uri "notallempty"))) ""))))

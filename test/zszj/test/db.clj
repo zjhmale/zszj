@@ -19,4 +19,4 @@
 
 (deftest test-get-fulltexts-count
   (testing "get fulltexts count"
-    (prn (fulltexts/get-fulltexts-count))))
+    (prn (fulltexts/get-fulltexts-count "2015" "招标代理机构"))))
